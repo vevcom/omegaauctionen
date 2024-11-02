@@ -20,7 +20,7 @@ model User {
    id Int @id @default(autoincrement()) 
    name String 
    email String @unique
-   isAdming Boolean @default(false)
+   isAdmin Boolean @default(false)
    passordBurdeEndres String //TODO Fjern!
    auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
    bids Bid[]
