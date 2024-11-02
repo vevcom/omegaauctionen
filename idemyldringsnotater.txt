@@ -1,0 +1,5 @@
+Aksjonen burde forlenge seg hver gang noen byr(men med en fastsatt grense på når aksjonen må stenge)
+
+Alle brukere kan legge inn det de vil akjonere, vi koker aksjonsobkjekt siden for å lage en admin side for gokjening av foreslåtte aksjon ting
+
+
