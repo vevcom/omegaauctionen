@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client-js" 
 }
 
 datasource db {
@@ -17,13 +17,38 @@ datasource db {
 
 
 model User {
-   id Int @id @default(autoincrement())
-   name String
+   id Int @id @default(autoincrement()) 
+   name String 
    email String @unique
+   isAdming Boolean @default(false)
+   passordBurdeEndres String //TODO Fjern!
+   auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
+   bids Bid[]
 }
 
 model AuksjonsObjekt {
   id Int @id @default(autoincrement())
   name String
-  pris Int
+  description String
+  startPrice Int
+  finalSaleTime DateTime //TODO legg inn default
+  currentSaleTime DateTime //TODO legg inn default
+  approved Boolean
+  author User @relation(fields: [autorId], references: [id])
+  autorId Int
+
+  bids Bid[]
+}
+
+model Bid{
+  bidId Int @id @default(autoincrement())
+  price Int
+  bidDate DateTime @default(now())
+
+  bidder User @relation(fields: [bidderId],references: [id])
+  bidderId Int
+  
+  auctionObject AuksjonsObjekt @relation(fields: [auctionItemId],references: [id])
+  auctionItemId Int
+  
 }
