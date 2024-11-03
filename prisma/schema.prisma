@@ -33,9 +33,9 @@ model AuksjonsObjekt {
   startPrice Int
   finalSaleTime DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
-  approved Boolean
-  author User @relation(fields: [autorId], references: [id])
-  autorId Int
+  approved Boolean @default(false)
+  author User? @relation(fields: [autorId], references: [id])
+  autorId Int? //TODO fiks tilbake til requierd
 
   bids Bid[]
 }
