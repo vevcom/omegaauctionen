@@ -2,4 +2,6 @@ Aksjonen burde forlenge seg hver gang noen byr(men med en fastsatt grense på n�
 
 Alle brukere kan legge inn det de vil akjonere, vi koker aksjonsobkjekt siden for å lage en admin side for gokjening av foreslåtte aksjon ting
 
+vi brude finne ut av et minimums bud
 
+vi burde finne ut av om vi skal bruke øre eller bare hele kroner
