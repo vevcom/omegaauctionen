@@ -2,12 +2,26 @@ import type { NextAuthOptions } from "next-auth";
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
+import { FeideProvider } from "./feide";
+
+// Feide login
+const FeideExtraScopes = ['email'];
+type ExtraClaims = { email: string; }; // Custom claims based on scope 'email'
 
 export const options: NextAuthOptions = {
     providers: [
         GitHubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string,
+            clientId: process.env.GITHUB_ID ?? "",
+            clientSecret: process.env.GITHUB_SECRET ?? "",
+        }),
+        FeideProvider<ExtraClaims>({
+            clientId: process.env.FEIDE_CLIENT_ID ?? "",
+            clientSecret: process.env.FEIDE_CLIENT_SECRET ?? "",
+            scopes: FeideExtraScopes,
+            profileHandler: (profile) => { return { id: profile.sub, email: profile.email }; },
+            params: {
+                authselection: "feide|realm|testusers.feide.no", // TODO: change all to realm|ntnu.no
+            },
         }),
         CredentialsProvider({
             name: "Credentials",
@@ -29,7 +43,6 @@ export const options: NextAuthOptions = {
                 // to verify with credentials
                 // Docs: https://next-auth.js.org/configuration/providers/credentials
                 const user = { id: "42", name: "Albert", password: "Supersøt student"}
-
                 if (credentials?.username === user.name && 
                     credentials?.password === user.password) {
                         return user;
