@@ -1,0 +1,86 @@
+.loginbtn {
+    display:flex;
+    background-color: var(--foreground);
+    color: var(--background);
+    border-radius: 10px;
+    outline:none;
+    width: 15vw;
+    font-size:2vw;
+    height: 5vw;
+    align-items: center;
+    justify-content: center;
+    float:right;
+  }
+
+.headerWrapper {
+    padding: 5%;
+    margin: 20%;
+}
+
+.banner {
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    font-size: 2vw;
+    padding: 2vw;
+    font-size: 2vw;
+    position:relative;
+}
+
+.bannerElement {
+    flex:1;
+}
+
+.bannerText {
+    font-weight: 12;
+}
+
+.bannerLeft {
+    justify-content: flex-start;
+}
+.bannerCenter {
+    font-size:5vw;
+    flex-basis: 50%;
+    justify-content: center;
+    text-align:center;
+    align-items: center;
+}
+.bannerRight {
+    justify-content: flex-end;
+}
+
+
+.navbar {
+    height: 10vw;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+}
+
+.navbar::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; 
+    background: linear-gradient(to right, var(--background) 25%, black 25%, black 75%, var(--background) 75%);
+  }
+
+.navbarItems {
+    font-family: 'Josefin Sans', sans-serif;
+    height:100%;
+    padding: 3%;
+    font-size: 3vw;
+    text-align: center;
+    align-items:center;
+}
+
+.navbarItems:hover {
+    text-decoration: underline;
+    color:rgb(0, 0, 89);
+    text-underline-offset: 8px;
+}
