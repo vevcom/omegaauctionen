@@ -1,16 +1,46 @@
-.loginbtn {
+.logintext {
     display:flex;
-    background-color: var(--foreground);
+    font-size:auto;
+    justify-content: center;
+    float:right;
+    /* background-color: var(--foreground);
     color: var(--background);
+    border-radius: 10px; */
+  }
+
+.loginbutton {
+    display:flex;
+    flex-direction: column;
+    /* background-color: var(--background); */
+    color: var(--foreground);
     border-radius: 10px;
     outline:none;
     width: 15vw;
     font-size:2vw;
-    height: 5vw;
-    align-items: center;
-    justify-content: center;
+    height: 15vw;
     float:right;
-  }
+    justify-content: center;
+    cursor:pointer;
+
+}
+
+.loginbutton:hover {
+    border: solid var(--foreground) 0.2vw;
+    border-radius: 1vw;
+    color:var(--hover);
+}
+
+.imagecontainer {
+    height:5vw;
+
+}
+
+.imagecontainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
 
 .headerWrapper {
     padding: 5%;
@@ -38,6 +68,7 @@
 
 .bannerLeft {
     justify-content: flex-start;
+    min-width: 10%;
 }
 .bannerCenter {
     font-size:5vw;
@@ -45,6 +76,10 @@
     justify-content: center;
     text-align:center;
     align-items: center;
+}
+
+.bannerCenter:hover {
+    color: var(--hover);
 }
 .bannerRight {
     justify-content: flex-end;
@@ -81,6 +116,6 @@
 
 .navbarItems:hover {
     text-decoration: underline;
-    color:rgb(0, 0, 89);
-    text-underline-offset: 8px;
+    color:var(--hover);
+    text-underline-offset: 25%;
 }

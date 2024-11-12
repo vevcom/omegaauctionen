@@ -1,8 +1,18 @@
+"use client"
 import styles from "./component.module.css";
+import { useState } from "react";
+
 
 
 
 export function Loginbtn() {
+    const [loggedIn,setLoggedIn] = useState(false);
+    const source = "https://omega.ntnu.no/static/479220c49c7c0b2f742d.png";
 
-    return <a href="/"><div className={styles.loginbtn}>Logg inn</div></a>
+    return <a>
+        <div className={styles.loginbutton}>
+            <div className={styles.imagecontainer}> <img src={source} alt="kappe"/></div>
+            <div onClick={()=>{setLoggedIn(!loggedIn)}} className={`${styles.logintext} old-english`}>{loggedIn? "Din bruker" : "Logg inn"}</div>
+        </div>
+    </a>
 }

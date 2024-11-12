@@ -1,7 +1,8 @@
+import style from "./component.module.css"
 
 
 export default function about() {
-    return <>
-    <p>Om Omegaauctionen/sponsorer</p>
-    </>
+    return <div className={style.content}>
+    <p>Om Omegaauctionen/veldedighet</p>
+    </div>
 }

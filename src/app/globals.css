@@ -1,6 +1,7 @@
 :root {
-  --background: #ededed;
+  --background: #efe3e3;
   --foreground: #171717;
+  --hover: rgba(0, 0, 116, 0.774);
   --lysblå: #3acfd5;
   --mørkblå: #3a4ed5;
 }

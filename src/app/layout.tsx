@@ -28,11 +28,11 @@ export default function RootLayout({
         <div className={styles.relative}>
           <Banner></Banner>
           <Navbar></Navbar>
-          <div className={styles.logocontainer}>
+          {/* <div className={styles.logocontainer}>
             <div className={styles.logobackground}>
               <Logo></Logo>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {children}
