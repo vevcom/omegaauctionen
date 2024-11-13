@@ -25,14 +25,9 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link>
       </head>
       <body className={`${oldEnglish.variable}`}>
-        <div className={styles.relative}>
+        <div>
           <Banner></Banner>
           <Navbar></Navbar>
-          {/* <div className={styles.logocontainer}>
-            <div className={styles.logobackground}>
-              <Logo></Logo>
-            </div>
-          </div> */}
         </div>
 
         {children}
