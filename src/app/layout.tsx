@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import {Navbar} from "@/app/components/Navbar";
 import {Banner} from "./components/banner";
-import styles from "./page.module.css";
-import {Logo} from "./components/Logo";
 
 
 export const oldEnglish = localFont({
@@ -24,7 +22,7 @@ export default function RootLayout({
         <title>Omegaauctionen 2025</title>
         <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link>
       </head>
-      <body className={`${oldEnglish.variable}`}>
+      <body>
         <div>
           <Banner></Banner>
           <Navbar></Navbar>

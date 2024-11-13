@@ -1,5 +1,5 @@
 
-import style from "./component.module.css"
+import style from "./components.module.css"
 
 export function Navbar() {
     const links = [["/","Auksjon"], ["/","Program"], ["/","Beermile"],["/about","Om"]]

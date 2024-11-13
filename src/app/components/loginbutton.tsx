@@ -1,5 +1,5 @@
 "use client"
-import styles from "./component.module.css";
+import styles from "./components.module.css";
 import { useState } from "react";
 
 
@@ -12,7 +12,7 @@ export function Loginbtn() {
     return <a>
         <div className={styles.loginbutton} onClick={()=>{setLoggedIn(!loggedIn)}}>
             <div className={styles.imagecontainer}> <img src={source} alt="kappe"/></div>
-            <div className={`${styles.logintext} old-english`}>{loggedIn? "Din bruker" : "Logg inn"}</div>
+            <div className={`${styles.logintext}`}>{loggedIn? "Din bruker" : "Logg inn"}</div>
         </div>
     </a>
 }
