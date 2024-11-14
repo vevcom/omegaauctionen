@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div>
-      <p>Eksempelside for auksjonsobjekter</p>
+      <p>Hovedside</p>
     </div>
   );
 }
