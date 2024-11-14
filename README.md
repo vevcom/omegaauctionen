@@ -20,8 +20,8 @@ pnpm dev
 bun dev
 ```
 
-for å generere en database må du kjøre
-```
+
+``` Generate a database
 npx prisma generate
 ```
 
