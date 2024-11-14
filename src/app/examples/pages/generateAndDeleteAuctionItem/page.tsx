@@ -1,6 +1,6 @@
 "use client"
-import { createAuctionItem } from "../../components/testKodeDataBase/createAuctionItem"
-import {deleteAllItems} from "../../components/testKodeDataBase/deleteAuctionItem"
+import { createAuctionItem } from "../../components/createAuctionItem"
+import {deleteAllItems} from "../../components/deleteAuctionItem"
 
 
 function Generer10Objekyter() {

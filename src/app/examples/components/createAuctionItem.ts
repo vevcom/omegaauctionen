@@ -9,7 +9,7 @@ export async function createAuctionItem(description:string,name:string,startPric
             finalSaleTime: new Date("2022-03-25"),
             description: description,
             name: name,
-            startPrice: startPrice*100,//TODO: fiks error TODO: fiks standarisering av hvor vi skal bruke øre og hvor man bruker hele kroner
+            startPriceOre: startPrice,
             approved: approved,
 
         }

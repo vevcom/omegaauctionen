@@ -1,7 +1,7 @@
 //kokte dette fra en nettside jeg lagde fra ungdomskolen. Ja det er litt stygt men det har veldig fet conditonal rendering
 "use server"
 import React from 'react';
-import { prisma } from '../../prisma';
+import { prisma } from '../../../prisma';
 import "./styles.css"
 import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';

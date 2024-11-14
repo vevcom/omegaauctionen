@@ -2,6 +2,6 @@
 import { prisma } from "../../prisma"
 
 
-export async function deleteAllItems() { //TODO Slett denne filen før deploment
+export async function deleteAllItems() {
     await prisma.auksjonsObjekt.deleteMany({})
 }

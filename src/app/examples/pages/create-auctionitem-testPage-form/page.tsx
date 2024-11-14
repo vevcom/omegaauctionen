@@ -1,16 +1,16 @@
 //Ja denne koden er dårlig/ikke etter reglene
 "use client"
 import React, { FormEvent } from "react"
-import { createAuctionItemFromForm } from "../../components/testKodeDataBase/createAuctionItem"
+import { createAuctionItemFromForm } from "../../components/createAuctionItem"
 
-export default function lagAkusjonItem() {
-    async function sendOgGiTilbakemelding(e:FormData){
+export default function makeAuctionItem() {
+    async function sendAndGetFeedback(e:FormData){
         const response = await createAuctionItemFromForm(e)
         if (response==1){
-            alert("Alt funket")
+            alert("Evertyhing works")
         }
         else{
-            alert("Her gikk noe galt")
+            alert("Something went wrong")
             alert(response.toString())
             alert(typeof (e.get("startPris")))
             alert(typeof (e.get("name")))
@@ -20,7 +20,7 @@ export default function lagAkusjonItem() {
 
 
     return (
-        <form action={(e) => sendOgGiTilbakemelding(e)}>
+        <form action={(e) => sendAndGetFeedback(e)}>
             <label>
                 Navn
                 <input name="name"></input>

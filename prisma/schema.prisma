@@ -30,7 +30,7 @@ model AuksjonsObjekt {
   id Int @id @default(autoincrement())
   name String
   description String
-  startPrice Int
+  startPriceOre Int @map("startPrice")
   finalSaleTime DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
   approved Boolean @default(false)
@@ -42,7 +42,7 @@ model AuksjonsObjekt {
 
 model Bid{
   bidId Int @id @default(autoincrement())
-  price Int
+  priceOre Int @map("price")
   bidDate DateTime @default(now())
 
   bidder User @relation(fields: [bidderId],references: [id])
