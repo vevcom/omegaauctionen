@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import {Navbar} from "@/app/components/Navbar";
 import {Banner} from "./components/banner";
+import style from "./page.module.css"
 
 
 export const oldEnglish = localFont({
@@ -27,8 +28,9 @@ export default function RootLayout({
           <Banner></Banner>
           <Navbar></Navbar>
         </div>
-
-        {children}
+        <div className = {style.page}>
+          {children}
+        </div>
       </body>
     </html>
   );
