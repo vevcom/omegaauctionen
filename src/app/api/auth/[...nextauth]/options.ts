@@ -5,8 +5,8 @@ import Github from "next-auth/providers/github";
 import { FeideProvider } from "./feide";
 
 // Feide login
-const FeideExtraScopes = ['email'];
-type ExtraClaims = { email: string; }; // Custom claims based on scope 'email'
+const FeideExtraScopes = ['email','displayName','userid','userinfo-name','openid'];
+type ExtraClaims = { email: string; name: string,  }; // Custom claims based on scope 'email'
 
 export const options: NextAuthOptions = {
     providers: [
@@ -18,8 +18,16 @@ export const options: NextAuthOptions = {
             clientId: process.env.FEIDE_CLIENT_ID ?? "",
             clientSecret: process.env.FEIDE_CLIENT_SECRET ?? "",
             scopes: FeideExtraScopes,
-            profileHandler: (profile) => { return { id: profile.sub, email: profile.email }; },
+            profileHandler: (profile) => { 
+                console.log(profile);
+                return { 
+                    id: profile.sub, 
+                    email: profile.email,
+                    name: profile.name,
+                }; 
+            },
             params: {
+                // Waiting on ntnu.no activating omegaauctionen for feide login
                 authselection: "feide|realm|testusers.feide.no", // TODO: change all to realm|ntnu.no
             },
         }),
@@ -38,10 +46,10 @@ export const options: NextAuthOptions = {
                 }
             },
             async authorize(credentials) {
-                // TODO: Add credentials retrieval function
                 // This is where we need to retrieve user data
                 // to verify with credentials
                 // Docs: https://next-auth.js.org/configuration/providers/credentials
+                // TODO: Add credentials retrieval function
                 const user = { id: "42", name: "Albert", password: "Supersøt student"}
                 if (credentials?.username === user.name && 
                     credentials?.password === user.password) {

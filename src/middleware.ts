@@ -4,4 +4,4 @@ export { default } from "next-auth/middleware";
 
 // Applies next-aut only to matching routes - can be regex
 // Ref: https://nextjs.ort/docs/app/building-your-application/routing/middleware#matcher
-export const config = {matcher: ["/superhemmelig"]}
+export const config = {matcher: ["/examples/secretPage"]}
