@@ -2,7 +2,7 @@
 "use server"
 import React from 'react';
 import { prisma } from '../../../prisma';
-import "./styles.css"
+import "./styles.scss"
 import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';
 

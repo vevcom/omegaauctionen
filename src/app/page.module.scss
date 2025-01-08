@@ -22,9 +22,11 @@
   font-family: var(--font-geist-sans);
 
   background-image: url('https://omega.ntnu.no/static/8cb2cc79536a03aeaa04.png');
-  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center top; 
-  background-size: 70vw 70vw;
+  background-position: center top;
+  background-size: 70vh 70vh;
+  @media (max-width: 1024px) {
+    background-size: 40vh 40vh;
+  } 
 }
 
