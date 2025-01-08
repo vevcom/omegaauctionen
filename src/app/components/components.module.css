@@ -1,0 +1,119 @@
+.logintext {
+    display:flex;
+    font-size:auto;
+    justify-content: center;
+    float:right;
+  }
+
+.loginbutton {
+    display:flex;
+    flex-direction: column;
+    background-color: var(--background);
+    color: var(--foreground);
+    border-radius: 10px;
+    outline:none;
+    width: 15vw;
+    font-size:2vw;
+    height: 15vw;
+    float:right;
+    justify-content: center;
+    cursor:pointer;
+
+}
+
+.loginbutton:hover {
+    /* border: solid var(--foreground) 0.2vw; */
+    border-radius: 1vw;
+    color:var(--hover);
+}
+
+.imagecontainer {
+    height:5vw;
+    
+}
+
+.imagecontainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    overflow: hidden;
+}
+
+.headerWrapper {
+    padding: 5%;
+    margin: 20%;
+}
+
+.banner {
+    display:flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    font-size: 2vw;
+    padding: 2vw;
+    font-size: 2vw;
+    position:relative;
+}
+
+.bannerElement {
+    flex:1;
+}
+
+.bannerText {
+    font-weight: 12;
+}
+
+.bannerLeft {
+    justify-content: flex-start;
+    min-width: 10%;
+}
+.bannerCenter {
+    font-size:5vw;
+    flex-basis: 50%;
+    justify-content: center;
+    text-align:center;
+    align-items: center;
+
+}
+
+.bannerCenter:hover {
+    color: var(--hover);
+}
+.bannerRight {
+    justify-content: flex-end;
+}
+
+
+.navbar {
+    height: 10vw;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position:relative;
+}
+
+.navbar::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px; 
+    background: linear-gradient(to right, var(--background) 25%, black 25%, black 75%, var(--background) 75%);
+  }
+
+.navbarItems {
+    font-family: 'Josefin Sans', sans-serif;
+    height:100%;
+    padding: 3%;
+    font-size: 3vw;
+    text-align: center;
+    align-items:center;
+}
+
+.navbarItems:hover {
+    text-decoration: underline;
+    color:var(--hover);
+    text-underline-offset: 25%;
+}

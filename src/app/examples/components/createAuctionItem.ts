@@ -41,7 +41,7 @@ export async function createAuctionItemFromForm(e: FormData) {
                 finalSaleTime: new Date("2022-03-25"),
                 description: e.get("descripton"),
                 name: e.get("name"),
-                startPrice: parseInt(e.get("startPris"))*100,
+                startPriceOre: parseInt(e.get("startPris"))*100,
             }
         })
         return 1
