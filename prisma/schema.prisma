@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js" 
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+
+model User {
+   id Int @id @default(autoincrement()) 
+   name String 
+   email String @unique
+   isAdmin Boolean @default(false)
+   passordBurdeEndres String //TODO Fjern!
+   auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
+   bids Bid[]
+}
+
+model AuksjonsObjekt {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  startPriceOre Int @map("startPrice")
+  finalSaleTime DateTime //TODO legg inn default
+  currentSaleTime DateTime //TODO legg inn default
+  approved Boolean @default(false)
+  author User? @relation(fields: [autorId], references: [id])
+  autorId Int? //TODO fiks tilbake til requierd
+
+  bids Bid[]
+}
+
+model Bid{
+  bidId Int @id @default(autoincrement())
+  priceOre Int @map("price")
+  bidDate DateTime @default(now())
+
+  bidder User @relation(fields: [bidderId],references: [id])
+  bidderId Int
+  
+  auctionObject AuksjonsObjekt @relation(fields: [auctionItemId],references: [id])
+  auctionItemId Int
+  
+}

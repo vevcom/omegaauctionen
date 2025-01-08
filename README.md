@@ -20,9 +20,17 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+``` Generate a database
+npx prisma migrate dev
+```
+
+``` Generate a client for database
+npx prisma generate
+```
+
+Open the project in your browser on the link provided by npm after running "npm run dev" to see the result.
+
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
