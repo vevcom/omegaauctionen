@@ -1,9 +1,9 @@
 
 import localFont from "next/font/local";
-import "./globals.css";
+import "./globals.scss";
 import {Navbar} from "@/app/components/Navbar";
 import {Banner} from "./components/banner";
-import style from "./page.module.css"
+import style from "./page.module.scss"
 
 
 export const oldEnglish = localFont({

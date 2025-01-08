@@ -1,4 +1,4 @@
-import style from "./components.module.css"
+import style from "./components.module.scss"
 import { Loginbtn } from "./loginbutton"
 import { oldEnglish } from "../layout"
 
