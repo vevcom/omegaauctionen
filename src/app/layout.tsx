@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.scss";
 import {Navbar} from "@/app/components/Navbar";
 import {Banner} from "./components/banner";
+import {Overlay} from "@/app/components/Menu";
 import style from "./page.module.scss"
 
 

@@ -14,7 +14,7 @@
     outline:none;
     width: 15vw;
     font-size:2vw;
-    height: 15vw;
+    height: auto;
     float:right;
     justify-content: center;
     cursor:pointer;
@@ -38,7 +38,12 @@
     object-fit: contain;
     overflow: hidden;
 }
-
+.bannerLeft .imagecontainer img:hover {
+    height:4.4vw;
+}
+.bannerLeft .imagecontainer {
+    cursor:pointer;
+}
 .headerWrapper {
     padding: 5%;
     margin: 20%;
@@ -53,6 +58,7 @@
     padding: 2vw;
     font-size: 2vw;
     position:relative;
+    height:13vw;
 }
 
 .bannerElement {
@@ -65,7 +71,14 @@
 
 .bannerLeft {
     justify-content: flex-start;
-    min-width: 10%;
+    width: 10%;
+}
+.menuIcon {
+    background-image: url('https://www.freeiconspng.com/thumbs/menu-icon/menu-icon-24.png');
+    // background-image: url('https://omega.ntnu.no/static/8cb2cc79536a03aeaa04.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: auto 2vw;
 }
 .bannerCenter {
     font-size:5vw;
@@ -116,4 +129,12 @@
     text-decoration: underline;
     color:var(--hover);
     text-underline-offset: 25%;
+}
+
+.overlay {
+    position:fixed;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(255,255,255,0.5);
 }
