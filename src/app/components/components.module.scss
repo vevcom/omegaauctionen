@@ -13,7 +13,7 @@
     border-radius: 10px;
     outline:none;
     width: 15vw;
-    font-size:2vw;
+    font-size:2.5vw;
     height: auto;
     float:right;
     justify-content: center;
@@ -28,8 +28,7 @@
 }
 
 .imagecontainer {
-    height:5vw;
-    
+    height:6vw;
 }
 
 .imagecontainer img {
@@ -38,7 +37,13 @@
     object-fit: contain;
     overflow: hidden;
 }
+.bannerLeft .imagecontainer {
+    align-items: left;
+}
 .bannerLeft .imagecontainer img:hover {
+    height:4.4vw;
+}
+.bannerLeft .imagecontainer img:active {
     height:4.4vw;
 }
 .bannerLeft .imagecontainer {
@@ -56,17 +61,13 @@
     align-items: center;
     font-size: 2vw;
     padding: 2vw;
-    font-size: 2vw;
     position:relative;
     height:13vw;
+    transition: all 0.3s;
 }
 
 .bannerElement {
     flex:1;
-}
-
-.bannerText {
-    font-weight: 12;
 }
 
 .bannerLeft {
@@ -86,8 +87,8 @@
     justify-content: center;
     text-align:center;
     align-items: center;
-
 }
+
 
 .bannerCenter:hover {
     color: var(--hover);
@@ -98,12 +99,13 @@
 
 
 .navbar {
-    height: 10vw;
+    height: 0.1vw;
     width:100%;
     display:flex;
     align-items: center;
     justify-content: center;
     position:relative;
+    overflow:hidden;
 }
 
 .navbar::after {
@@ -131,10 +133,66 @@
     text-underline-offset: 25%;
 }
 
-.overlay {
-    position:fixed;
+.overlay {   
+    height: 100%;
+    width: 0;
+    max-width:768px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(64,64,64);
+    background-color: rgba(64, 64, 64, 1);
+    color:white;
+    overflow-x: hidden;
+    transition: 0.15s linear;
+}
 
-    width:100%;
-    height:100%;
-    background-color: rgba(255,255,255,0.5);
+.overlayContent {
+    position: relative;
+    top: 20%;
+    width: 40%;
+    text-align: left;
+    margin-top: 30px;
+    margin-left:20%;
+  }
+  
+.overlay a {
+    height:auto;
+    margin:1vw;
+    display:block;
+    padding:8px;
+    font-size:36px;
+    cursor:pointer;
+    text-decoration: none;
+}
+.overlay a:hover, .overlay a:focus {
+    color: #adadad;
+}
+.closebtn {
+    position: absolute;
+    top: 30px;
+    right: 35px;
+    font-size: 60px;
+  }
+.closebtn:hover {
+    color: grey;
+    cursor: pointer;
+}
+.overlayBackground {
+    top:0;
+    left:0;
+    z-index:1000;
+    position:fixed;
+    height:100vh;
+    background-color: rgba(70, 70, 70, 0.7);
+}
+
+@media (min-width:1024px) {
+    // .overlay {width:1024px;}
+    .bannerCenter {font-size:3vw;}
+    .imagecontainer {height:4vw;}
+    .bannerLeft .imageContainer:hover {height:2vw;}
+    .bannerLeft .imageContainer:active {height:2vw;}
+    .loginbutton {font-size:2vw;}
 }
