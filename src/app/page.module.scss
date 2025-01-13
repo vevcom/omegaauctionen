@@ -1,32 +1,35 @@
-.loginbtn {
-  background-color: orange;
-  border: 3px solid rgb(195, 126, 0);
-  border-radius: 10px;
-  color: black;
-  font-size: medium;
-  outline:none;
-  width: 20vw;
-  height: 5vh;
-  text-align: center;
-}
-
 .page {
   display: grid;
   grid-template-rows: 20px 1fr 20px;
   /* align-items: center; */
   justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  /* margin-top: 10vw; */
-  /* gap: 64px; */
+  min-height: 85.5vh;
   font-family: var(--font-geist-sans);
 
   background-image: url('https://omega.ntnu.no/static/8cb2cc79536a03aeaa04.png');
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 70vh 70vh;
-  @media (max-width: 1024px) {
-    background-size: 40vh 40vh;
-  } 
+  background-size: 40vh 40vh;
+}
+.errorPage {
+  width: 100%;
+  height:85.5vh;
+  padding:10vw;
+  background-color: var(--lightblue);
+  overflow:hidden;
+}
+.error404 {
+  padding-bottom:5vw;
+  color:var(--foreground);
+  font-size: 25vw;
+  text-align: center;
+}
+.errorText {
+  text-align:center;
+}
+@media (min-width:1024px) {
+  .page {height:85.5vh;background-size: 70vh 70vh;}
+  .errorPage {padding:2vw;height:85.5vh;}
+  .error404 {padding-bottom: 3vw;}
 }
 
