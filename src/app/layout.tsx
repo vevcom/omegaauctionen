@@ -41,17 +41,14 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link>
       </head>
       <body>
-        <div className={style.logoBackground}>
+        <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>
+        <div>
+          <Banner toggle_overlay={toggle_overlay_width}></Banner>
+          <Navbar all_links={links}></Navbar>
         </div>
-
-          <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>
-          <div>
-            <Banner toggle_overlay={toggle_overlay_width}></Banner>
-            <Navbar all_links={links}></Navbar>
-          </div>
-          <div className = {style.page}>
-            {children}
-          </div>
+        <div className = {style.page}>
+          {children}
+        </div>
       </body>
     </html>
   );
