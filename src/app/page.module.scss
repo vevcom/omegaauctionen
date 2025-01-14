@@ -1,15 +1,8 @@
 .page {
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  /* align-items: center; */
   justify-items: center;
   min-height: 85.5vh;
   font-family: var(--font-geist-sans);
 
-  background-image: url('https://omega.ntnu.no/static/8cb2cc79536a03aeaa04.png');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 40vh 40vh;
 }
 .errorPage {
   width: 100%;
@@ -27,8 +20,8 @@
 .errorText {
   text-align:center;
 }
-@media (min-width:1024px) {
-  .page {height:85.5vh;background-size: 70vh 70vh;}
+@media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
+  .page {min-height:85.5vh;background-size: 70vw 70vw;}
   .errorPage {padding:2vw;height:85.5vh;}
   .error404 {padding-bottom: 3vw;}
 }

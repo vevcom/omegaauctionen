@@ -42,6 +42,8 @@ export default function RootLayout({
       </head>
       <body>
         <div className={style.logoBackground}>
+        </div>
+
           <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>
           <div>
             <Banner toggle_overlay={toggle_overlay_width}></Banner>
@@ -50,7 +52,6 @@ export default function RootLayout({
           <div className = {style.page}>
             {children}
           </div>
-        </div>
       </body>
     </html>
   );
