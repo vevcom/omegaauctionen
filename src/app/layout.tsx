@@ -31,7 +31,7 @@ export default function RootLayout({
             break;
     }
   }    
-  const links = [["/","Auksjon"], ["/","Program"], ["/","Beermile"],["/","Selg"],["/statistics","Statistikk"],["/about","Om"],["/",""]]
+  const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/program","Program","Program"], ["/beermile","Beermile","Beermile"],["/sellItems","Legg ut for salg"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
 
 
   return (
@@ -41,13 +41,15 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link>
       </head>
       <body>
-        <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>
-        <div>
-          <Banner toggle_overlay={toggle_overlay_width}></Banner>
-          <Navbar all_links={links}></Navbar>
-        </div>
-        <div className = {style.page}>
-          {children}
+        <div className={style.logoBackground}>
+          <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>
+          <div>
+            <Banner toggle_overlay={toggle_overlay_width}></Banner>
+            <Navbar all_links={links}></Navbar>
+          </div>
+          <div className = {style.page}>
+            {children}
+          </div>
         </div>
       </body>
     </html>

@@ -6,7 +6,7 @@ export function Navbar({all_links}:{all_links:Array<Array<string>>}) {
 
     return <nav className={style.navbar}>
 
-            {links.map((item) => (<a className={style.navbarItems}href={item[0]} key={item[1]}>{item[1]}</a>))}
+            {links.map((item) => (<a className={style.navbarItems}href={item[0]} key={item[2]}>{item[2]}</a>))}
             </nav>
 }
 

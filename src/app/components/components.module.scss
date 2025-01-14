@@ -1,35 +1,12 @@
-.logintext {
-    display:flex;
-    font-size:auto;
-    justify-content: center;
-    float:right;
-  }
-
-.loginbutton {
-    display:flex;
-    flex-direction: column;
-    background-color: var(--background);
-    color: var(--foreground);
-    border-radius: 10px;
-    outline:none;
-    width: 15vw;
-    font-size:2.5vw;
-    height: auto;
-    float:right;
-    justify-content: center;
-    cursor:pointer;
-
-}
-
-.loginbutton:hover {
-    /* border: solid var(--foreground) 0.2vw; */
-    border-radius: 1vw;
-    color:var(--hover);
-}
 
 .imagecontainer {
-    height:6vw;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    height:5vh;
+    min-width:10vw;
 }
+
 
 .imagecontainer img {
     width: 100%;
@@ -37,72 +14,79 @@
     object-fit: contain;
     overflow: hidden;
 }
-.bannerLeft .imagecontainer {
-    align-items: left;
-}
-.bannerLeft .imagecontainer img:hover {
-    height:4.4vw;
-}
-.bannerLeft .imagecontainer img:active {
-    height:4.4vw;
-}
-.bannerLeft .imagecontainer {
-    cursor:pointer;
-}
-.headerWrapper {
-    padding: 5%;
-    margin: 20%;
-}
 
 .banner {
     display:flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    font-size: 2vw;
-    padding: 2vw;
+    // padding: 2vw;
     position:relative;
-    height:13vw;
+    height:8vh;
     transition: all 0.3s;
 }
 
 .bannerElement {
-    flex:1;
-}
-
-.bannerLeft {
-    justify-content: flex-start;
-    width: 10%;
-}
-.menuIcon {
-    background-image: url('https://www.freeiconspng.com/thumbs/menu-icon/menu-icon-24.png');
-    // background-image: url('https://omega.ntnu.no/static/8cb2cc79536a03aeaa04.png');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: auto 2vw;
-}
-.bannerCenter {
-    font-size:5vw;
-    flex-basis: 50%;
+    display:flex;
     justify-content: center;
     text-align:center;
     align-items: center;
 }
 
+.bannerLeft {
+    justify-content:flex-end;
+    align-items: center;
+    text-align: center;
+    flex-basis: 15%;
+}
+
+.bannerCenter {
+    font-size:3vh;
+    line-height: 4.5vh;
+    flex-basis: 80%;
+}
 
 .bannerCenter:hover {
     color: var(--hover);
 }
 .bannerRight {
-    justify-content: flex-end;
+    flex-basis:15%;
+    justify-content: left;
 }
 
+.loginbutton {
+    height:8vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    float:center;
+    justify-content: center;
+    cursor:pointer;
+    // overflow:hidden;
+}
+
+.logintext {
+    display:flex;
+    height:auto;
+    font-size:100%;
+    height:0;
+    overflow:hidden;
+    justify-content: center;
+    float:right;
+    content:"";
+  }
+
+.loginbutton:hover {
+    color:var(--hover);
+}
 
 .navbar {
-    height: 0.1vw;
+    height:6.5vh;
+    font-size:4vw;
     width:100%;
     display:flex;
     align-items: center;
+    text-align:center;
     justify-content: center;
     position:relative;
     overflow:hidden;
@@ -120,9 +104,8 @@
 
 .navbarItems {
     font-family: 'Josefin Sans', sans-serif;
-    height:100%;
     padding: 3%;
-    font-size: 3vw;
+    // font-size: 100%;
     text-align: center;
     align-items:center;
 }
@@ -188,11 +171,14 @@
     background-color: rgba(70, 70, 70, 0.7);
 }
 
-@media (min-width:1024px) {
-    // .overlay {width:1024px;}
-    .bannerCenter {font-size:3vw;}
-    .imagecontainer {height:4vw;}
+@media (min-width:1024px) or ((max-width:1024px) and (orientation:landscape)) {
+    .banner {padding:0;height:14.4vh;}
+    .bannerCenter {height:14.4vh;font-size:6vh;line-height: 7.5vh;}
+    .imagecontainer {height:8vh;}
+    .bannerLeft {height:14.4vh;min-width:10%;}
     .bannerLeft .imageContainer:hover {height:2vw;}
     .bannerLeft .imageContainer:active {height:2vw;}
-    .loginbutton {font-size:2vw;}
+    .loginbutton {font-size:2vw;height:14.4vh;}
+    .navbar {height:1.5px;}
+    .logintext {height:5vh;font-size:3vh;}
 }

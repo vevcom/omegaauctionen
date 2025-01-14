@@ -1,4 +1,4 @@
-import style from "./component.module.scss"
+import style from "./page.module.scss"
 
 
 export default function about() {
