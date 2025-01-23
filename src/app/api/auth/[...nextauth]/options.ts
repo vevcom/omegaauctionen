@@ -3,6 +3,8 @@ import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import { FeideProvider } from "./feide";
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/app/prisma";
 
 // Feide login
 const FeideExtraScopes = ['email','displayName','userid','userinfo-name','openid'];
@@ -60,4 +62,5 @@ export const options: NextAuthOptions = {
             }
         })
     ],
+    adapter: PrismaAdapter(prisma),
 }
