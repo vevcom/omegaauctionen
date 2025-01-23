@@ -7,7 +7,7 @@ import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';
 
 async function App() {
-  const auctionItems = await prisma.auksjonsObjekt.findMany()
+  const auctionItems = await prisma.AuksjonsObjekt.findMany()
 
   return (
     <div id="mainDiv">
@@ -20,7 +20,7 @@ async function App() {
             <hr></hr>
             <p>{item.description}</p>
             <hr></hr>
-            <p>Pris: {item.startPrice / 100}kr</p>
+            <p>Pris: {item.startPriceOre / 100}kr</p>
             <hr></hr>
             {item.approved ? <p className='ja'>Gokjent</p> : <p className='nei'>Ikke gokjent</p>}
             <hr></hr>
