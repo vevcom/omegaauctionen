@@ -7,7 +7,7 @@ import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';
 
 async function App() {
-  const auctionItems = await prisma.AuksjonsObjekt.findMany()
+  const auctionItems = await prisma.auksjonsObjekt.findMany()
 
   return (
     <div id="mainDiv">
