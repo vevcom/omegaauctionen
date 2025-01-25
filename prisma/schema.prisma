@@ -36,7 +36,7 @@ model AuksjonsObjekt {
   approved Boolean @default(false)
   author User? @relation(fields: [autorId], references: [id])
   autorId Int? //TODO fiks tilbake til requierd
-
+  imageName String @default("default.jpeg")
   bids Bid[]
 }
 
