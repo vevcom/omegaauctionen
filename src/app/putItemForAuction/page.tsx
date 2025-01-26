@@ -1,9 +1,17 @@
 "use client"
-import React, { FormEvent } from "react"
+import React, { FormEvent, useState } from "react"
 import "./style.css"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
+import PopUpBox from "@/app/components/popUp/popUp"
 
 export default function makeAuctionItem() {
+    const [popUpOn, SetPopUpOn] = useState(false)
+    const [popUpText, SetPopUpText] = useState("")
+
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+
     async function sendFormData(e: FormData) {
 
         if ((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) {
@@ -28,11 +36,17 @@ export default function makeAuctionItem() {
         else {
             alertBox("It did'nt work")
         }
+
     }
 
-    function alertBox(alertText: string) {
-        alert(alertText)
+    async function alertBox(alertText: string) {
+        SetPopUpText(alertText)
+        SetPopUpOn(true)
+        await delay(5000);
+        SetPopUpOn(false)
+        SetPopUpText("")
     }
+
 
     return (
         <div id="mainDiv">
@@ -51,6 +65,7 @@ export default function makeAuctionItem() {
                 </div>
                 <div className="inputBoxes" id="buttonBox">
                     <button type="submit">Send inn</button>
+                    <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
                 </div>
             </form>
         </div >
