@@ -5,6 +5,7 @@ import "./style.css"
 export default function makeAuctionItem() {
     const [popUpOn, SetPopUpOn] = useState(false)
     const [popUpText, SetPopUpText] = useState("")
+    const popUpLengthMilliSeconds = 5000
 
     const delay = ms => new Promise(
         resolve => setTimeout(resolve, ms)
@@ -17,7 +18,7 @@ export default function makeAuctionItem() {
     async function alertBox(alertText: string) {
         SetPopUpText(alertText)
         SetPopUpOn(true)
-        await delay(5000);
+        await delay(popUpLengthMilliSeconds);
         SetPopUpOn(false)
         SetPopUpText("")
     }
