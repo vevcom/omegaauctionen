@@ -25,6 +25,12 @@
 
 }
 
+
+#imagePrevwui{
+    width: 10%;
+    height: auto;
+}
+
 .inputBoxes>*{
     width: auto;
     margin: auto;

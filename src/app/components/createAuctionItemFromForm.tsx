@@ -21,6 +21,7 @@ export async function createAuctionItemFromForm(e: FormData) {
             description: e.get("descripton") as string,
             name: e.get("name") as string,
             startPriceOre: parseInt(e.get("startPriceInOre") as string) * 100,
+            imageName:e.get("imageFileName") as string
         }
     })
 
