@@ -1,12 +1,4 @@
-#NameBox {}
-
-#descriptionBox {}
-
-#Pricebox {}
-
-#buttonBox {}
-
-#descriptionBox>textarea {
+.descriptionBox>textarea {
     width: auto;
 
 }
@@ -25,19 +17,13 @@
 
 }
 
-
-#imagePrevwui{
-    width: 10%;
-    height: auto;
-}
-
 .inputBoxes>*{
     width: auto;
     margin: auto;
 }
 
 
-#mainDiv {
+.mainDiv {
     /* background-color: brown; */
     margin: auto;
     width: 90%;
@@ -82,7 +68,7 @@
 }
 
 /* Button styling */
-#buttonBox button {
+.buttonBox button {
     padding: 0.8em 1.5em;
     font-size: 1rem;
     color: #fff;
@@ -94,12 +80,12 @@
     transition: all 0.3s ease-in-out;
 }
 
-#buttonBox button:hover {
+.buttonBox button:hover {
     background: linear-gradient(145deg, #0056b3, #004494);
     box-shadow: 0px 0px 12px rgba(0, 123, 255, 0.7);
 }
 
-#buttonBox button:active {
+.buttonBox button:active {
     transform: scale(0.98);
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -111,7 +97,7 @@
 }
 
 
-#mainDiv{
+.mainDiv{
     background-color: rgba(255, 255, 255, 0.7);
     width: 80%;
     padding: 3%;
@@ -141,7 +127,7 @@
     pointer-events: none;
     /* Prevent interaction with the grid */
 }
-input{
+.inputBoxes> input{
     text-align: center;
 }
 

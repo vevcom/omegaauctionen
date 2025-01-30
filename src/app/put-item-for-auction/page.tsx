@@ -1,17 +1,26 @@
 "use client"
 import React, { FormEvent, useState } from "react"
-import "./style.css"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 import ImageFromFileName from "../components/pictureServerComponents/getImgFormName"
 import ImageUploaderButton from "../components/pictureServerComponents/uploadButton"
-import {uploadImage} from "../components/pictureServerComponents/uploadImageServerFunction"
+import { uploadImage } from "../components/pictureServerComponents/uploadImageServerFunction"
+import style from "./style.module.scss"
+import PopUpBox from "@/app/components/popUp/popUp"
 
 export default function makeAuctionItem() {
     const [uploadedFileName, setUploadedFileName] = useState('default.jpeg');
+    const [popUpOn, SetPopUpOn] = useState(false)
+    const [popUpText, SetPopUpText] = useState("")
+    const popUpLengthMilliSeconds = 5000
+
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+
 
     async function sendFormData(e: FormData) {
 
-        if ((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) {
+        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")) {
             alertBox("It looks like you havent typed in i valid number")
             return;
         }
@@ -19,13 +28,14 @@ export default function makeAuctionItem() {
             alertBox("It looks like youre missing a name")
             return;
         }
-        if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("name") == "")) {
+        if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("descripton") == "")) {
             alertBox("It looks like yyour missning a description")
             return;
         }
-        e.append("imageFileName",uploadedFileName)
+        e.append("imageFileName", uploadedFileName)
         e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
         const response = await createAuctionItemFromForm(e)
+
 
         if (response == true) {
             alertBox("It worked")
@@ -35,74 +45,46 @@ export default function makeAuctionItem() {
         }
     }
 
-    function alertBox(alertText: string) {
-        alert(alertText)
+
+    async function alertBox(alertText: string) {
+        SetPopUpText(alertText)
+        SetPopUpOn(true)
+        await delay(popUpLengthMilliSeconds);
+        SetPopUpOn(false)
+        SetPopUpText("")
     }
 
     return (
-        <div id="mainDiv">
+        <div className={style.mainDiv}>
             <form action={(e) => sendFormData(e)}>
-                <div className="inputBoxes" id="NameBox">
+                <div className={style.inputBoxes}>
                     <input name="name"></input>
                     <label htlm-for="name">Navn</label>
                 </div>
-                <div className="inputBoxes" id="descriptionBox">
+                <div className={`${style.inputBoxes} ${style.descriptionBox}`}>
                     <textarea rows={20} cols={80} name="descripton"></textarea>
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
-                <div className="inputBoxes" id="Pricebox">
+                <div className={style.inputBoxes} >
                     <input name="startPriceInKroner" type="number"></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
-                <div className="inputBoxes" id="buttonBox">
+                <div className={`${style.inputBoxes} ${style.buttonBox}`}>
                     <button type="submit">Send inn</button>
+                    <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
                 </div>
             </form>
             <h1>last opp bilde</h1>
-                  <ImageUploaderButton
-                    uploadImage={uploadImage}
-                    setUploadedFileName={setUploadedFileName}
-                  />
-                  {uploadedFileName && (
-                    <div className="mt-4 text-green-500">
-                      Uploaded File: {uploadedFileName}
-                    </div>
-                  )}
-                  <ImageFromFileName filename={uploadedFileName}></ImageFromFileName>
+            <ImageUploaderButton
+                uploadImage={uploadImage}
+                setUploadedFileName={setUploadedFileName}
+            />
+            {uploadedFileName && (
+                <div className="mt-4 text-green-500">
+                    Uploaded File: {uploadedFileName}
+                </div>
+            )}
+            <ImageFromFileName filename={uploadedFileName}></ImageFromFileName>
         </div >
     )
-
-
-    // async function sendAndGetFeedback(e:FormData){
-    //     const response = await createAuctionItemFromForm(e)
-    //     if (response==){
-    //         alert("Evertyhing works")
-    //     }
-    //     else{
-    //         alert("Something went wrong")
-    //         alert(response.toString())
-    //         alert(typeof (e.get("startPris")))
-    //         alert(typeof (e.get("name")))
-    //         alert(typeof (e.get("descripton")))
-    //     }
-    // }
-
-
-    // return (
-    //     <form action={(e) => sendAndGetFeedback(e)}>
-    //         <label>
-    //             Navn
-    //             <input name="name"></input>
-    //         </label>
-    //         <label>
-    //             Beskrivelse
-    //             <textarea name="descripton"></textarea>
-    //         </label>
-    //         <label>
-    //             Start pris
-    //             <input name="startPris" type="number"></input>
-    //         </label>
-    //         <button type="submit">Send inn</button>
-    //     </form>
-    // )
 }
