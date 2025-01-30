@@ -2,6 +2,7 @@
 import React, { FormEvent } from "react"
 import styles from "./putItemForAuction.module.scss"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
+import getUserID from "@/app/api/auth/getUserId"
 
 export default function makeAuctionItem() {
     async function sendFormData(e: FormData) {
@@ -18,9 +19,14 @@ export default function makeAuctionItem() {
             alertBox("It looks like yyour missning a description")
             return;
         }
+        const userId = await getUserID()
+        if(userId ==false){
+            alertBox("couldnt get  user ")
+            return;
 
+        }
         e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
-        // e.append("")
+        e.append("userById", (userId).toString())
         const response = await createAuctionItemFromForm(e)
 
         if (response == true) {
