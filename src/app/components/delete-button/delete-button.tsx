@@ -1,9 +1,9 @@
 "use client"
 import React, { FormEvent } from "react"
-import "./style.css"
+import styles from "./style.module.scss"
 import { prisma } from "../../prisma"
 import {deleteFunc} from "./deleteAuctionItem" 
-export default function ApproveButton({ objectId }: { objectId: number }) {
+export default function deleteButton({ objectId }: { objectId: number }) {
     async function sendDelete() {
         let response = await deleteFunc(objectId)
         if(response[1]){
@@ -15,8 +15,8 @@ export default function ApproveButton({ objectId }: { objectId: number }) {
         console.log(response[0])
     } 
     return (
-        <div id="buttDiv">
-            <button onClick={sendDelete} id="deleteButton">Slett</button>
+        <div className={styles.buttDiv}>
+            <button  className={styles.delteButton} onClick={sendDelete} id="deleteButton">Slett</button>
         </div >
     )
 }

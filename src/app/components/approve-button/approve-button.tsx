@@ -1,9 +1,9 @@
 "use client"
 import React, { FormEvent } from "react"
-import "./style.css"
+import styles from "./styles.module.css"
 import { prisma } from "../../prisma"
 import {approve} from "./approveItem" 
-export default function DeleteButton({ objectId }: { objectId: number }) {
+export default function ApproveButton({ objectId }: { objectId: number }) {
     async function sendApproval() {
         let response = await approve(objectId)
         if(response[1]){
@@ -15,8 +15,8 @@ export default function DeleteButton({ objectId }: { objectId: number }) {
         console.log(response[0])
     } 
     return (
-        <div id="buttDiv">
-            <button onClick={sendApproval} id="approveButton">Godkjenn</button>
+        <div className={styles.buttDiv}>
+            <button  onClick={sendApproval} className={styles.approveButton}>Godkjenn</button>
         </div >
     )
 }

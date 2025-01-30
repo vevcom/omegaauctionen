@@ -5,6 +5,6 @@ export default function ImageFromFileName({ filename }: { filename: string }) {
     const imagePath = serverIP + '/image/'
     return (
 
-        <img id="imagePrevwui" src={imagePath + filename}></img>
+        <img className="auctionImage" src={imagePath + filename}></img>
     );
 }
