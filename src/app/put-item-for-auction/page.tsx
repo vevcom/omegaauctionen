@@ -1,6 +1,6 @@
 "use client"
 import React, { FormEvent } from "react"
-import "./style.css"
+import style from "./style.module.scss"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 
 export default function makeAuctionItem() {
@@ -35,58 +35,24 @@ export default function makeAuctionItem() {
     }
 
     return (
-        <div id="mainDiv">
+        <div className={style.mainDiv}>
             <form action={(e) => sendFormData(e)}>
-                <div className="inputBoxes" id="NameBox">
+                <div className={style.inputBoxes}>
                     <input name="name"></input>
                     <label htlm-for="name">Navn</label>
                 </div>
-                <div className="inputBoxes" id="descriptionBox">
+                <div className={`${style.inputBoxes} ${style.descriptionBox}`}>
                     <textarea rows={20} cols={80} name="descripton"></textarea>
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
-                <div className="inputBoxes" id="Pricebox">
+                <div className={style.inputBoxes} >
                     <input name="startPriceInKroner" type="number"></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
-                <div className="inputBoxes" id="buttonBox">
+                <div  className={`${style.inputBoxes} ${style.buttonBox}`}>
                     <button type="submit">Send inn</button>
                 </div>
             </form>
         </div >
     )
-
-
-    // async function sendAndGetFeedback(e:FormData){
-    //     const response = await createAuctionItemFromForm(e)
-    //     if (response==){
-    //         alert("Evertyhing works")
-    //     }
-    //     else{
-    //         alert("Something went wrong")
-    //         alert(response.toString())
-    //         alert(typeof (e.get("startPris")))
-    //         alert(typeof (e.get("name")))
-    //         alert(typeof (e.get("descripton")))
-    //     }
-    // }
-
-
-    // return (
-    //     <form action={(e) => sendAndGetFeedback(e)}>
-    //         <label>
-    //             Navn
-    //             <input name="name"></input>
-    //         </label>
-    //         <label>
-    //             Beskrivelse
-    //             <textarea name="descripton"></textarea>
-    //         </label>
-    //         <label>
-    //             Start pris
-    //             <input name="startPris" type="number"></input>
-    //         </label>
-    //         <button type="submit">Send inn</button>
-    //     </form>
-    // )
 }
