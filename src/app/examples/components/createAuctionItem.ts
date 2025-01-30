@@ -11,7 +11,6 @@ export async function createAuctionItem(description:string,name:string,startPric
             name: name,
             startPriceOre: startPrice,
             approved: approved,
-            imageName: "default.jpeg"
 
         }
     })
