@@ -1,4 +1,5 @@
 "use client"
+import getUserID from "@/app/api/auth/getUserId"
 import React, { FormEvent, useState } from "react"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 import ImageFromFileName from "../components/pictureServerComponents/getImgFormName"
@@ -19,7 +20,6 @@ export default function makeAuctionItem() {
 
 
     async function sendFormData(e: FormData) {
-
         if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")) {
             alertBox("It looks like you havent typed in i valid number")
             return;
@@ -28,14 +28,20 @@ export default function makeAuctionItem() {
             alertBox("It looks like youre missing a name")
             return;
         }
+        const userId = await getUserID()
+        if(userId ==false){
+            alertBox("couldnt get  user ")
+            return;
+
+        }
         if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("descripton") == "")) {
             alertBox("It looks like yyour missning a description")
             return;
         }
         e.append("imageFileName", uploadedFileName)
         e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
+        e.append("userById", (userId).toString())
         const response = await createAuctionItemFromForm(e)
-
 
         if (response == true) {
             alertBox("It worked")
