@@ -1,12 +1,9 @@
-"use client";
-import styles from "./style.module.scss";
-
-export default function PopUpBox({ isActive, text }: { isActive: boolean; text: string }) {
+"use client"
+import "./style.css"
+export default function PopUpBox({ isActive, text }: { isActive: boolean, text: string }) {
     return (
-        <div className={styles.popup}>
-            <span className={`${styles.popuptext} ${isActive ? styles.show : ""}`}>
-                {text}
-            </span>
+        <div className="popup">
+            <span className={`popuptext, ${isActive ? 'show' : ''}`} id="myPopup">{text}</span>
         </div>
-    );
+    )
 }
