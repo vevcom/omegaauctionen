@@ -1,12 +1,21 @@
 "use client"
-import React, { FormEvent } from "react"
+import React, { FormEvent, useState } from "react"
 import style from "./style.module.scss"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
+import PopUpBox from "@/app/components/popUp/popUp"
 
 export default function makeAuctionItem() {
+    const [popUpOn, SetPopUpOn] = useState(false)
+    const [popUpText, SetPopUpText] = useState("")
+    const popUpLengthMilliSeconds = 5000
+
+    const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+
     async function sendFormData(e: FormData) {
 
-        if ((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) {
+        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string)=="")) {
             alertBox("It looks like you havent typed in i valid number")
             return;
         }
@@ -14,7 +23,7 @@ export default function makeAuctionItem() {
             alertBox("It looks like youre missing a name")
             return;
         }
-        if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("name") == "")) {
+        if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("descripton") == "")) {
             alertBox("It looks like yyour missning a description")
             return;
         }
@@ -30,8 +39,13 @@ export default function makeAuctionItem() {
         }
     }
 
-    function alertBox(alertText: string) {
-        alert(alertText)
+    
+    async function alertBox(alertText: string) {
+        SetPopUpText(alertText)
+        SetPopUpOn(true)
+        await delay(popUpLengthMilliSeconds);
+        SetPopUpOn(false)
+        SetPopUpText("")
     }
 
     return (
@@ -49,8 +63,9 @@ export default function makeAuctionItem() {
                     <input name="startPriceInKroner" type="number"></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
-                <div  className={`${style.inputBoxes} ${style.buttonBox}`}>
+                <div className={`${style.inputBoxes} ${style.buttonBox}`}>
                     <button type="submit">Send inn</button>
+                    <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
                 </div>
             </form>
         </div >

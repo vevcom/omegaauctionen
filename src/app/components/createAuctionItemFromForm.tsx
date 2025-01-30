@@ -25,21 +25,4 @@ export async function createAuctionItemFromForm(e: FormData) {
     })
 
     return true;
-
-    // if (testAppproved == testNumber) {
-    //     await prisma.auksjonsObjekt.create({
-    //         data: {
-    //             currentSaleTime: new Date("2022-03-25"),
-    //             finalSaleTime: new Date("2022-03-25"),
-    //             description: e.get("descripton"),
-    //             name: e.get("name"),
-    //             startPriceOre: parseInt(e.get("startPris"))*100,
-    //         }
-    //     })
-    //     return 1
-    // }
-    // else{
-    //     return -1
-    // }
-
 }
