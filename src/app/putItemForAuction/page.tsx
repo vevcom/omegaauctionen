@@ -1,6 +1,6 @@
 "use client"
 import React, { FormEvent } from "react"
-import "./style.css"
+import styles from "./putItemForAuction.module.scss"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 
 export default function makeAuctionItem() {
@@ -20,6 +20,7 @@ export default function makeAuctionItem() {
         }
 
         e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
+        // e.append("")
         const response = await createAuctionItemFromForm(e)
 
         if (response == true) {
@@ -35,21 +36,21 @@ export default function makeAuctionItem() {
     }
 
     return (
-        <div id="mainDiv">
+        <div className={styles.mainDiv}>
             <form action={(e) => sendFormData(e)}>
-                <div className="inputBoxes" id="NameBox">
+                <div className={styles.inputBoxes} id="NameBox">
                     <input name="name"></input>
                     <label htlm-for="name">Navn</label>
                 </div>
-                <div className="inputBoxes" id="descriptionBox">
-                    <textarea rows={20} cols={80} name="descripton"></textarea>
+                <div className={styles.inputBoxes} id="descriptionBox">
+                    <textarea className={styles.descriptionTextArea} rows={20} cols={80} name="descripton"></textarea>
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
-                <div className="inputBoxes" id="Pricebox">
-                    <input name="startPriceInKroner" type="number"></input>
-                    <label htmlFor="startPriceInKroner">Start pris</label>
+                <div className={styles.inputBoxes} id="Pricebox">
+                    <input className={styles.inputBoxContent} name="startPriceInKroner" type="number"></input>
+                    <label className={styles.inputBoxContent} htmlFor="startPriceInKroner">Start pris</label>
                 </div>
-                <div className="inputBoxes" id="buttonBox">
+                <div className={styles.inputBoxes} id="buttonBox">
                     <button type="submit">Send inn</button>
                 </div>
             </form>
