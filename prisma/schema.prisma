@@ -16,15 +16,6 @@ datasource db {
 
 
 
-model User {
-   id Int @id @default(autoincrement()) 
-   name String 
-   email String @unique
-   isAdmin Boolean @default(false)
-   passordBurdeEndres String //TODO Fjern!
-   auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
-   bids Bid[]
-}
 
 model AuksjonsObjekt {
   id Int @id @default(autoincrement())
@@ -34,9 +25,9 @@ model AuksjonsObjekt {
   finalSaleTime DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
   approved Boolean @default(false)
-  author User? @relation(fields: [autorId], references: [id])
-  autorId Int? //TODO fiks tilbake til requierd
+  author User? @relation(fields: [autorId], references: [id]
   imageName String @default("default.jpeg")
+  autorId String? //TODO fiks tilbake til requierd
   bids Bid[]
 }
 
@@ -46,9 +37,63 @@ model Bid{
   bidDate DateTime @default(now())
 
   bidder User @relation(fields: [bidderId],references: [id])
-  bidderId Int
+  bidderId String
   
   auctionObject AuksjonsObjekt @relation(fields: [auctionItemId],references: [id])
   auctionItemId Int
   
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  isAdmin Boolean @default(false)
+  auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
+  bids Bid[]
+ 
+  @@map("users")
+}
+ 
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@map("sessions")
+}
+ 
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
