@@ -1,9 +1,14 @@
 "use client"
-import React, { FormEvent } from "react"
+import React, { FormEvent, useState } from "react"
 import "./style.css"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
+import ImageFromFileName from "../components/pictureServerComponents/getImgFormName"
+import ImageUploaderButton from "../components/pictureServerComponents/uploadButton"
+import {uploadImage} from "../components/pictureServerComponents/uploadImageServerFunction"
 
 export default function makeAuctionItem() {
+    const [uploadedFileName, setUploadedFileName] = useState('default.jpeg');
+
     async function sendFormData(e: FormData) {
 
         if ((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) {
@@ -18,7 +23,7 @@ export default function makeAuctionItem() {
             alertBox("It looks like yyour missning a description")
             return;
         }
-
+        e.append("imageFileName",uploadedFileName)
         e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
         const response = await createAuctionItemFromForm(e)
 
@@ -53,6 +58,17 @@ export default function makeAuctionItem() {
                     <button type="submit">Send inn</button>
                 </div>
             </form>
+            <h1>last opp bilde</h1>
+                  <ImageUploaderButton
+                    uploadImage={uploadImage}
+                    setUploadedFileName={setUploadedFileName}
+                  />
+                  {uploadedFileName && (
+                    <div className="mt-4 text-green-500">
+                      Uploaded File: {uploadedFileName}
+                    </div>
+                  )}
+                  <ImageFromFileName filename={uploadedFileName}></ImageFromFileName>
         </div >
     )
 
