@@ -1,6 +1,6 @@
 "use client"
 import React, { FormEvent } from "react"
-import styles from "./putItemForAuction.module.scss"
+import style from "./style.module.scss"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 import getUserID from "@/app/api/auth/getUserId"
 
@@ -42,21 +42,21 @@ export default function makeAuctionItem() {
     }
 
     return (
-        <div className={styles.mainDiv}>
+        <div className={style.mainDiv}>
             <form action={(e) => sendFormData(e)}>
-                <div className={styles.inputBoxes} id="NameBox">
+                <div className={style.inputBoxes} id="NameBox">
                     <input name="name"></input>
                     <label htlm-for="name">Navn</label>
                 </div>
-                <div className={styles.inputBoxes} id="descriptionBox">
-                    <textarea className={styles.descriptionTextArea} rows={20} cols={80} name="descripton"></textarea>
+                <div className={style.inputBoxes} id="descriptionBox">
+                    <textarea className={style.descriptionTextArea} rows={20} cols={80} name="descripton"></textarea>
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
-                <div className={styles.inputBoxes} id="Pricebox">
-                    <input className={styles.inputBoxContent} name="startPriceInKroner" type="number"></input>
-                    <label className={styles.inputBoxContent} htmlFor="startPriceInKroner">Start pris</label>
+                <div className={style.inputBoxes} id="Pricebox">
+                    <input className={style.inputBoxContent} name="startPriceInKroner" type="number"></input>
+                    <label className={style.inputBoxContent} htmlFor="startPriceInKroner">Start pris</label>
                 </div>
-                <div className={styles.inputBoxes} id="buttonBox">
+                <div className={style.inputBoxes} id="buttonBox">
                     <button type="submit">Send inn</button>
                 </div>
             </form>
