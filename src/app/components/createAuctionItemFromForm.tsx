@@ -13,7 +13,6 @@ export async function createAuctionItemFromForm(e: FormData) {
     if((((typeof (e.get("descripton")) === "string")) == false) || (e.get("descripton") == "")) {
         return false;
     }
-
     await prisma.auksjonsObjekt.create({
         data: {
             currentSaleTime: new Date("2022-03-25"),
@@ -21,7 +20,8 @@ export async function createAuctionItemFromForm(e: FormData) {
             description: e.get("descripton") as string,
             name: e.get("name") as string,
             startPriceOre: parseInt(e.get("startPriceInOre") as string) * 100,
-            imageName:e.get("imageFileName") as string
+            autorId: (e.get("userById") as string),
+            imageName:e.get("imageFileName") as string,
         }
     })
 

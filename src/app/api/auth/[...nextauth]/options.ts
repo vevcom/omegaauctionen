@@ -62,5 +62,22 @@ export const options: NextAuthOptions = {
             }
         })
     ],
+    callbacks: {
+        session: ({session, token}) => {
+            console.log("Session Callback", { session, token })
+            return session
+        },
+        jwt: ({ token, user }) => {
+            console.log("JWT Callback", {token, user})
+            if (user) {
+                return {
+                    ...token,
+                    id: user.id,
+                    
+                }
+            }
+            return token
+        }
+    },
     adapter: PrismaAdapter(prisma),
 }

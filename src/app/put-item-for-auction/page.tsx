@@ -1,4 +1,5 @@
 "use client"
+import getUserID from "@/app/api/auth/getUserId"
 import React, { FormEvent, useState } from "react"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 import ImageFromFileName from "../components/pictureServerComponents/getImgFormName"
@@ -18,10 +19,15 @@ export default function makeAuctionItem() {
 
 
     async function sendFormData(e: FormData) {
-
         if ((((typeof (e.get("name")) === "string")) == false) || (e.get("name") == "")) {
             alertBox("Ser ut som du mangler et navn")
             return;
+        }
+        const userId = await getUserID()
+        if(userId ==false){
+            alertBox("couldnt get  user ")
+            return;
+
         }
         if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("descripton") == "")) {
             alertBox("Ser ut som du mengler en beskrivelse")
@@ -33,8 +39,8 @@ export default function makeAuctionItem() {
         }
         e.append("imageFileName", uploadedFileName)
         e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
+        e.append("userById", (userId).toString())
         const response = await createAuctionItemFromForm(e)
-
 
         if (response == true) {
             alertBox("Det funket :)")
