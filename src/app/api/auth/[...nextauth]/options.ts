@@ -3,6 +3,8 @@ import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import { FeideProvider } from "./feide";
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/app/prisma";
 
 // Feide login
 const FeideExtraScopes = ['email','displayName','userid','userinfo-name','openid'];
@@ -60,4 +62,22 @@ export const options: NextAuthOptions = {
             }
         })
     ],
+    callbacks: {
+        session: ({session, token}) => {
+            console.log("Session Callback", { session, token })
+            return session
+        },
+        jwt: ({ token, user }) => {
+            console.log("JWT Callback", {token, user})
+            if (user) {
+                return {
+                    ...token,
+                    id: user.id,
+                    
+                }
+            }
+            return token
+        }
+    },
+    adapter: PrismaAdapter(prisma),
 }
