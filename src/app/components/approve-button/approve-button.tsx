@@ -8,7 +8,7 @@ import PopUpBox from "@/app/components/popUp/popUp"
 export default function ApproveButton({ objectId }: { objectId: number }) {
     const [popUpOn, SetPopUpOn] = useState(false)
     const [popUpText, SetPopUpText] = useState("")
-    const popUpLengthMilliSeconds = 5000
+    const popUpLength_ms = 5000
 
     const delay = (ms: number) => new Promise(
         resolve => setTimeout(resolve, ms)
