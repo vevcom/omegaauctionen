@@ -10,7 +10,7 @@ export default function ImageUploaderButton({ setUploadedFileName }: { setUpload
    */
   const [popUpOn, SetPopUpOn] = useState(false)
   const [popUpText, SetPopUpText] = useState("")
-  const popUpLengthMilliSeconds = 5000
+  const popUpLength_ms = 5000
 
   const delay = (ms:number) => new Promise(
     resolve => setTimeout(resolve, ms)
