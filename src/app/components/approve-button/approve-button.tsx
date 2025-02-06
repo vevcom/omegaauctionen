@@ -27,7 +27,7 @@ export default function ApproveButton({ objectId }: { objectId: number }) {
     async function alertBox(alertText: string) {
         SetPopUpText(alertText)
         SetPopUpOn(true)
-        await delay(popUpLengthMilliSeconds);
+        await delay(popUpLength_ms);
         SetPopUpOn(false)
         SetPopUpText("")
     }
