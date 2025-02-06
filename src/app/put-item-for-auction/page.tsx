@@ -2,7 +2,7 @@
 import getUserID from "@/app/api/auth/getUserId"
 import React, { FormEvent, useState } from "react"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
-import ImageFromFileName from "../components/pictureServerComponents/getImgFormName"
+import ImageFromFileName from "../components/pictureServerComponents/getImgFormNameComponent"
 import ImageUploaderButton from "../components/pictureServerComponents/uploadButton"
 import { uploadImage } from "../components/pictureServerComponents/uploadImageServerFunction"
 import style from "./style.module.scss"

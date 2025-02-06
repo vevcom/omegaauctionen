@@ -1,7 +1,7 @@
 "use server";
 
 export async function uploadImage(formData) {
-  const serverIP = 'http://127.0.0.1:5000'
+  const serverIP = process.env.NEXT_PUBLIC_PICTURE_SERVER_URL
   const uploadPath = serverIP + '/upload'
   try {
     const response = await fetch(uploadPath, {

@@ -5,7 +5,7 @@ import { prisma } from '../../../prisma';
 import "./styles.scss"
 import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';
-import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFormName"
+import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFormNameComponent"
 
 async function App() {
   const auctionItems = await prisma.auksjonsObjekt.findMany()
