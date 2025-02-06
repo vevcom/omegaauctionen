@@ -34,6 +34,11 @@ Open the project in your browser on the link provided by npm after running "npm 
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+
+To use picture server clone the server from
+https://github.com/Hsackboy/pictureServer
+and run main.py
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

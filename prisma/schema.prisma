@@ -25,7 +25,7 @@ model AuksjonsObjekt {
   finalSaleTime DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
   approved Boolean @default(false)
-  author User? @relation(fields: [autorId], references: [id]
+  author User? @relation(fields: [autorId], references: [id])
   imageName String @default("default.jpeg")
   autorId String? //TODO fiks tilbake til requierd
   bids Bid[]
