@@ -13,7 +13,7 @@ export default async function get_objects_all(sortType:string,reverse=false) {
     objekter = await sortObjectsFunc(objekter,sortType,reverse)
 
     let currentPageList:any = []
-    for(let i = 0; i <objectAmount;){
+    for(let i = 0; i <objectAmount;i++){
         if (currentPageList.length == itemsPerPage){
             pagesList.push(currentPageList)
             currentPageList = []
