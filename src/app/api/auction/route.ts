@@ -1,6 +1,7 @@
 import { prisma } from '@/app/prisma';
 import { NextResponse, NextRequest } from 'next/server';
-import { Bid } from '@prisma/client';
+import { Bid,User } from '@prisma/client';
+import getUser from '../auth/getUser';
 
 export const GET = async (objectId:number) => {
   const object = await prisma.auksjonsObjekt.findUnique({
@@ -43,13 +44,20 @@ export const POST = async (request: NextRequest) => {
 
   //Create new bid with price, User, UserId, auctionObject and auctonObjectId, add to auctionObject Bids[]
 
+  const currentUser = await getUser();
+
+  if (!currentUser) {
+    return NextResponse.json({ error: "User not found." }, { status: 404 });
+  }
+
+
   const newBid: Bid = await prisma.bid.create({
 
     priceOre:bidAmount,   
-    bidder User @relation(fields: [bidderId],references: [id]),
-    bidderId String,
+    bidder: currentUser,
+    bidderId: currentUser.id,
     
-    auksjonsObjekt: auctionObject,
+    auctionObject: auctionObject,
     auctionItemId: objectId
   })
 
@@ -62,7 +70,4 @@ export const POST = async (request: NextRequest) => {
   });
 
   return NextResponse.json({ message: "Bid placed successfully!" });
-} catch (error) {
-  console.error("Error processing bid:", error);
-  return NextResponse.json({ error: "Failed to place bid." }, { status: 500 });
-};
+} 
