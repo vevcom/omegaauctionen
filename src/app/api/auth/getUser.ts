@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth"
 import { options } from "./[...nextauth]/options"
 import { prisma } from "@/app/prisma";
 
-export default async function getUserID() {
+export default async function getUser() {
     // gets session information
     const session = await getServerSession(options);
     if(!session) {
