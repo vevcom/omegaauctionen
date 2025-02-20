@@ -6,6 +6,7 @@ import {Banner} from "./components/banner";
 import {Overlay} from "@/app/components/overlay";
 import style from "./page.module.scss"
 import { useState } from "react";
+import { SessionProvider } from "next-auth/react";
 
 
 export const oldEnglish = localFont({
@@ -35,6 +36,8 @@ export default function RootLayout({
 
 
   return (
+    <SessionProvider>
+
     <html lang="no">
       <head>
         <title>Omegaauctionen 2025</title>
@@ -51,5 +54,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+    </SessionProvider>
   );
 }
