@@ -1,9 +1,13 @@
 .objectPage {
     color:auto;
+    margin:5%;
+    padding-left:5%;
+    padding-right:5%;
 }
 
 .objectHeading {
     font-size:xx-large;
+    text-align: center;
 }
 
 .imagecontainer {
@@ -21,4 +25,8 @@
     height: 100%;
     object-fit: contain;
     overflow: hidden;
+}
+
+.description {
+    font-size:small;
 }
