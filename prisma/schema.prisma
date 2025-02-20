@@ -12,24 +12,29 @@ model AuksjonsObjekt {
   name            String
   description     String
   startPriceOre   Int      @map("startPrice")
+
   currentPriceOre Int
-  finalSaleTime   DateTime
-  currentSaleTime DateTime
+  finalSaleTime   DateTime //TODO legg inn default
+  currentSaleTime DateTime //TODO legg inn default
   approved        Boolean  @default(false)
   imageName       String   @default("default.jpeg")
-  authorId        String?
+  authorId        String? //TODO fiks tilbake til requiered
   author          User?    @relation(fields: [authorId], references: [id])
+
   bids            Bid[]
 }
 
 model Bid {
-  bidId         Int            @id @default(autoincrement())
-  priceOre      Int            @map("price")
-  bidDate       DateTime       @default(now())
-  bidderId      String
-  auctionItemId Int
+
+  bidId    Int      @id @default(autoincrement())
+  priceOre Int      @map("price")
+  bidDate  DateTime @default(now())
+
+  bidder   User   @relation(fields: [bidderId], references: [id])
+  bidderId String
+
   auctionObject AuksjonsObjekt @relation(fields: [auctionItemId], references: [id])
-  bidder        User           @relation(fields: [bidderId], references: [id])
+  auctionItemId Int
 }
 
 model Account {
@@ -38,14 +43,16 @@ model Account {
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
-  refresh_token     String?
-  access_token      String?
+
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -53,14 +60,16 @@ model Account {
 
 model User {
   id               String           @id @default(cuid())
+
+  name             String
   email            String?          @unique
   emailVerified    DateTime?        @map("email_verified")
   image            String?
-  isAdmin          Boolean          @default(false)
-  auksjonsObjekter AuksjonsObjekt[]
-  bids             Bid[]
   accounts         Account[]
   sessions         Session[]
+  isAdmin          Boolean          @default(false)
+  auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
+  bids             Bid[]
 
   @@map("users")
 }
