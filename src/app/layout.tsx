@@ -4,6 +4,7 @@ import "./globals.scss";
 import style from "./page.module.scss"
 import {Header} from "@/app/components/header";
 import { useState } from "react";
+import { SessionProvider } from "next-auth/react";
 
 
 
@@ -35,6 +36,7 @@ export default function RootLayout({
 
 
   return (
+    <SessionProvider>
     <html lang="no">
       <head>
         <title>Omegaauctionen 2025</title>
@@ -47,5 +49,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+    </SessionProvider>
   );
 }
