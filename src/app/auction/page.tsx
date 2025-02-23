@@ -15,7 +15,7 @@ export default function AuctionPage() {
     </div>
 
     <div style={{display:"flex",flexWrap:"wrap",width:"80vw",marginTop:"10vw"}}>
-        <div style={{backgroundColor:"var(--lightblue)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
+        <a href="auction/1"><div style={{backgroundColor:"var(--lightblue)",width:"15vw",height:"20vw",margin:"2vw"}}></div></a>
         <div style={{backgroundColor:"var(--orange)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
         <div style={{backgroundColor:"var(--altgrey)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
         <div style={{backgroundColor:"var(--green)",width:"15vw",height:"20vw",margin:"2vw"}}></div>

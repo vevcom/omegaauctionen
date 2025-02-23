@@ -2,14 +2,16 @@
 import { prisma } from "../../prisma"
 
 
-export async function createAuctionItem(description:string,name:string,startPrice:number,approved:boolean) {
+export async function createAuctionItem(id:number,description:string,name:string,startPrice:number,approved:boolean) {
     await prisma.auksjonsObjekt.create({
         data: {
+            id:id,
             currentSaleTime: new Date("2022-03-25"),
             finalSaleTime: new Date("2022-03-25"),
             description: description,
             name: name,
             startPriceOre: startPrice,
+            currentPriceOre: startPrice,
             approved: approved,
             imageName: "default.jpeg"
 
