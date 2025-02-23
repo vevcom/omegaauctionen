@@ -43,7 +43,8 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
           }
       
     };  
-    return <div className={style.objectPage}>
+    return (
+    <div className={style.objectPage}>
       <div className={style.objectHeading}>
         <div className={style.title}>{object.name}</div>
         <div className={style.imagecontainer}>
@@ -51,21 +52,22 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         </div>
         <div className={style.description}>{object.description}</div>
 
-        <form
+        <form className={style.form}
         onSubmit={(e) => {
           e.preventDefault();
           placeBid();
         }}>
-          <input
+          <input 
+            className={style.input}
             type="number"
-            placeholder="Legg inn bud"
+            placeholder="Skriv inn bud"
             min="1"
             value={bidAmount}
             onChange={handleInputChange}
             required
           />
-          <button type="submit">By</button>
+          <button className={style.button} type="submit">Legg inn bud</button>
         </form>
       </div>
     </div>
-}
+)}

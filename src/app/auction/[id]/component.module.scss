@@ -1,32 +1,82 @@
 .objectPage {
     color:auto;
     margin:5%;
-    padding-left:5%;
-    padding-right:5%;
+
+    width:100%;
+    align-items:center;
 }
 
 .objectHeading {
     font-size:xx-large;
     text-align: center;
+    width:100%;
 }
 
+.title {
+    padding:7.5% 0;
+    margin: 0 20%;
+}
 .imagecontainer {
+    content:"";
     cursor:pointer;
     display:flex;
+    flex-direction: column;
+    justify-content: center;
     align-items:center;
-    height:5vh;
+    max-height:35vh;
     min-width:10vw;
-    border: 3px black;
+    margin:auto;
+
 }
-
-
-.imagecontainer img {
-    width: 100%;
-    height: 100%;
+.imagecontainer img{
+    padding:5%;
+    max-width: 100%;
+    max-height: 100%;
+    
     object-fit: contain;
-    overflow: hidden;
+
+}
+.imagecontainer::before{
+    content:"";
+    width:80%;
+    height:0;
+    border: 0.3px solid var(--foreground);
+}
+.imagecontainer::after{
+    content:"";
+    width:80%;
+    height:0;
+    border: 0.3px solid var(--foreground);
+}
+.description {
+    margin:5vh 0;
+    font-size:medium;
 }
 
-.description {
-    font-size:small;
+
+
+
+
+.form {
+    display:flex;
+    flex-direction: column;
+    width:80vw;
+    margin:auto;
+    font-size:60%;
+    margin-top:5vh;
+} .input {
+    background-color: var(--background);
+    color: var(--foreground);
+    height: 3vh;
+    margin-bottom:1vh;
+    border: 1px solid var(--foreground);
+    border-radius: 0.2vh;
+    height:15vw;
+    padding-left:7vw;
+    font-size:inherit;
+} .button {
+    background-color: var(--foreground);
+    color:var(--background);
+    height:15vw;
+    font-size:inherit;
 }
