@@ -32,6 +32,8 @@ export default async function AuctionObjectPage({ params }: { params: { id: stri
     const auctionObject = await prisma.auksjonsObjekt.findUnique({
         where: { id: objectId },
     });
+    await prisma.$disconnect();
+    
     //Default object for when db call unsuccessfull
     const defaultAuctionObject = {
         id:3,
@@ -48,8 +50,7 @@ export default async function AuctionObjectPage({ params }: { params: { id: stri
 
 
     return (
-        <div>
+
             <AuctionObject object={auctionObject ? auctionObject : defaultAuctionObject}/>
-        </div>
     );
 }
