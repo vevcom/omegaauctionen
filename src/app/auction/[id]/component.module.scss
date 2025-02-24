@@ -11,7 +11,23 @@
     text-align: center;
     width:100%;
 }
+.committeeHeading {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size:large;
+    padding-bottom:7.5%;
+}
 
+.committeeLogo img {
+    background-image: url('https://www.omega.ntnu.no/store/image/default/vevcomlogo.webp?url=/store/images/1ca57af5-141f-4037-b1a2-61120e0bc8c8.webp');
+    background-size: 30px 30px;
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    width: 30px; /* Define the width of the container */
+    height: 30px;
+    border-radius: 50%;
+    margin-left:50%;
+}
 .title {
     padding:7.5% 0;
     margin: 0 20%;
@@ -49,8 +65,9 @@
     border: 0.3px solid var(--foreground);
 }
 .description {
-    margin:5vh 0;
+    margin:5vh 15%;
     font-size:medium;
+    text-align: left;
 }
 
 
