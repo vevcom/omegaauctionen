@@ -7,20 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AuksjonsObjektType {
+  AUKSJON
+  SALG
+  LIVE
+}
+
 model AuksjonsObjekt {
-  id              Int      @id @default(autoincrement())
+  id              Int                 @id @default(autoincrement())
   name            String
   description     String
-  startPriceOre   Int      @map("startPrice")
-
-  currentPriceOre Int
-  finalSaleTime   DateTime //TODO legg inn default
-  currentSaleTime DateTime //TODO legg inn default
-  approved        Boolean  @default(false)
-  imageName       String   @default("default.jpeg")
-  authorId        String? //TODO fiks tilbake til requiered
-  author          User?    @relation(fields: [authorId], references: [id])
-
+  type            AuksjonsObjektType  @default(AUKSJON)
+  stock           Int                 @default(1)
+  startPriceOre   Int                 @map("startPrice")
+  finalSaleTime   DateTime            //TODO legg inn default
+  currentSaleTime DateTime            //TODO legg inn default
+  approved        Boolean             @default(false)
+  author          User?               @relation(fields: [autorId], references: [id])
+  imageName       String              @default("default.jpeg")
+  autorId         String?             //TODO fiks tilbake til requierd
   bids            Bid[]
 }
 
