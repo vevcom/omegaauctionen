@@ -3,7 +3,7 @@ import ImageComponent from "@/app/components/pictureServerComponents/getImgFromN
 
 export default function ItemsPageComponent({ allPages, currentPageNumber }) {
     if (!allPages[currentPageNumber]){
-        return <p>Ingen ting å se her :/</p>;
+        return <p>Ingen ting å se her 🙈</p>;
       }
 
 
