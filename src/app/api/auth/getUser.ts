@@ -20,6 +20,7 @@ export default async function getUser() {
 
     if(!user){
         return null;
+
     }
     return user;
 }

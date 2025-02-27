@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,21 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AuksjonsObjektType {
+  AUKSJON
+  SALG
+  LIVE
+}
+
 model AuksjonsObjekt {
-  id              Int      @id @default(autoincrement())
+  id              Int                 @id @default(autoincrement())
   name            String
   description     String
-  startPriceOre   Int      @map("startPrice")
-  finalSaleTime   DateTime //TODO legg inn default
-  currentSaleTime DateTime //TODO legg inn default
-  approved        Boolean  @default(false)
-  author          User?    @relation(fields: [autorId], references: [id])
-  imageName       String   @default("default.jpeg")
-  autorId         String? //TODO fiks tilbake til requierd
+  type            AuksjonsObjektType  @default(AUKSJON)
+  stock           Int                 @default(1)
+  startPriceOre   Int                 @map("startPrice")
+  finalSaleTime   DateTime            //TODO legg inn default
+  currentSaleTime DateTime            //TODO legg inn default
+  approved        Boolean             @default(false)
+  author          User?               @relation(fields: [autorId], references: [id])
+  imageName       String              @default("default.jpeg")
+  autorId         String?             //TODO fiks tilbake til requierd
   bids            Bid[]
 }
 
 model Bid {
+
   bidId    Int      @id @default(autoincrement())
   priceOre Int      @map("price")
   bidDate  DateTime @default(now())
@@ -45,6 +48,7 @@ model Account {
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
+
   refresh_token     String? @db.Text
   access_token      String? @db.Text
   expires_at        Int?
@@ -61,6 +65,7 @@ model Account {
 
 model User {
   id               String           @id @default(cuid())
+
   name             String
   email            String?          @unique
   emailVerified    DateTime?        @map("email_verified")

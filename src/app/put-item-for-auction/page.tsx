@@ -64,14 +64,14 @@ export default function makeAuctionItem() {
             <form action={(e) => sendFormData(e)}>
                 <div className={style.inputBoxes}>
                     <input name="name"></input>
-                    <label htlm-for="name">Navn</label>
+                    <label htlm-for="name">Navn på salgsobjekt</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.descriptionBox}`}>
                     <textarea rows={20} cols={80} name="descripton"></textarea>
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
                 <div className={style.inputBoxes} >
-                    <input name="startPriceInKroner" type="number"></input>
+                    <input name="startPriceInKroner" type="number" min={0.01} max={10000}></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.buttonBox}`}>

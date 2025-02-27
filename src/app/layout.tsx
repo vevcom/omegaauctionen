@@ -1,13 +1,10 @@
 "use client"
 import localFont from "next/font/local";
 import "./globals.scss";
-import {Navbar} from "@/app/components/Navbar";
-import {Banner} from "./components/banner";
-import {Overlay} from "@/app/components/overlay";
 import style from "./page.module.scss"
+import {Header} from "@/app/components/header";
 import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
-
 
 export const oldEnglish = localFont({
   src: "./fonts/OldEnglishFive.woff",
@@ -20,6 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   const [overlay_width,set_overlay_width] = useState("0");
   const toggle_overlay_width = () =>{
     console.log(overlay_width);
@@ -37,18 +35,13 @@ export default function RootLayout({
 
   return (
     <SessionProvider>
-
     <html lang="no">
       <head>
         <title>Omegaauctionen 2025</title>
         <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link>
       </head>
       <body>
-        <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>
-        <div>
-          <Banner toggle_overlay={toggle_overlay_width}></Banner>
-          <Navbar all_links={links}></Navbar>
-        </div>
+        <Header></Header>
         <div className = {style.page}>
           {children}
         </div>
