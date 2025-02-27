@@ -1,28 +1,47 @@
-import style from "./page.module.scss"
 
 
+import { objectEnumNames } from "@prisma/client/runtime/library"
+import {prisma} from "../prisma"
+import styles from "./page.module.scss"
+import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
 
-export default function AuctionPage() {
+export default async function side() {
+    const auctionobject = await prisma.auksjonsObjekt.findMany();
+    return (<div className={styles.side}>
+        
+        <div>
+            <h1 className={styles.title}>Auksjonsobjekter</h1>
+        </div>
+        
+        <div className={styles.objekter}>
+            {auctionobject
+            .filter((object => object.approved))
+            .map(object => (
+                
+                <a key={object.id} className={styles.objekt} href={`auction/${object.id}`}>
+                    
+                        <div className={styles.objectContainer}>
+                            
+                                <ImageComponent style={styles.auctionImage} filename={object.imageName}/>
+                            <div className={styles.textContainer}>
+                                <h3 className={styles.navn}>{object.name}</h3>
+                                <br/>
+                                <p className={styles.pris}>{object.startPriceOre/100} kr</p>
+                            </div>
+                        </div>
+                    
+                </a>
+                ))}                
+        </div>
+        
 
-
-    return <>
-    <div className={style.titleCard}>
-        <h2>Auksjonsobjekter</h2>
-        <p style={{padding:"10vw",textAlign:"left"}}>Trenger du ekstra øvingstimer i et fag? Kanskje har du alltid drømt om privat midtsidebilde? 
-            Eller ønsker du å være den stolte eier av et diamant-badge på Veven? Kanskje privat bed-pres med
-            Contactor? Det finnes ingen grenser for hva du kan skaffe på Omegaauctionen!
-        </p>
-    </div>
-
-    <div style={{display:"flex",flexWrap:"wrap",width:"80vw",marginTop:"10vw"}}>
-        <a href="auction/1"><div style={{backgroundColor:"var(--lightblue)",width:"15vw",height:"20vw",margin:"2vw"}}></div></a>
-        <div style={{backgroundColor:"var(--orange)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--altgrey)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--green)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--altgrey)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--lightblue)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--green)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--orange)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-    </div>
-    </>
+        
+        
+       </div> 
+    )
 }
+
+
+
+
+
