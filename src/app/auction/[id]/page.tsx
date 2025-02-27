@@ -46,6 +46,7 @@ export default async function AuctionObjectPage({ params }: { params: { id: stri
         approved: true,
         imageName: "default.jpg",
         authorId:"0",
+        committee: 0,
     }
 
 

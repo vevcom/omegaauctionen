@@ -20,7 +20,7 @@ model AuksjonsObjekt {
   imageName       String   @default("default.jpeg")
   authorId        String? //TODO fiks tilbake til requiered
   author          User?    @relation(fields: [authorId], references: [id])
-
+  committee       Committee @default(NOCOMMITTEE)
   bids            Bid[]
 }
 
@@ -91,4 +91,26 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+enum Committee {
+  NOCOMMITTEE
+  VEVCOM
+  HS
+  FADDERSTYRET
+  OMBUL
+  LOCCOM
+  CONTACTOR
+  KIELDER
+  PHAESTCOM
+  SPORTOGSPILL
+  DGR
+  OV
+  SOSCOM
+  HEUTTECOM
+  BRYGCOM
+  BLAESTCOM
+  LOPHTCOM
+  OMEGAREVYEN
+  PHINANSCOM
 }
