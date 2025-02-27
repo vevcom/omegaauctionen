@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ItemsPageComponent from "@/app/components/items-show-page/page";
 import get_objects_all from "@/app/components/get-auction-objects/get-objects";
 
-export default function App() {
+export default function AuctionItemsPage() {
   const [pageNumber, setPageNumber] = useState(0);
   const [allPages, setAllPages] = useState([]);
 
