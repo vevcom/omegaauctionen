@@ -6,10 +6,17 @@ import sortObjectsFunc from "@/app/components/get-auction-objects/sort-objects-f
 
 export default async function get_objects_all(sortType: string, reverse = false, adminMode = false) {
     const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_OBJECTS_PER_PAGE as string)
+
+    // checks if it should load approved or unapproved items
+    let loadApporvedItems = true
+    if (adminMode){
+        loadApporvedItems = false
+    }
+
     let objekter = await prisma.auksjonsObjekt.findMany({
         where:
         {
-            approved: !adminMode,
+            approved: loadApporvedItems,
         },
     })
     let objectAmount = objekter.length
