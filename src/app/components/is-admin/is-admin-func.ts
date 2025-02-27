@@ -12,20 +12,4 @@ export default async function is_admin() {
         }
     }
     return false
-    // const userID = await getUserID()
-    // console.log(userID)
-    // if (userID) {
-    //     const userData = await prisma.user.findFirst({
-    //         where:
-    //         {
-    //             id: userID,
-    //         },
-    //     })
-    //     console.log(userData)
-    //     if (userData) {
-    //         if (userData.isAdmin) {
-    //             setLoadAdminPage(true)
-    //         }
-    //     }
-    // }
 }
