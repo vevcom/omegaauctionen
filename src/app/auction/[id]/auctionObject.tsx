@@ -86,7 +86,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
     fetchData();
   }, []);
 
-
+  //TODO: add rendering for enums
   return <div className={style.objectPage}>
     <div className={style.objectHeading}>
       <div className={style.title}>{object.name}</div>

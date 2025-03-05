@@ -2,9 +2,9 @@ import Link from "next/link";
 import styles from "./page.module.scss"
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
 
-export default function ItemsPageComponent({ allPages, currentPageNumber }) {
+export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }) {
     if (!allPages[currentPageNumber]){
-        return <p>Ingen ting å se her 🙈</p>;
+        return <p>Laster inn... Ingen ting å se her 🙈</p>;
       }
 
 
@@ -12,7 +12,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber }) {
     return (<div className={styles.side}>
         
         <div>
-            <h1 className={styles.title}>Auksjonsobjekter</h1>
+            <h1 className={styles.title}>{pageTitle}</h1>
         </div>
         
         <div className={styles.objekter}>
