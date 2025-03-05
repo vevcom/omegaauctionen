@@ -11,25 +11,8 @@ import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFr
 
 
 
-export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
+function BidPanel(){
   const [bidAmount, setBidAmount] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isTime,setIsTime] = useState(false)
-
-  useEffect(() => {
-    async function fetchData() {
-      const is_admin_response = await is_admin()
-      setIsAdmin(is_admin_response)
-      const auctionDate = new Date('2025-03-20')
-      const now = new Date()
-      setIsTime(auctionDate==now)
-      setIsTime(true)
-
-    }
-    fetchData();
-  }, []);
-
-
 
 
   //bid-field change-handler
@@ -65,21 +48,9 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
   };
 
-  if(!isTime){
-    return(
-      <h1>IT IS NOT TIME</h1>
-    )
-  }
 
-  return <div className={style.objectPage}>
-    <div className={style.objectHeading}>
-      <div className={style.title}>{object.name}</div>
-      <div className={style.imagecontainer}>
-        <ImageFromFileName style={style} filename={object.imageName}></ImageFromFileName>
-      </div>
-      <div className={style.description}>{object.description}</div>
-
-      <form
+  return(
+    <form
         onSubmit={(e) => {
           e.preventDefault();
           placeBid();
@@ -94,6 +65,37 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         />
         <button type="submit">By</button>
       </form>
+  )
+}
+
+
+export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isTime,setIsTime] = useState(false)
+
+  useEffect(() => {
+    async function fetchData() {
+      const is_admin_response = await is_admin()
+      setIsAdmin(is_admin_response)
+      const auctionDate = new Date('2025-03-20')
+      const now = new Date()
+      setIsTime(auctionDate==now)
+      setIsTime(true) // TODO: remove before production
+
+    }
+    fetchData();
+  }, []);
+
+
+  return <div className={style.objectPage}>
+    <div className={style.objectHeading}>
+      <div className={style.title}>{object.name}</div>
+      <div className={style.imagecontainer}>
+        <ImageFromFileName style={style} filename={object.imageName}></ImageFromFileName>
+      </div>
+      <div className={style.description}>{object.description}</div>
+
+      {isTime ? <BidPanel></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
     </div>
 
     {(isAdmin && (!object.approved)) ? <DeleteButton objectId={object.id} ></DeleteButton> : null}
