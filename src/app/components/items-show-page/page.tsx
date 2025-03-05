@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./page.module.scss"
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
 
@@ -17,7 +18,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber }) {
         <div className={styles.objekter}>
             {allPages[currentPageNumber].map(object => (
                 
-                <a key={object.id} className={styles.objekt} href={`auction/${object.id}`}>
+                <Link key={object.id} className={styles.objekt} href={`/auction/${object.id}`}>
                     
                         <div className={styles.objectContainer}>
                             
@@ -29,7 +30,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber }) {
                             </div>
                         </div>
                     
-                </a>
+                </Link>
                 ))}                
         </div>
         

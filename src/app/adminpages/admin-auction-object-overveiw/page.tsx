@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ItemPageComponent from "@/app/examples/pages/auctionObjectTestPageVersion2/items-component"; //TODO: replace with actual page loading
+import ItemPageComponent from "@/app/components/items-show-page/page"; //TODO: replace with actual page loading
 import get_objects_all from "@/app/components/get-auction-objects/get-objects";
 import is_admin from "@/app/components/is-admin/is-admin-func";
 
