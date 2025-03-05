@@ -1,7 +1,7 @@
-body{
-    /* background-color: aliceblue; */
-    background-color: #a0e5de;
-}
+// body{
+//     /* background-color: aliceblue; */
+//     background-color: #a0e5de;
+// }
 
 .ja{
     background-color: lightgreen;
@@ -101,7 +101,7 @@ body{
         .artikkel>p{
             margin: 4%;
         }
-        hr{
+        > hr{
             margin: 1%;
         }
 }
@@ -131,15 +131,15 @@ body{
     .artikkel>p{
         margin: 4%;
     }
-    hr{
+    > hr{
         margin: 1%;
     }
 }
 
 
 
-a{
-    text-decoration: none;
-    color: black;
-    background-color: white;
-}
+// a{
+//     text-decoration: none;
+//     color: black;
+//     background-color: white;
+// }

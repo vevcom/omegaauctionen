@@ -26,9 +26,11 @@
 }
 
 
+
 .mainDiv {
     /* background-color: brown; */
     margin: auto;
+    margin-block: 10rem;
     width: 90%;
 }
 
@@ -60,7 +62,7 @@
     display: block;
     margin-bottom: 0.3em;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 2rem;
     color: #555;
     transition: color 0.3s ease-in-out;
 }
@@ -139,3 +141,4 @@
     /* Optional: Add borders to cells */
     box-sizing: border-box;
 }
+

@@ -14,11 +14,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AuksjonsObjektType {
+  AUKSJON
+  SALG
+  LIVE
+}
+
 model AuksjonsObjekt {
-  id            Int    @id @default(autoincrement())
+  id            Int                @id @default(autoincrement())
   name          String
   description   String
-  startPriceOre Int    @map("startPrice")
+  startPriceOre Int                @map("startPrice")
+  type          AuksjonsObjektType @default(AUKSJON)
+  stock         Int                @default(1)
 
   currentPriceOre Int
   finalSaleTime   DateTime //TODO legg inn default

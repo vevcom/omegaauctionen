@@ -1,28 +1,28 @@
-import style from "./page.module.scss"
+"use client";
+import React, { useState, useEffect } from "react";
+import ItemsPageComponent from "@/app/components/items-show-page/page";
+import get_objects_all from "@/app/components/get-auction-objects/get-objects";
 
+export default function AuctionItemsPage() {
+  const [pageNumber, setPageNumber] = useState(0);
+  const [allPages, setAllPages] = useState([]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const data = await get_objects_all("");
+      setAllPages(data);
+    }
+    fetchData();
+  }, []);
 
-export default function AuctionPage() {
-
-
-    return <>
-    <div className={style.titleCard}>
-        <h2>Auksjonsobjekter</h2>
-        <p style={{padding:"10vw",textAlign:"left"}}>Trenger du ekstra øvingstimer i et fag? Kanskje har du alltid drømt om privat midtsidebilde? 
-            Eller ønsker du å være den stolte eier av et diamant-badge på Veven? Kanskje privat bed-pres med
-            Contactor? Det finnes ingen grenser for hva du kan skaffe på Omegaauctionen!
-        </p>
+  return (
+    <div>
+      <p>{pageNumber + 1}/{allPages.length}</p>
+      <button onClick={() => setPageNumber((prev) => Math.max(0, prev - 1))}>Forrige</button>
+      <button onClick={() => setPageNumber((prev) => Math.min(allPages.length - 1, prev + 1))}>Neste</button>
+      <ItemsPageComponent allPages={allPages} currentPageNumber={pageNumber} />
+      <button onClick={() => setPageNumber((prev) => Math.max(0, prev - 1))}>Forrige</button>
+      <button onClick={() => setPageNumber((prev) => Math.min(allPages.length - 1, prev + 1))}>Neste</button>
     </div>
-
-    <div style={{display:"flex",flexWrap:"wrap",width:"80vw",marginTop:"10vw"}}>
-        <a href="auction/1"><div style={{backgroundColor:"var(--lightblue)",width:"15vw",height:"20vw",margin:"2vw"}}></div></a>
-        <div style={{backgroundColor:"var(--orange)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--altgrey)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--green)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--altgrey)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--lightblue)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--green)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-        <div style={{backgroundColor:"var(--orange)",width:"15vw",height:"20vw",margin:"2vw"}}></div>
-    </div>
-    </>
+  );
 }
