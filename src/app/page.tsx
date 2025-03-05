@@ -1,12 +1,18 @@
 'use client'
-import { useEffect, useState } from "react";
-import styles from "./page.module.css";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
+
+import styles from "./page.module.scss";
 import getUserID from "./api/auth/getUserId";
-import getUser from "./api/auth/getUser";
 import has_answerd_question from "./components/has-answerd-question/has-answerd-question";
+import registerUserCourse from "@/app/components/register-user-course/register-user-course"
 
 
+type BoolSetUseState = Dispatch<SetStateAction<boolean>>
 
+async function regUser(courseName: string, setHasAnswerdQuestion:BoolSetUseState) {
+  await registerUserCourse(courseName)
+  setHasAnswerdQuestion(true)
+}
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -26,39 +32,34 @@ export default function Home() {
       setHasAnswerdQuestion(hasAnswerd_response)
     }
     getData()
-  })
+  }, [has_answerd_question])
+
 
   if (isLoggedIn) {
     if (hasAnswerdQuestion) {
       console.log("logged in and answerd")
     }
-    return (
-      <div>
-        <div>
-          <input type="radio"
-            id="Netflix"
-            name="brand"
-            value="Netflix"></input>
-          <label htmlFor="Netflix">Netflix</label>
-        </div>
-
-        <div>
-          <input type="radio"
-            id="Audi"
-            name="brand"
-            value="Audi"></input>
-          <label htmlFor="Audi">Audi</label>
-        </div>
-
-        <div>
-          <input type="radio"
-            id="Microsoft"
-            name="brand"
-            value="Microsoft" checked></input>
-          <label htmlFor="Microsoft">Microsoft</label>
-        </div>
-
-      </div>);
+    else {
+      return (
+        <div className={styles.mainDivStat}>
+          <h1 className={styles.statTitle}>Hvilket studieløp går du? Dette er for stattestikk.</h1>
+          <div className={styles.answerButtonsDiv}>
+            
+            <div className={styles.buttonDivsAnswer}>
+            <button onClick={e => (regUser("elsys", setHasAnswerdQuestion))} className={styles.questionButton}>ELSYS</button>
+            </div>
+            
+            <div className={styles.buttonDivsAnswer}>
+            <button onClick={e => (regUser("kyb", setHasAnswerdQuestion))} className={styles.questionButton}>KYB</button>
+            </div>
+            
+            <div className={styles.buttonDivsAnswer}>
+            <button onClick={e => (regUser("other", setHasAnswerdQuestion))} className={styles.questionButton}>Annet</button>
+            </div>
+            
+          </div>
+        </div>);
+    }
   }
   return (
     <div>
