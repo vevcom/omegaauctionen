@@ -11,7 +11,7 @@ type BoolSetUseState = Dispatch<SetStateAction<boolean>>
 
 async function regUser(courseName: string, setReportedFieldOfStudy:BoolSetUseState) {
   await registerUserCourse(courseName)
-  setHasAnswerdQuestion(true)
+  setReportedFieldOfStudy(true)
 }
 
 export default function Home() {
