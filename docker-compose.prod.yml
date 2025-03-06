@@ -50,3 +50,11 @@ services:
       NEXTAUTH_URL: ${NEXTAUTH_URL}
     depends_on:
       - database
+  picture_server:
+    build: ./services/picture_server
+      # context: ./services/picture_server/
+      # dockerfile: ./services/picture_server/Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./services/picture_server/uploads:/usr/src/app/uploads
