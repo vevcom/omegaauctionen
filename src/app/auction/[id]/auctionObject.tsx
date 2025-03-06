@@ -144,7 +144,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
           </div>)}
         <div className={style.title}>{object.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
         </div>
         <div className={style.description}>{object.description}</div>
 
@@ -168,7 +168,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
           </div>)}
         <div className={style.title}>{object.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
         </div>
         <div className={style.description}>{object.description}</div>
         <h2>Dette objektet er til salgs live klokken:</h2>
@@ -190,7 +190,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
           </div>)}
         <div className={style.title}>{object.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
         </div>
         <div className={style.description}>{object.description}</div>
         {
