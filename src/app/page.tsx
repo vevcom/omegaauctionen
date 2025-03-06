@@ -35,7 +35,7 @@ export default function Home() {
 
 
   if (isLoggedIn) {
-    if (hasAnswerdQuestion) {
+    if (reportedFieldOfStudy) {
       console.log("logged in and answerd")
     }
     else {
