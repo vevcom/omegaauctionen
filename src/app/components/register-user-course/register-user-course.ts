@@ -3,14 +3,9 @@
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
 import { Study } from "@prisma/client";
-
-
-
-
 export default async function regUserCourse(studyCourse:string) {
     const userID = await getUserID();
     if (!userID) {
-        console.log("not logged in")
         return;
     }
     let studyCourseToSet;

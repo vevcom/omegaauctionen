@@ -3,40 +3,39 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import styles from "./page.module.scss";
 import getUserID from "./api/auth/getUserId";
-import has_answerd_question from "./components/has-answerd-question/has-answerd-question";
+import reportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
 import registerUserCourse from "@/app/components/register-user-course/register-user-course"
 
 
 type BoolSetUseState = Dispatch<SetStateAction<boolean>>
 
-async function regUser(courseName: string, setHasAnswerdQuestion:BoolSetUseState) {
+async function regUser(courseName: string, setReportedFieldOfStudy:BoolSetUseState) {
   await registerUserCourse(courseName)
-  setHasAnswerdQuestion(true)
+  setReportedFieldOfStudy(true)
 }
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [hasAnswerdQuestion, setHasAnswerdQuestion] = useState(true)
+  const [reportedFieldOfStudy, setReportedFieldOfStudy] = useState(true)
 
   useEffect(() => {
     async function getData() {
-      console.log("running...")
       const userID = await getUserID()
       if (!userID) {
         console.log("not logged in")
         return;
       }
       setIsLoggedIn(true)
-      const hasAnswerd_response = await has_answerd_question(userID)
+      const hasAnswerd_response = await reportedFieldOfStudy(userID)
       console.log(hasAnswerd_response)
-      setHasAnswerdQuestion(hasAnswerd_response)
+      setReportedFieldOfStudy(hasAnswerd_response)
     }
     getData()
-  }, [has_answerd_question])
+  }, [reportedFieldOfStudy])
 
 
   if (isLoggedIn) {
-    if (hasAnswerdQuestion) {
+    if (reportedFieldOfStudy) {
       console.log("logged in and answerd")
     }
     else {
@@ -46,15 +45,15 @@ export default function Home() {
           <div className={styles.answerButtonsDiv}>
             
             <div className={styles.buttonDivsAnswer}>
-            <button onClick={e => (regUser("elsys", setHasAnswerdQuestion))} className={styles.questionButton}>ELSYS</button>
+            <button onClick={e => (regUser("elsys", setReportedFieldOfStudy))} className={styles.questionButton}>ELSYS</button>
             </div>
             
             <div className={styles.buttonDivsAnswer}>
-            <button onClick={e => (regUser("kyb", setHasAnswerdQuestion))} className={styles.questionButton}>KYB</button>
+            <button onClick={e => (regUser("kyb", setReportedFieldOfStudy))} className={styles.questionButton}>KYB</button>
             </div>
             
             <div className={styles.buttonDivsAnswer}>
-            <button onClick={e => (regUser("other", setHasAnswerdQuestion))} className={styles.questionButton}>Annet</button>
+            <button onClick={e => (regUser("other", setReportedFieldOfStudy))} className={styles.questionButton}>Annet</button>
             </div>
             
           </div>
