@@ -2,7 +2,7 @@
 
 import { prisma } from "@/app/prisma"
 import sortObjectsFunc from "@/app/components/get-auction-objects/sort-objects-func"
-import { AuksjonsObjektType } from "@prisma/client"
+import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client"
 
 
 export default async function get_objects_all(sortType: string, reverse = false, adminMode = false,enumType="") {
@@ -20,7 +20,7 @@ export default async function get_objects_all(sortType: string, reverse = false,
 
 
     const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_OBJECTS_PER_PAGE as string)
-    let objekter = await prisma.auksjonsObjekt.findMany({
+    let objekter: AuksjonsObjekt[] = await prisma.auksjonsObjekt.findMany({
         where:
         {
             approved: !adminMode,
@@ -28,17 +28,17 @@ export default async function get_objects_all(sortType: string, reverse = false,
         },
     })
     let objectAmount = objekter.length
-    let pagesList = []
+    let pagesList:AuksjonsObjekt[][] = []
 
     objekter = await sortObjectsFunc(objekter, sortType, reverse)
 
-    let currentPageList: any = []
+    let currentPageList:AuksjonsObjekt[] = []
     for (let i = 0; i < objectAmount; i++) {
         if (currentPageList.length == itemsPerPage) {
             pagesList.push(currentPageList)
             currentPageList = []
         }
-        currentPageList.push(objekter.at(i))
+        currentPageList.push(objekter[i])
     }
     if (currentPageList.length != 0) {
         pagesList.push(currentPageList)

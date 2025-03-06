@@ -19,9 +19,11 @@ export async function createAuctionItemFromForm(e: FormData) {
             finalSaleTime: new Date("2022-03-25"),
             description: e.get("descripton") as string,
             name: e.get("name") as string,
-            startPriceOre: parseInt(e.get("startPriceInOre") as string) * 100, 
+
+            startPriceOre: parseInt(e.get("startPriceInOre") as string) * 100,
             currentPriceOre: parseInt(e.get("startPriceInOre") as string) * 100,
             imageName:e.get("imageFileName") as string,
+            
             author:{
                 connect: {id : (e.get("userById") as string)}
             }
