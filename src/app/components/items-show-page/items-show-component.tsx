@@ -1,9 +1,9 @@
-import styles from "./page.module.scss"
+import styles from "./style.module.scss"
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
 
 export default function ItemsPageComponent({ allPages, currentPageNumber }) {
     if (!allPages[currentPageNumber]){
-        return <p>Ingen ting å se her 🙈</p>;
+        return <p className={styles.tekst}>Ingen ting å se her 🙈</p>;
       }
 
 
