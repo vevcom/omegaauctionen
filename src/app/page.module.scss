@@ -26,3 +26,30 @@
   .error404 {padding-bottom: 3vw;}
 }
 
+
+
+.mainDivStat{
+  width: 80%;
+  margin: auto;
+}
+.statTitle{
+  text-align: center;
+  margin-block: 1em;
+}
+.answerButtonsDiv{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  height: 100%;
+}
+
+
+.buttonDivsAnswer{
+  width: 100%;
+}
+
+
+.questionButton{
+  font-size: 3em;
+  width: 100%;
+}
