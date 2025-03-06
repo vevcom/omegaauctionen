@@ -3,7 +3,7 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import styles from "./page.module.scss";
 import getUserID from "./api/auth/getUserId";
-import has_answerd_question from "./components/has-answerd-question/has-answerd-question";
+import reportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
 import registerUserCourse from "@/app/components/register-user-course/register-user-course"
 
 
