@@ -26,7 +26,7 @@ export default function Home() {
         return;
       }
       setIsLoggedIn(true)
-      const hasAnswerd_response = await has_answerd_question(userID)
+      const hasAnswerd_response = await reportedFieldOfStudy(userID)
       console.log(hasAnswerd_response)
       setHasAnswerdQuestion(hasAnswerd_response)
     }
