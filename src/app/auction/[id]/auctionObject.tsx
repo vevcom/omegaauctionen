@@ -8,6 +8,7 @@ import is_admin from "@/app/components/is-admin/is-admin-func";
 import ApproveButton from "@/app/components/approve-button/approve-button";
 import DeleteButton from "@/app/components/delete-button/delete-button";
 import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFromNameComponent";
+import buy_item from "@/app/components/buy-item/buy-item";
 
 
 const committeeToLink = {
@@ -34,74 +35,88 @@ const committeeToLink = {
 
 
 
-function BidPanel({object}:{object:AuksjonsObjekt}){
+function BidPanel({ object }: { object: AuksjonsObjekt }) {
   const [bidAmount, setBidAmount] = useState("");
 
 
-    //bid-field change-handler
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      if (/\d/.test(value) || value === "") {
-        setBidAmount(value);
-      }
-    };
-  
-    //Make POST request to auction API with objectId and bidamount
-    const placeBid = async () => {
-        if (bidAmount === "" || parseInt(bidAmount,10) <= 0) {
-          alert("Please enter a positive integer.");
-          return;
-        }
-        // Convert from krone to ore
-        setBidAmount((Number(bidAmount)*100).toString());
+  //bid-field change-handler
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/\d/.test(value) || value === "") {
+      setBidAmount(value);
+    }
+  };
 
-        // Send bidAmount and objectID to API
-        try {
-          const response = await fetch('../../api/auction', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ objectId:object.id,bidAmount:bidAmount }),
-          });
-          const data = await response.json();
-          console.log(response.status);
-          console.log(data.error);
-          alert(response.status);
-          } catch (error) {
-            console.log(error);
-          }
-      
-    };  
-    return (
+  //Make POST request to auction API with objectId and bidamount
+  const placeBid = async () => {
+    if (bidAmount === "" || parseInt(bidAmount, 10) <= 0) {
+      alert("Please enter a positive integer.");
+      return;
+    }
+    // Convert from krone to ore
+    setBidAmount((Number(bidAmount) * 100).toString());
 
-        <form className={style.form}
-        onSubmit={(e) => {
-          e.preventDefault();
-          placeBid();
-        }}>
-          <input 
-            className={style.input}
-            type="number"
-            placeholder="Skriv inn bud"
-            min="1"
-            value={bidAmount}
-            onKeyDown={ (event) => {
-              if (!(event.key >= '0' && event.key <= '9' || event.key === 'Backspace'))
-              event.preventDefault();  //Prevent keys other than 0-9 and backspace from being entered
-            }}
-            onChange={handleInputChange}
-            required
-          />
-          <button className={style.button} type="submit">Legg inn bud</button>
+    // Send bidAmount and objectID to API
+    try {
+      const response = await fetch('../../api/auction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ objectId: object.id, bidAmount: bidAmount }),
+      });
+      const data = await response.json();
+      console.log(response.status);
+      console.log(data.error);
+      alert(response.status);
+    } catch (error) {
+      console.log(error);
+    }
 
-        </form>)}
+  };
+  return (
+    <form className={style.form}
+      onSubmit={(e) => {
+        e.preventDefault();
+        placeBid();
+      }}>
+      <input
+        className={style.input}
+        type="number"
+        placeholder="Skriv inn bud"
+        min="1"
+        value={bidAmount}
+        onKeyDown={(event) => {
+          if (!(event.key >= '0' && event.key <= '9' || event.key === 'Backspace'))
+            event.preventDefault();  //Prevent keys other than 0-9 and backspace from being entered
+        }}
+        onChange={handleInputChange}
+        required
+      />
+      <button className={style.button} type="submit">Legg inn bud</button>
+
+    </form>)
+}
+
+async function buy(object: AuksjonsObjekt) {
+  if (!confirm("Vil du kjøpen til" + (object.currentPriceOre / 100).toString() + "kr?")) {
+    return;
+  }
+  await buy_item(object.id)
+}
+
+function BuyPanel({ object }: { object: AuksjonsObjekt }) {
+  return (
+    <button onClick={e => buy(object)}>Kjøp for {object.currentPriceOre / 100}kr</button>
+  )
+
+}
 
 export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isTime,setIsTime] = useState(false);
+  const [isTime, setIsTime] = useState(false)
+  const committeeLogoLink = committeeToLink[object.committee];
 
-  const committeeLogoLink = committeeToLink[object.committee];  
 
   useEffect(() => {
     async function fetchData() {
@@ -109,32 +124,88 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       setIsAdmin(is_admin_response)
       const auctionDate = new Date('2025-03-20')
       const now = new Date()
-      setIsTime(auctionDate==now)
+      setIsTime(auctionDate == now)
       setIsTime(true) // TODO: remove before production
 
     }
     fetchData();
   }, []);
 
-  //TODO: add rendering for enums
+  const itemType = object.type
 
-  return <div className={style.objectPage}>
-    <div className={style.objectHeading}>
-      {committeeLogoLink != "" &&
-      (<div className={style.committeeHeading}>
-        <div className={style.committeeName}>{object.committee}</div>
-        <img src={committeeLogoLink}></img>
-      </div>)}
-      <div className={style.title}>{object.name}</div>
-      <div className={style.imagecontainer}>
-        <ImageFromFileName style={style} filename={object.imageName}></ImageFromFileName>
+
+  if (itemType == AuksjonsObjektType.AUKSJON) {
+    return (<div className={style.objectPage}>
+      <div className={style.objectHeading}>
+        {committeeLogoLink != "" &&
+          (<div className={style.committeeHeading}>
+            <div className={style.committeeName}>{object.committee}</div>
+            <img src={committeeLogoLink}></img>
+          </div>)}
+        <div className={style.title}>{object.name}</div>
+        <div className={style.imagecontainer}>
+          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+        </div>
+        <div className={style.description}>{object.description}</div>
+
+        {isTime ? <BidPanel object={object}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
+
       </div>
-      <div className={style.description}>{object.description}</div>
 
-      {isTime ? <BidPanel object={object}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
+
+      {(isAdmin && (!object.approved)) ? <DeleteButton objectId={object.id} ></DeleteButton> : null}
+      {(isAdmin && (!object.approved)) ? <ApproveButton objectId={object.id} ></ApproveButton> : null}
+    </div>)
+  }
+
+  if (itemType == AuksjonsObjektType.LIVE) {
+    return (<div className={style.objectPage}>
+      <div className={style.objectHeading}>
+        {committeeLogoLink != "" &&
+          (<div className={style.committeeHeading}>
+            <div className={style.committeeName}>{object.committee}</div>
+            <img src={committeeLogoLink}></img>
+          </div>)}
+        <div className={style.title}>{object.name}</div>
+        <div className={style.imagecontainer}>
+          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+        </div>
+        <div className={style.description}>{object.description}</div>
+        <h2>Dette objektet er til salgs live klokken:</h2>
+        {/* TODO Fiks dato */}
+      </div>
+    </div>)
+  }
+
+
+
+
+  if (itemType == AuksjonsObjektType.SALG) {
+    return (<div className={style.objectPage}>
+      <div className={style.objectHeading}>
+        {committeeLogoLink != "" &&
+          (<div className={style.committeeHeading}>
+            <div className={style.committeeName}>{object.committee}</div>
+            <img src={committeeLogoLink}></img>
+          </div>)}
+        <div className={style.title}>{object.name}</div>
+        <div className={style.imagecontainer}>
+          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+        </div>
+        <div className={style.description}>{object.description}</div>
+        {
+          (isTime && (object.stock >= 1))
+            ? <BuyPanel object={object}></BuyPanel>
+            : (
+              (object.stock >= 1)
+                ? <h2>Salget starter 03.20.2025</h2>
+                : <h2>Denne kappen er desverre utslogt</h2>
+            )
+        }
+      </div>
+
     </div>
-
-    {(isAdmin && (!object.approved)) ? <DeleteButton objectId={object.id} ></DeleteButton> : null}
-    {(isAdmin && (!object.approved)) ? <ApproveButton objectId={object.id} ></ApproveButton> : null}
-  </div>
+    )
+  }
 }
+
