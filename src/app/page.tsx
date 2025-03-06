@@ -31,7 +31,7 @@ export default function Home() {
       setHasAnswerdQuestion(hasAnswerd_response)
     }
     getData()
-  }, [has_answerd_question])
+  }, [reportedFieldOfStudy])
 
 
   if (isLoggedIn) {
