@@ -47,6 +47,7 @@ export async function POST (request: NextRequest) {
       id:true,
       bids:true,
       currentPriceOre:true,
+      approved:true,
     }
   });
   
@@ -54,7 +55,10 @@ export async function POST (request: NextRequest) {
   if (!auctionObject) {
     return NextResponse.json({ error: 'Auction object not found. id:${objectId}' }, { status: 404 });
   }
-  
+  // 401 Error if object not approved / unauthorized
+  if (!auctionObject.approved) {
+    return NextResponse.json({error:'Auction object not approved.'},{status:403});
+  }
   // 422 Error if bid too low (correct syntax, but unprocessable bid)
   if (bidAmount <= auctionObject.currentPriceOre) {
     return NextResponse.json({ error: "Bid must be higher than current price." }, { status: 422 });

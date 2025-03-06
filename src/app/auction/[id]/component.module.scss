@@ -16,20 +16,30 @@
     flex-direction: row;
     justify-content: center;
     font-size:large;
-    padding-bottom:7.5%;
+    margin-left:10%;
+    margin-right:75%;
+    border-radius:5px;
+    width:auto;
+    
+    background-color: var(--foreground);
+    color: var(--background);
 }
-
-.committeeLogo img {
-    background-image: url('https://www.omega.ntnu.no/store/image/default/vevcomlogo.webp?url=/store/images/1ca57af5-141f-4037-b1a2-61120e0bc8c8.webp');
+.committeeHeading img {
+    // background-image: url('https://www.omega.ntnu.no/store/image/default/vevcomlogo.webp?url=/store/images/1ca57af5-141f-4037-b1a2-61120e0bc8c8.webp');
     background-size: 30px 30px;
     background-repeat: no-repeat; /* Prevent the image from repeating */
     width: 30px; /* Define the width of the container */
     height: 30px;
     border-radius: 50%;
-    margin-left:50%;
+    margin:0;
+    margin:5% 0;
+}
+.committeeName {
+    margin:auto 0;
+    // margin-right:0;
 }
 .title {
-    padding:7.5% 0;
+    margin-bottom:7.5%;
     margin: 0 20%;
 }
 .imagecontainer {
@@ -70,13 +80,10 @@
     text-align: left;
 }
 
-
-
-
-
 .form {
     display:flex;
     flex-direction: column;
+    align-items: center;
     width:80vw;
     margin:auto;
     font-size:60%;
@@ -96,4 +103,24 @@
     color:var(--background);
     height:15vw;
     font-size:inherit;
+    cursor:pointer;
 }
+
+@media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
+    .title {
+        padding-bottom:5vh;
+    }
+    .committeeHeading {
+        align-items:left;
+    }
+    
+    .input {
+        width: 300px;
+        height: 50px;
+        padding-left:10px;
+    }
+    .button {
+        width:300px;
+        height: 50px;
+    }
+  }

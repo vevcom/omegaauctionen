@@ -1,5 +1,6 @@
 "use server"
-import { prisma } from "../../prisma";  
+import {prisma } from "../../prisma";  
+import { AuksjonsObjektType,Committee } from "@prisma/client";
 import AuctionObject from "./auctionObject";
 import { createAuctionItem } from "@/app/examples/components/createAuctionItem";
 
@@ -15,10 +16,14 @@ interface AuctionObjectType {
     author: string;
     authorId: number;
     bids: any[];
+    stock: number;
+    committee: Committee;
+    type: AuksjonsObjektType;
 }
 
+
 export default async function AuctionObjectPage({ params }: { params: { id: string } }) {
-    // await createAuctionItem(1,"Lundheim sitt skjegg","Lars Lundheim sitt skjegg",1000,true);
+    // await createAuctionItem("Lundheim sitt skjegg","Lars Lundheim sitt skjegg",1000,true);
     if (!params || !params.id) {
         return <div><h2>No object ID provided</h2></div>;
     }
@@ -37,8 +42,8 @@ export default async function AuctionObjectPage({ params }: { params: { id: stri
     //Default object for when db call unsuccessfull
     const defaultAuctionObject = {
         id:3,
-        name:"string",
-        description:"longer string",
+        name:"Title",
+        description:"Long description",
         startPriceOre:0,
         currentPriceOre:0,
         finalSaleTime: new Date("2025-03-21T00:00:00Z"),
@@ -46,12 +51,14 @@ export default async function AuctionObjectPage({ params }: { params: { id: stri
         approved: true,
         imageName: "default.jpg",
         authorId:"0",
-        committee: 0,
+        committee: Committee.VEVCOM,
+        type: AuksjonsObjektType.AUKSJON,
+        stock: 1,
     }
 
 
     return (
 
-            <AuctionObject object={auctionObject ? auctionObject : defaultAuctionObject}/>
+        <AuctionObject object={auctionObject ? auctionObject : defaultAuctionObject}/>
     );
 }
