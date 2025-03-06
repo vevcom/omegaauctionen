@@ -79,7 +79,7 @@ export default function makeAuctionItem() {
                     <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
                 </div>
             </form>
-            <h1>Last opp bilde ellers... så får du standar bilde</h1>
+            <h1>Last opp egendefinert bilde.</h1>
             <ImageUploaderButton
                 setUploadedFileName={setUploadedFileName}
             />
