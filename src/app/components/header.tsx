@@ -16,7 +16,7 @@ export function Header() {
                 break;
         }
       }    
-      const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/program","Program","Program"], ["/beermile","Beermile","Beermile"],["/sellItems","Legg ut for salg"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
+      const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/put-item-for-auction","Legg ut for salg"],["/live-auction","Live auksjon","Live auksjon"],["/kappe-side","Kapper"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
 
     return <>
         <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>

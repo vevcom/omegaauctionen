@@ -1,6 +1,6 @@
 "use client"
 import React, { FormEvent, useState } from "react"
-import styles from "./styles.module.css"
+import styles from "./styles.module.scss"
 import { prisma } from "../../prisma"
 import { approve } from "./approveItem"
 import PopUpBox from "@/app/components/popUp/popUp"

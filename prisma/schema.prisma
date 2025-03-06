@@ -2,6 +2,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Study {
+  ELSYS
+  KYB
+  OTHER
+  NOTANSWERD
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -39,9 +46,12 @@ model AuksjonsObjekt {
   id              Int                 @id @default(autoincrement())
   name            String
   description     String
+  committee       Committee @default(NOTCOM)
+  type            AuksjonsObjektType  @default(AUKSJON)
 
   startPriceOre   Int      @map("startPrice")
   currentPriceOre Int
+  stock           Int                 @default(1)
 
   finalSaleTime   DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
@@ -50,15 +60,10 @@ model AuksjonsObjekt {
   imageName       String   @default("default.jpeg")
   authorId        String? //TODO fiks tilbake til requiered
   author          User?    @relation(fields: [authorId], references: [id])
-  
-  committee       Committee @default(NOTCOM)
-  type            AuksjonsObjektType  @default(AUKSJON)
-  stock           Int                 @default(1)
   bids            Bid[]
 }
 
 model Bid {
-
   bidId    Int      @id @default(autoincrement())
   priceOre Int      @map("price")
   bidDate  DateTime @default(now())
@@ -71,19 +76,19 @@ model Bid {
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String  @map("user_id")
+  id                String @id @default(cuid())
+  userId            String @map("user_id")
   type              String
   provider          String
-  providerAccountId String  @map("provider_account_id")
+  providerAccountId String @map("provider_account_id")
 
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  refresh_token String? @db.Text
+  access_token  String? @db.Text
+  expires_at    Int?
+  token_type    String?
+  scope         String?
+  id_token      String? @db.Text
+  session_state String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -93,7 +98,7 @@ model Account {
 
 model User {
   id               String           @id @default(cuid())
-
+  studyCourse      Study            @default(NOTANSWERD)
   name             String
   email            String?          @unique
   emailVerified    DateTime?        @map("email_verified")

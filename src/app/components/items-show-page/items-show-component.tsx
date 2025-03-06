@@ -1,9 +1,12 @@
-import styles from "./page.module.scss"
+import Link from "next/link";
+import styles from "./component.module.scss"
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
+import { AuksjonsObjekt} from "@prisma/client";
 
-export default function ItemsPageComponent({ allPages, currentPageNumber }) {
+
+export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:Array<Array<AuksjonsObjekt>>,currentPageNumber:number,pageTitle?:string}) {
     if (!allPages[currentPageNumber]){
-        return <p>Ingen ting å se her 🙈</p>;
+        return <p>Laster inn... Ingen ting å se her 🙈</p>;
       }
 
 
@@ -11,13 +14,13 @@ export default function ItemsPageComponent({ allPages, currentPageNumber }) {
     return (<div className={styles.side}>
         
         <div>
-            <h1 className={styles.title}>Auksjonsobjekter</h1>
+            <h1 className={styles.title}>{pageTitle}</h1>
         </div>
         
         <div className={styles.objekter}>
             {allPages[currentPageNumber].map(object => (
                 
-                <a key={object.id} className={styles.objekt} href={`auction/${object.id}`}>
+                <Link key={object.id} className={styles.objekt} href={`/auction/${object.id}`}>
                     
                         <div className={styles.objectContainer}>
                             
@@ -29,7 +32,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber }) {
                             </div>
                         </div>
                     
-                </a>
+                </Link>
                 ))}                
         </div>
         
