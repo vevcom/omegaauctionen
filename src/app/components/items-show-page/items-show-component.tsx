@@ -1,8 +1,10 @@
 import Link from "next/link";
-import styles from "./style.module.scss"
+import styles from "./component.module.scss"
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
+import { AuksjonsObjekt} from "@prisma/client";
 
-export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }) {
+
+export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:Array<Array<AuksjonsObjekt>>,currentPageNumber:number,pageTitle?:string}) {
     if (!allPages[currentPageNumber]){
         return <p>Laster inn... Ingen ting å se her 🙈</p>;
       }

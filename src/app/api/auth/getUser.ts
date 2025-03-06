@@ -6,12 +6,12 @@ import { prisma } from "@/app/prisma";
 export default async function getUser() {
     // gets session information
     const session = await getServerSession(options);
-    if(!session) {
-        return false;
+    if(!session || !session.user?.email) {
+        return null;
     }
-    const user = await prisma.user.findFirst(({where:{email:session?.user?.email}}));
+    const user = await prisma.user.findFirst({where:{email:session.user.email}});
     if(!user){
-        return false;
+        return null;
     }
     return user;
 }

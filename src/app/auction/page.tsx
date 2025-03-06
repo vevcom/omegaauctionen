@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from "react";
 import ItemsPageComponent from "@/app/components/items-show-page/items-show-component";
 import get_objects_all from "@/app/components/get-auction-objects/get-objects";
+import { AuksjonsObjekt } from "@prisma/client";
 
 export default function AuctionItemsPage() {
   const [pageNumber, setPageNumber] = useState(0);
-  const [allPages, setAllPages] = useState([]);
+  const [allPages, setAllPages] = useState<AuksjonsObjekt[][]>([]);
 
   useEffect(() => {
     async function fetchData() {

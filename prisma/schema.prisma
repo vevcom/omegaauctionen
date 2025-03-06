@@ -20,22 +20,47 @@ enum AuksjonsObjektType {
   LIVE
 }
 
+enum Committee {
+  NOTCOM
+  VEVCOM
+  HS
+  FADDERSTYRET
+  OMBUL
+  LOCCOM
+  CONTACTOR
+  KIELDER
+  PHAESTCOM
+  SPORTOGSPILL
+  DGR
+  OV
+  SOSCOM
+  HEUTTECOM
+  BRYGCOM
+  BLAESTCOM
+  LOPHTCOM
+  OMEGAREVYEN
+  PHINANSCOM
+}
+
 model AuksjonsObjekt {
-  id            Int                @id @default(autoincrement())
-  name          String
-  description   String
-  startPriceOre Int                @map("startPrice")
-  type          AuksjonsObjektType @default(AUKSJON)
-  stock         Int                @default(1)
+  id              Int                 @id @default(autoincrement())
+  name            String
+  description     String
+  committee       Committee @default(NOTCOM)
+  type            AuksjonsObjektType  @default(AUKSJON)
+
+  startPriceOre   Int      @map("startPrice")
   currentPriceOre Int
+  stock           Int                 @default(1)
+
   finalSaleTime   DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
+
   approved        Boolean  @default(false)
   imageName       String   @default("default.jpeg")
   authorId        String? //TODO fiks tilbake til requiered
   author          User?    @relation(fields: [authorId], references: [id])
-
-  bids Bid[]
+  bids            Bid[]
 }
 
 model Bid {
