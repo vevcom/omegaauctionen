@@ -7,3 +7,11 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+  picture_server:
+    build: ./services/picture_server
+      # context: ./services/picture_server/
+      # dockerfile: ./services/picture_server/Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./services/picture_server/uploads:/usr/src/app/uploads
