@@ -28,7 +28,7 @@ export default function Home() {
       setIsLoggedIn(true)
       const hasAnswerd_response = await reportedFieldOfStudy(userID)
       console.log(hasAnswerd_response)
-      setHasAnswerdQuestion(hasAnswerd_response)
+      setReportedFieldOfStudy(hasAnswerd_response)
     }
     getData()
   }, [reportedFieldOfStudy])
