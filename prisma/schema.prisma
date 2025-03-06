@@ -13,6 +13,28 @@ enum AuksjonsObjektType {
   LIVE
 }
 
+enum Committee {
+  NOTCOM
+  VEVCOM
+  HS
+  FADDERSTYRET
+  OMBUL
+  LOCCOM
+  CONTACTOR
+  KIELDER
+  PHAESTCOM
+  SPORTOGSPILL
+  DGR
+  OV
+  SOSCOM
+  HEUTTECOM
+  BRYGCOM
+  BLAESTCOM
+  LOPHTCOM
+  OMEGAREVYEN
+  PHINANSCOM
+}
+
 model AuksjonsObjekt {
   id              Int                 @id @default(autoincrement())
   name            String
@@ -29,7 +51,7 @@ model AuksjonsObjekt {
   authorId        String? //TODO fiks tilbake til requiered
   author          User?    @relation(fields: [authorId], references: [id])
   
-  committee       Committee @default(NOCOMMITTEE)
+  committee       Committee @default(NOTCOM)
   type            AuksjonsObjektType  @default(AUKSJON)
   stock           Int                 @default(1)
   bids            Bid[]
@@ -102,26 +124,4 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
-}
-
-enum Committee {
-  NOCOMMITTEE
-  VEVCOM
-  HS
-  FADDERSTYRET
-  OMBUL
-  LOCCOM
-  CONTACTOR
-  KIELDER
-  PHAESTCOM
-  SPORTOGSPILL
-  DGR
-  OV
-  SOSCOM
-  HEUTTECOM
-  BRYGCOM
-  BLAESTCOM
-  LOPHTCOM
-  OMEGAREVYEN
-  PHINANSCOM
 }
