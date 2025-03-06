@@ -31,7 +31,7 @@ export const options: NextAuthOptions = {
             },
             params: {
                 // Waiting on ntnu.no activating omegaauctionen for feide login
-                authselection: "feide|realm|testusers.feide.no", // TODO: change all to realm|ntnu.no
+                authselection: "feide|realm|ntnu.no", // TODO: change all to realm|ntnu.no
             },
         }),
     ],

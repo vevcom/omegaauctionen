@@ -1,11 +1,12 @@
 //kokte dette fra en nettside jeg lagde fra ungdomskolen. Ja det er litt stygt men det har veldig fet conditonal rendering
-"use server"
 import React from 'react';
 import { prisma } from '../../../prisma';
 import "./styles.scss"
 import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';
 import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFromNameComponent"
+
+export const dynamic = 'force-dynamic'
 
 async function App() {
   const auctionItems = await prisma.auksjonsObjekt.findMany()
