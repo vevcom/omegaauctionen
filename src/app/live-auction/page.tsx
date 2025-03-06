@@ -21,7 +21,8 @@ export default function App() {
     return (
         <div>
             <h1 className={style.headLine}>Kjøp live!</h1>
-            <h3 className={style.promoText}> Oi oi oi. Det selges ting live! Da kan du møte opp og by live! Akkuratt som storage wars!(Vevcom gir ingen garanti på liveauksjonens likhet til det amerikanske tv programmet storage wars). Møt opp __sett_inn_sted___</h3> <!-- TODO: add place -->
+            <h3 className={style.promoText}> Oi oi oi. Det selges ting live! Da kan du møte opp og by live! Akkuratt som storage wars!(Vevcom gir ingen garanti på liveauksjonens likhet til det amerikanske tv programmet storage wars). Møt opp __sett_inn_sted___</h3> 
+            {/* <!-- TODO: add place --> */}
             <p>{pageNumber + 1}/{allPages.length}</p>
             <button onClick={() => setPageNumber((prev) => Math.max(0, prev - 1))}>Forrige</button>
             <button onClick={() => setPageNumber((prev) => Math.min(allPages.length - 1, prev + 1))}>Neste</button>
