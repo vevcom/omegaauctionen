@@ -45,7 +45,7 @@ export default function Home() {
           <div className={styles.answerButtonsDiv}>
             
             <div className={styles.buttonDivsAnswer}>
-            <button onClick={e => (regUser("elsys", setHasAnswerdQuestion))} className={styles.questionButton}>ELSYS</button>
+            <button onClick={e => (regUser("elsys", setReportedFieldOfStudy))} className={styles.questionButton}>ELSYS</button>
             </div>
             
             <div className={styles.buttonDivsAnswer}>
