@@ -12,7 +12,7 @@ export default async function reportedFieldOfStudy(userID:string) {
     if (userData == null){
         return true    
     }
-    //checks if user has answerd question
+    //checks if user has reported the field of study
     if (userData.studyCourse == Study.NOTANSWERD){
         return false
     }
