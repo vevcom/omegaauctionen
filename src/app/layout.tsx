@@ -32,7 +32,7 @@ export default function RootLayout({
             break;
     }
   }    
-  const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/program","Program","Program"], ["/beermile","Beermile","Beermile"],["/put-item-for-auction","Legg ut for salg"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
+  // const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/program","Program","Program"], ["/beermile","Beermile","Beermile"],["/put-item-for-auction","Legg ut for salg"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
 
 
   return (

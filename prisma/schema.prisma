@@ -27,7 +27,6 @@ model AuksjonsObjekt {
   startPriceOre Int                @map("startPrice")
   type          AuksjonsObjektType @default(AUKSJON)
   stock         Int                @default(1)
-
   currentPriceOre Int
   finalSaleTime   DateTime //TODO legg inn default
   currentSaleTime DateTime //TODO legg inn default
@@ -37,6 +36,7 @@ model AuksjonsObjekt {
   author          User?    @relation(fields: [authorId], references: [id])
 
   bids Bid[]
+\
 }
 
 model Bid {
