@@ -16,7 +16,7 @@ async function regUser(courseName: string, setReportedFieldOfStudy:BoolSetUseSta
 
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [hasAnswerdQuestion, setHasAnswerdQuestion] = useState(true)
+  const [reportedFieldOfStudy, setReportedFieldOfStudy] = useState(true)
 
   useEffect(() => {
     async function getData() {
