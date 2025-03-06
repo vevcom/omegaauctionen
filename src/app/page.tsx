@@ -9,7 +9,7 @@ import registerUserCourse from "@/app/components/register-user-course/register-u
 
 type BoolSetUseState = Dispatch<SetStateAction<boolean>>
 
-async function regUser(courseName: string, setHasAnswerdQuestion:BoolSetUseState) {
+async function regUser(courseName: string, setReportedFieldOfStudy:BoolSetUseState) {
   await registerUserCourse(courseName)
   setHasAnswerdQuestion(true)
 }
