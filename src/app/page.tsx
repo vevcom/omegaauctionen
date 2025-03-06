@@ -20,7 +20,6 @@ export default function Home() {
 
   useEffect(() => {
     async function getData() {
-      console.log("running...")
       const userID = await getUserID()
       if (!userID) {
         console.log("not logged in")
