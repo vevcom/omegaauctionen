@@ -1,13 +1,15 @@
 //kokte dette fra en nettside jeg lagde fra ungdomskolen. Ja det er litt stygt men det har veldig fet conditonal rendering
-"use server"
 import React from 'react';
 import { prisma } from '../../../prisma';
 import "./styles.scss"
 import sampleImg from "./walter.jpg"
 import { stringify } from 'querystring';
+import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFromNameComponent"
+
+export const dynamic = 'force-dynamic'
 
 async function App() {
-  const auctionItems = await prisma.AuksjonsObjekt.findMany()
+  const auctionItems = await prisma.auksjonsObjekt.findMany()
 
   return (
     <div id="mainDiv">
@@ -15,7 +17,8 @@ async function App() {
       <div id="artikkler">
         {auctionItems.map((item, index) =>
           <a href="." className="artikkel">
-            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fsimplisafe.com%2Ffiles%2Fimages%2Fblog%2Fwalter_white_shocked.png&f=1&nofb=1&ipt=1330d4439807d1599a56c0f747ff72808e30b7266245e1e0dbfacf252b4e81e0&ipo=images"></img>
+            {/* <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fsimplisafe.com%2Ffiles%2Fimages%2Fblog%2Fwalter_white_shocked.png&f=1&nofb=1&ipt=1330d4439807d1599a56c0f747ff72808e30b7266245e1e0dbfacf252b4e81e0&ipo=images"></img> */}
+            <ImageFromFileName filename={item.imageName}></ImageFromFileName>
             <h2>{item.name}</h2>
             <hr></hr>
             <p>{item.description}</p>

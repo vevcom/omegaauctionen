@@ -1,0 +1,128 @@
+.objectPage {
+    color:auto;
+    margin:5%;
+
+    width:100%;
+    align-items:center;
+}
+
+.objectHeading {
+    font-size:xx-large;
+    text-align: center;
+    width:100%;
+}
+.committeeHeading {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size:large;
+    margin-left:10%;
+    margin-right:75%;
+    border-radius:5px;
+    width:auto;
+    
+    background-color: var(--foreground);
+    color: var(--background);
+}
+.committeeHeading img {
+    // background-image: url('https://www.omega.ntnu.no/store/image/default/vevcomlogo.webp?url=/store/images/1ca57af5-141f-4037-b1a2-61120e0bc8c8.webp');
+    background-size: 30px 30px;
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    width: 30px; /* Define the width of the container */
+    height: 30px;
+    border-radius: 50%;
+    margin:0;
+    margin:5% 0;
+}
+.committeeName {
+    margin:auto 0;
+    // margin-right:0;
+}
+.title {
+    margin-bottom:7.5%;
+    margin: 0 20%;
+}
+.imagecontainer {
+    content:"";
+    cursor:pointer;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    max-height:35vh;
+    min-width:10vw;
+    margin:auto;
+
+}
+.imagecontainer img{
+    padding:5%;
+    max-width: 100%;
+    max-height: 100%;
+    
+    object-fit: contain;
+
+}
+.imagecontainer::before{
+    content:"";
+    width:80%;
+    height:0;
+    border: 0.3px solid var(--foreground);
+}
+.imagecontainer::after{
+    content:"";
+    width:80%;
+    height:0;
+    border: 0.3px solid var(--foreground);
+}
+.description {
+    margin:5vh 15%;
+    font-size:medium;
+    text-align: left;
+}
+
+.form {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:80vw;
+    margin:auto;
+    font-size:60%;
+    margin-top:5vh;
+} .input {
+    background-color: var(--background);
+    color: var(--foreground);
+    height: 3vh;
+    margin-bottom:1vh;
+    border: 1px solid var(--foreground);
+    border-radius: 0.2vh;
+    height:15vw;
+    padding-left:7vw;
+    font-size:inherit;
+} .button {
+    background-color: var(--foreground);
+    color:var(--background);
+    height:15vw;
+    font-size:inherit;
+    cursor:pointer;
+}
+
+@media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
+    .title {
+        padding-bottom:5vh;
+    }
+    .committeeHeading {
+        align-items:left;
+    }
+    
+    .input {
+        width: 300px;
+        height: 50px;
+        padding-left:10px;
+    }
+    .button {
+        width:300px;
+        height: 50px;
+    }
+  }
+
+.auctionImage{}

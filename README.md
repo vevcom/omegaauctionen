@@ -8,31 +8,35 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, install all packages
+```
+npm install
+```
 
+Generate a client for the database
+```
+npx prisma generate
+```
+
+Push schema to database
+```
+npx prisma db push
+```
+
+Run the development server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-
-``` Generate a database
-npx prisma migrate dev
-```
-
-``` Generate a client for database
-npx prisma generate
 ```
 
 Open the project in your browser on the link provided by npm after running "npm run dev" to see the result.
 
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+
+To use picture server clone the server from
+https://github.com/Hsackboy/pictureServer
+and run main.py
 
 ## Learn More
 
