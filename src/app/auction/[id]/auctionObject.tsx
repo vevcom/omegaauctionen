@@ -125,8 +125,10 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       const auctionDate = new Date('2025-03-20')
       const now = new Date()
       setIsTime(auctionDate == now)
-      setIsTime(true) // TODO: remove before production
-
+      if (is_admin_response && (now<auctionDate)){
+        setIsTime(true)
+      }
+      // console.log(now>auctionDate)
     }
     fetchData();
   }, []);

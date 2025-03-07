@@ -33,7 +33,7 @@ export default function makeAuctionItem() {
             alertBox("Ser ut som du mengler en beskrivelse")
             return;
         }
-        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")|| parseInt(e.get("startPriceInKroner") as string)<0) {
+        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")|| (parseInt(e.get("startPriceInKroner") as string)<0)) {
             alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
             return;
         }
@@ -71,7 +71,7 @@ export default function makeAuctionItem() {
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
                 <div className={style.inputBoxes} >
-                    <input name="startPriceInKroner" type="number" min={0.01} max={10000}></input>
+                    <input name="startPriceInKroner" type="number"></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.buttonBox}`}>
