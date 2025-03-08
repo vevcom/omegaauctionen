@@ -81,7 +81,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
 
   return (
     <form className={style.form}
-      onSubmit={(e) => {
+    action={(e) => {
         tryPlaceBid(e);
       }}>
       <input
@@ -89,6 +89,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         type="number"
         placeholder="Skriv inn bud"
         name="bidAmountInKRONER"
+        step="any"
         required
       />
       <button className={style.button} type="submit">Legg inn bud</button>
