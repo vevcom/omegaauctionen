@@ -9,6 +9,9 @@ import ApproveButton from "@/app/components/approve-button/approve-button";
 import DeleteButton from "@/app/components/delete-button/delete-button";
 import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFromNameComponent";
 import buy_item from "@/app/components/buy-item/buy-item";
+import PopUpBox from "@/app/components/popUp/popUp"
+import placeBid from "@/app/components/place-bid-func/place-bid-func";
+
 
 
 const committeeToLink = {
@@ -35,8 +38,26 @@ const committeeToLink = {
 
 
 
+
+
 function BidPanel({ object }: { object: AuksjonsObjekt }) {
   const [bidAmount, setBidAmount] = useState("");
+  const [popUpOn, SetPopUpOn] = useState(false)
+  const [popUpText, SetPopUpText] = useState("")
+  const popUpLengthMilliSeconds = 5000
+
+  const delay = (ms: number) => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+
+  async function alertBox(alertText: string) {
+    SetPopUpText(alertText)
+    SetPopUpOn(true)
+    await delay(popUpLengthMilliSeconds);
+    SetPopUpOn(false)
+    SetPopUpText("")
+  }
 
 
   //bid-field change-handler
@@ -47,44 +68,55 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
     }
   };
 
-  //Make POST request to auction API with objectId and bidamount
-  const placeBid = async () => {
-    if (bidAmount === "" || parseInt(bidAmount, 10) <= 0) {
-      alert("Please enter a positive integer.");
+
+  async function tryPlaceBid() {
+    const bidAmountInOre = parseInt((parseFloat(bidAmount) * 100).toFixed(2))
+    if (bidAmountInOre <= object.currentPriceOre) {
+      alertBox("Du må by over den nåværende prisen")
       return;
     }
-    // Convert from krone to ore
-    setBidAmount((Number(bidAmount) * 100).toString());
+    const response = await placeBid(object, bidAmountInOre)
+    alertBox(response)
+  }
 
-    // Send bidAmount and objectID to API
-    try {
-      const response = await fetch('../../api/auction', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ objectId: object.id, bidAmount: bidAmount }),
-      });
-      const data = await response.json();
-      console.log(response.status);
-      console.log(data.error);
-      alert(response.status);
-    } catch (error) {
-      console.log(error);
-    }
 
-  };
+  //Make POST request to auction API with objectId and bidamount
+  // const placeBid = async () => {
+  //   if (bidAmount === "" || parseInt(bidAmount, 10) <= 0) {
+  //     alert("Please enter a positive integer.");
+  //     return;
+  //   }
+  //   // Convert from krone to ore
+  //   setBidAmount((Number(bidAmount) * 100).toString());
+
+  //   // Send bidAmount and objectID to API
+  //   try {
+  //     const response = await fetch('../../api/auction', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ objectId: object.id, bidAmount: bidAmount }),
+  //     });
+  //     const data = await response.json();
+  //     console.log(response.status);
+  //     console.log(data.error);
+  //     alert(response.status);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+
+  // };
   return (
     <form className={style.form}
       onSubmit={(e) => {
         e.preventDefault();
-        placeBid();
+        tryPlaceBid();
       }}>
       <input
         className={style.input}
         type="number"
         placeholder="Skriv inn bud"
-        min="1"
         value={bidAmount}
         onKeyDown={(event) => {
           if (!(event.key >= '0' && event.key <= '9' || event.key === 'Backspace'))
@@ -94,7 +126,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         required
       />
       <button className={style.button} type="submit">Legg inn bud</button>
-
+      <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
     </form>)
 }
 
