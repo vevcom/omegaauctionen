@@ -36,5 +36,13 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: n
     }
   })
 
+  await prisma.auksjonsObjekt.update({
+    where:{
+        id:object.id,
+    },
+    data:{
+        currentPriceOre: bidAmountInOre,
+    }
+})
   return "Ditt bud er plassert"
 }
