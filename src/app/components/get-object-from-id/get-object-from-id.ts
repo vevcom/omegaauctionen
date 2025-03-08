@@ -1,3 +1,5 @@
+"use server"
+
 import { prisma } from "@/app/prisma";
 
 export default async function getObjectById(id:number) {
