@@ -11,6 +11,7 @@ import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFr
 import buy_item from "@/app/components/buy-item/buy-item";
 import PopUpBox from "@/app/components/popUp/popUp"
 import placeBid from "@/app/components/place-bid-func/place-bid-func";
+import getObjectById from "@/app/components/get-object-from-id/get-object-from-id";
 
 
 
@@ -114,6 +115,7 @@ function BuyPanel({ object }: { object: AuksjonsObjekt }) {
 export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTime, setIsTime] = useState(false)
+  const [currentObject, setCurrentObject] = useState(object)
   const committeeLogoLink = committeeToLink[object.committee];
 
 
@@ -128,6 +130,15 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
     }
     fetchData();
+    const interval = setInterval(async () => {
+      const newObject = await getObjectById(object.id)
+      if (!newObject){
+        return;
+      }
+      setCurrentObject(newObject)
+    }, 10000);
+  
+    return () => clearInterval(interval);
   }, []);
 
   const itemType = object.type
