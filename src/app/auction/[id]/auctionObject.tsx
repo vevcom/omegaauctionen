@@ -41,7 +41,7 @@ const committeeToLink = {
 
 
 function BidPanel({ object }: { object: AuksjonsObjekt }) {
-  const [bidAmount, setBidAmount] = useState("");
+  // const [bidAmount, setBidAmount] = useState("");
   const [popUpOn, SetPopUpOn] = useState(false)
   const [popUpText, SetPopUpText] = useState("")
   const popUpLengthMilliSeconds = 5000
@@ -82,14 +82,12 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
   return (
     <form className={style.form}
       onSubmit={(e) => {
-        e.preventDefault();
         tryPlaceBid(e);
       }}>
       <input
         className={style.input}
         type="number"
         placeholder="Skriv inn bud"
-        value={bidAmount}
         name="bidAmountInKRONER"
         required
       />
