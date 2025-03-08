@@ -60,17 +60,17 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
   }
 
 
-  //bid-field change-handler
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (/\d/.test(value) || value === "") {
-      setBidAmount(value);
+  async function tryPlaceBid(e: FormData) {
+    if (!e.get("bidAmountInKRONER")) {
+      alertBox("Du må skrive inn tall")
+      return;
     }
-  };
+    if (((typeof (parseInt(e.get("bidAmountInKRONER") as string)) === "number") == false) || ((e.get("bidAmountInKRONER") as string) == "") || parseInt(e.get("bidAmountInKRONER") as string) < 0) {
+      alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
+      return;
+    }
 
-
-  async function tryPlaceBid() {
-    const bidAmountInOre = parseInt((parseFloat(bidAmount) * 100).toFixed(2))
+    const bidAmountInOre = parseInt((parseFloat((e.get("bidAmountInKRONER") as string)) * 100).toFixed(2))
     if (bidAmountInOre <= object.currentPriceOre) {
       alertBox("Du må by over den nåværende prisen")
       return;
@@ -83,18 +83,14 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
     <form className={style.form}
       onSubmit={(e) => {
         e.preventDefault();
-        tryPlaceBid();
+        tryPlaceBid(e);
       }}>
       <input
         className={style.input}
         type="number"
         placeholder="Skriv inn bud"
         value={bidAmount}
-        onKeyDown={(event) => {
-          if (!(event.key >= '0' && event.key <= '9' || event.key === 'Backspace'))
-            event.preventDefault();  //Prevent keys other than 0-9 and backspace from being entered
-        }}
-        onChange={handleInputChange}
+        name="bidAmountInKRONER"
         required
       />
       <button className={style.button} type="submit">Legg inn bud</button>
