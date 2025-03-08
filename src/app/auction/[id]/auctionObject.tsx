@@ -79,34 +79,6 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
     alertBox(response)
   }
 
-
-  //Make POST request to auction API with objectId and bidamount
-  // const placeBid = async () => {
-  //   if (bidAmount === "" || parseInt(bidAmount, 10) <= 0) {
-  //     alert("Please enter a positive integer.");
-  //     return;
-  //   }
-  //   // Convert from krone to ore
-  //   setBidAmount((Number(bidAmount) * 100).toString());
-
-  //   // Send bidAmount and objectID to API
-  //   try {
-  //     const response = await fetch('../../api/auction', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ objectId: object.id, bidAmount: bidAmount }),
-  //     });
-  //     const data = await response.json();
-  //     console.log(response.status);
-  //     console.log(data.error);
-  //     alert(response.status);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // };
   return (
     <form className={style.form}
       onSubmit={(e) => {
