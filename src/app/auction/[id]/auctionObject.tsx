@@ -141,7 +141,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
     return () => clearInterval(interval);
   }, []);
 
-  const itemType = object.type
+  const itemType = currentObject.type
 
 
   if (itemType == AuksjonsObjektType.AUKSJON) {
@@ -149,22 +149,23 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <div className={style.objectHeading}>
         {committeeLogoLink != "" &&
           (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{object.committee}</div>
+            <div className={style.committeeName}>{currentObject.committee}</div>
             <img src={committeeLogoLink}></img>
           </div>)}
-        <div className={style.title}>{object.name}</div>
+        <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <div className={style.description}>{object.description}</div>
+        <div className={style.description}>{currentObject.description}</div>
+        <p>Pris nå {currentObject.currentPriceOre*100}</p>
 
-        {isTime ? <BidPanel object={object}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
+        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
 
       </div>
 
 
-      {(isAdmin && (!object.approved)) ? <DeleteButton objectId={object.id} ></DeleteButton> : null}
-      {(isAdmin && (!object.approved)) ? <ApproveButton objectId={object.id} ></ApproveButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
   }
 
@@ -173,14 +174,14 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <div className={style.objectHeading}>
         {committeeLogoLink != "" &&
           (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{object.committee}</div>
+            <div className={style.committeeName}>{currentObject.committee}</div>
             <img src={committeeLogoLink}></img>
           </div>)}
-        <div className={style.title}>{object.name}</div>
+        <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <div className={style.description}>{object.description}</div>
+        <div className={style.description}>{currentObject.description}</div>
         <h2>Dette objektet er til salgs live klokken:</h2>
         {/* TODO Fiks dato */}
       </div>
@@ -195,19 +196,19 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <div className={style.objectHeading}>
         {committeeLogoLink != "" &&
           (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{object.committee}</div>
+            <div className={style.committeeName}>{currentObject.committee}</div>
             <img src={committeeLogoLink}></img>
           </div>)}
-        <div className={style.title}>{object.name}</div>
+        <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <div className={style.description}>{object.description}</div>
+        <div className={style.description}>{currentObject.description}</div>
         {
-          (isTime && (object.stock >= 1))
+          (isTime && (currentObject.stock >= 1))
             ? <BuyPanel object={object}></BuyPanel>
             : (
-              (object.stock >= 1)
+              (currentObject.stock >= 1)
                 ? <h2>Salget starter 03.20.2025</h2>
                 : <h2>Denne kappen er desverre utslogt</h2>
             )
