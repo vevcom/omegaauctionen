@@ -157,7 +157,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
         <div className={style.description}>{currentObject.description}</div>
-        <p>Pris nå {currentObject.currentPriceOre*100}</p>
+        <p>Pris nå {currentObject.currentPriceOre/100}</p>
 
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
 
