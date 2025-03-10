@@ -30,7 +30,7 @@ export default function makeAuctionItem() {
 
         }
         if (!((typeof (e.get("descripton")) === "string")) || (e.get("descripton") == "")) {
-            alertBox("Ser ut som du mengler en beskrivelse")
+            alertBox("Ser ut som du mangler en beskrivelse")
             return;
         }
         if (!(typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") || ((e.get("startPriceInKroner") as string) == "") || parseInt(e.get("startPriceInKroner") as string) < 0) {
