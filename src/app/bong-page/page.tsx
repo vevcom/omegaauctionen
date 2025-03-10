@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import is_admin from "@/app/components/is-admin/is-admin-func";
 import increment_bong from "../components/incrementBong/incrementBong";
 import style from "./page.module.scss"
+
+
+
+
 async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<number>>) {
     const response = await increment_bong()
     if (!response){
