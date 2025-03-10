@@ -4,15 +4,19 @@ CREATE TYPE "Study" AS ENUM ('ELSYS', 'KYB', 'OTHER', 'NOTANSWERD');
 -- CreateEnum
 CREATE TYPE "AuksjonsObjektType" AS ENUM ('AUKSJON', 'SALG', 'LIVE');
 
+-- CreateEnum
+CREATE TYPE "Committee" AS ENUM ('NOTCOM', 'VEVCOM', 'HS', 'FADDERSTYRET', 'OMBUL', 'LOCCOM', 'CONTACTOR', 'KIELDER', 'PHAESTCOM', 'SPORTOGSPILL', 'DGR', 'OV', 'SOSCOM', 'HEUTTECOM', 'BRYGCOM', 'BLAESTCOM', 'LOPHTCOM', 'OMEGAREVYEN', 'PHINANSCOM');
+
 -- CreateTable
 CREATE TABLE "AuksjonsObjekt" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "startPrice" INTEGER NOT NULL,
+    "committee" "Committee" NOT NULL DEFAULT 'NOTCOM',
     "type" "AuksjonsObjektType" NOT NULL DEFAULT 'AUKSJON',
-    "stock" INTEGER NOT NULL DEFAULT 1,
+    "startPrice" INTEGER NOT NULL,
     "currentPriceOre" INTEGER NOT NULL,
+    "stock" INTEGER NOT NULL DEFAULT 1,
     "finalSaleTime" TIMESTAMP(3) NOT NULL,
     "currentSaleTime" TIMESTAMP(3) NOT NULL,
     "approved" BOOLEAN NOT NULL DEFAULT false,
