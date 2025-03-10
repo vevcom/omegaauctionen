@@ -2,25 +2,27 @@
     width: auto;
 
 }
-.auctionImage{
+
+.auctionImage {
     width: 20%;
     height: auto;
 }
+
 .inputBoxes {
     margin: auto;
     width: 80%;
     text-align: center;
-    margin-top: 2em; 
+    margin-top: 2em;
     /* background-color: aqua; */
     display: flex;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
-    
+
 
 
 }
 
-.inputBoxes>*{
+.inputBoxes>* {
     width: auto;
     margin: auto;
 }
@@ -52,8 +54,8 @@
 .inputBoxes input:focus,
 .inputBoxes textarea:focus {
     outline: none;
-    border-color: #007BFF;
-    box-shadow: 0px 0px 12px rgba(0, 123, 255, 0.7);
+    border-color: #53aaa3;
+    box-shadow: 0px 0px 12px #36706bcc;
     background: linear-gradient(145deg, #ffffff, #f1f1f1);
 }
 
@@ -67,9 +69,9 @@
     transition: color 0.3s ease-in-out;
 }
 
-.inputBoxes input:focus + label,
-.inputBoxes textarea:focus + label {
-    color: #007BFF;
+.inputBoxes input:focus+label,
+.inputBoxes textarea:focus+label {
+    color: #64cec5;
 }
 
 /* Button styling */
@@ -77,7 +79,7 @@
     padding: 0.8em 1.5em;
     font-size: 1rem;
     color: #fff;
-    background: linear-gradient(145deg, #007BFF, #0056b3);
+    background: linear-gradient(145deg, #64cec5, #4ea099);
     border: none;
     border-radius: 8px;
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(255, 255, 255, 0.7);
@@ -86,8 +88,8 @@
 }
 
 .buttonBox button:hover {
-    background: linear-gradient(145deg, #0056b3, #004494);
-    box-shadow: 0px 0px 12px rgba(0, 123, 255, 0.7);
+    background: linear-gradient(145deg, #4ea099, #2f635e);
+    box-shadow: 0px 0px 12px #36706bcc;
 }
 
 .buttonBox button:active {
@@ -98,11 +100,11 @@
 /* Add hover effects for inputs */
 .inputBoxes input:hover,
 .inputBoxes textarea:hover {
-    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.3);
+    box-shadow: 0px 0px 12px #36706b62;
 }
 
 
-.mainDiv{
+.mainDiv {
     background-color: rgba(255, 255, 255, 0.7);
     width: 80%;
     padding: 3%;
@@ -132,7 +134,8 @@
     pointer-events: none;
     /* Prevent interaction with the grid */
 }
-.inputBoxes> input{
+
+.inputBoxes>input {
     text-align: center;
 }
 
@@ -142,3 +145,41 @@
     box-sizing: border-box;
 }
 
+
+
+.uploaderDiv {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-block: 5vh;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+.uploaderButton {
+    font-size: 1em;
+    background-color: #64cec5;
+    border: none;
+    text-align: center;
+    border-radius: 0.3em;
+    padding: 1em;
+    margin: auto;
+}
+
+.borwseButton {
+    font-size: 1em;
+    order: 1px solid #ccc;
+    display: inline-block;
+    
+    cursor: pointer;
+}
+
+
+
+
+.preveiwImage {
+    width: 80%;
+    border-radius: 1%;
+    margin: auto;
+    margin-block: 3vh;
+}

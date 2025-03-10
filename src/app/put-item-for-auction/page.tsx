@@ -13,7 +13,7 @@ export default function makeAuctionItem() {
     const [popUpText, SetPopUpText] = useState("")
     const popUpLengthMilliSeconds = 5000
 
-    const delay = (ms:number) => new Promise(
+    const delay = (ms: number) => new Promise(
         resolve => setTimeout(resolve, ms)
     );
 
@@ -24,7 +24,7 @@ export default function makeAuctionItem() {
             return;
         }
         const userId = await getUserID()
-        if(userId ==false){
+        if (userId == false) {
             alertBox("couldnt get  user ")
             return;
 
@@ -33,12 +33,14 @@ export default function makeAuctionItem() {
             alertBox("Ser ut som du mengler en beskrivelse")
             return;
         }
-        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")|| parseInt(e.get("startPriceInKroner") as string)<0) {
+        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "") || parseInt(e.get("startPriceInKroner") as string) < 0) {
             alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
             return;
         }
+
+        const bidAmountInOre = parseInt((parseFloat((e.get("startPriceInKroner") as string)) * 100).toFixed(2))
         e.append("imageFileName", uploadedFileName)
-        e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
+        e.append("startPriceInOre", bidAmountInOre.toString())
         e.append("userById", (userId).toString())
         const response = await createAuctionItemFromForm(e)
 
@@ -71,7 +73,7 @@ export default function makeAuctionItem() {
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
                 <div className={style.inputBoxes} >
-                    <input name="startPriceInKroner" type="number" min={0.01} max={10000}></input>
+                    <input name="startPriceInKroner" type="number" step="any"></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.buttonBox}`}>
@@ -79,11 +81,11 @@ export default function makeAuctionItem() {
                     <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
                 </div>
             </form>
-            <h1>Last opp egendefinert bilde.</h1>
-            <ImageUploaderButton
-                setUploadedFileName={setUploadedFileName}
-            />
-            <ImageFromFileName styleComponent={style} filename={uploadedFileName}></ImageFromFileName>
+            <div className={style.uploaderDiv}>
+                <h1>Last opp egendefinert bilde. <b>Merk!</b> Noen ganger kommer ikke bilde frem. Hvis bilde ikke vises etter noen sekunder, så kan du prøve å trykke last opp på nytt</h1>
+                <ImageUploaderButton styleNameBrowse={style.borwseButton} styleNameButton={style.uploaderButton} setUploadedFileName={setUploadedFileName} />
+                <ImageFromFileName style={style.preveiwImage} filename={uploadedFileName}></ImageFromFileName>
+            </div>
         </div >
     )
 }

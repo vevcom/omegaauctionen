@@ -3,7 +3,7 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import styles from "./page.module.scss";
 import getUserID from "./api/auth/getUserId";
-import reportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
+import getReportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
 import registerUserCourse from "@/app/components/register-user-course/register-user-course"
 
 
@@ -26,7 +26,7 @@ export default function Home() {
         return;
       }
       setIsLoggedIn(true)
-      const hasAnswerd_response = await reportedFieldOfStudy(userID)
+      const hasAnswerd_response = await getReportedFieldOfStudy(userID)
       console.log(hasAnswerd_response)
       setReportedFieldOfStudy(hasAnswerd_response)
     }
