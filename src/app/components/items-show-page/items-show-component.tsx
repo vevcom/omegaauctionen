@@ -28,7 +28,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                             <div className={styles.textContainer}>
                                 <h3 className={styles.navn}>{object.name}</h3>
                                 <br/>
-                                <p className={styles.pris}>{object.startPriceOre/100} kr</p>
+                                <p className={styles.pris}>{object.currentPriceOre/100} kr</p>
                             </div>
                         </div>
                     
