@@ -1,4 +1,36 @@
 .content {
     text-align: center;
-    margin-top: 5vw;
+    width: 80%;
+    margin: auto;
+    margin-block: 5vh;
+    background-color: rgb(188, 179, 194, 0.3);
+    border-radius: 20px;
+    border: solid 1px rgb(188, 179, 194);
+    padding-block: 2vh;
+    padding-inline: 1vw;
+}
+
+.howSaleList {
+    text-align: left;
+    list-style-type: decimal;
+    margin-left: 20px;
+
+    li {
+        margin-bottom: 8px;
+    }
+}
+
+// Make sure this is a standalone class
+.nestedhowSaleList {
+    list-style-type: lower-alpha;
+    margin-left: 30px;
+}
+.subSection{
+    margin-block: 1vh;
+    font-size: 2em;
+}
+
+.explainationText {
+    font-size: 1em;
+    margin-bottom: 2vh;
 }

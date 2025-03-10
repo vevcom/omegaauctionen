@@ -13,7 +13,7 @@ export default function makeAuctionItem() {
     const [popUpText, SetPopUpText] = useState("")
     const popUpLengthMilliSeconds = 5000
 
-    const delay = (ms:number) => new Promise(
+    const delay = (ms: number) => new Promise(
         resolve => setTimeout(resolve, ms)
     );
 
@@ -24,7 +24,7 @@ export default function makeAuctionItem() {
             return;
         }
         const userId = await getUserID()
-        if(userId ==false){
+        if (userId == false) {
             alertBox("couldnt get  user ")
             return;
 
@@ -33,7 +33,11 @@ export default function makeAuctionItem() {
             alertBox("Ser ut som du mengler en beskrivelse")
             return;
         }
+<<<<<<< HEAD
         if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")|| (parseInt(e.get("startPriceInKroner") as string)<0)) {
+=======
+        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "") || parseInt(e.get("startPriceInKroner") as string) < 0) {
+>>>>>>> somescssstyilng
             alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
             return;
         }
@@ -79,11 +83,11 @@ export default function makeAuctionItem() {
                     <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
                 </div>
             </form>
-            <h1>Last opp egendefinert bilde.</h1>
-            <ImageUploaderButton
-                setUploadedFileName={setUploadedFileName}
-            />
-            <ImageFromFileName styleComponent={style} filename={uploadedFileName}></ImageFromFileName>
+            <div className={style.uploaderDiv}>
+                <h1>Last opp egendefinert bilde.</h1>
+                <ImageUploaderButton styleNameBrowse={style.borwseButton} styleNameButton={style.uploaderButton} setUploadedFileName={setUploadedFileName} />
+                <ImageFromFileName style={style.preveiwImage} filename={uploadedFileName}></ImageFromFileName>
+            </div>
         </div >
     )
 }

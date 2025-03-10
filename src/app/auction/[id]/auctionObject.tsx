@@ -164,7 +164,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
 
       </div>
-
+      <p>*MERK* Alle bud er binnende</p>
 
       {(isAdmin && (!currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
@@ -215,6 +215,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
                 : <h2>Denne kappen er desverre utslogt</h2>
             )
         }
+        <p>*MERK* Alle kjøp er binnende</p>
       </div>
 
     </div>

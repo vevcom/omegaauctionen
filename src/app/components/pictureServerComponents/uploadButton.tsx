@@ -3,7 +3,7 @@
 import { useState } from "react";
 import PopUpBox from "@/app/components/popUp/popUp"
 import { uploadImage } from "@/app/components/pictureServerComponents/uploadImageServerFunction"
-export default function ImageUploaderButton({ setUploadedFileName }: { setUploadedFileName: React.Dispatch<React.SetStateAction<string>> }) {
+export default function ImageUploaderButton({ setUploadedFileName,styleNameButton,styleNameBrowse }: { setUploadedFileName: React.Dispatch<React.SetStateAction<string>> , styleNameButton:string,styleNameBrowse:string }) {
   /**
    * Uploads file to server
    * takes in a useState changer for the usestate image uploader
@@ -54,9 +54,9 @@ export default function ImageUploaderButton({ setUploadedFileName }: { setUpload
 
   return (
     <div className="p-4 space-y-4">
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <input className={styleNameBrowse} type="file" accept="image/*" onChange={handleFileChange} />
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className={styleNameButton}
         onClick={handleUpload}
       >
         Last opp
