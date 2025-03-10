@@ -82,7 +82,7 @@ export default function makeAuctionItem() {
                 </div>
             </form>
             <div className={style.uploaderDiv}>
-                <h1>Last opp egendefinert bilde. <b>Merk!</b> Noen ganger kommer ikke bilde frem til serverene våre når du trykker "last opp". Hvis bilde ikke vises etter noen sekunder, så kan du prøve å trykke last opp på nytt. Hvis du ikke ser bildet ditt, blir heller ikke bilde med</h1>
+                <h1>Last opp egendefinert bilde. <b>Merk!</b> Noen ganger kommer ikke bilde frem til serverene våre når du trykker "last opp". Hvis bilde ikke vises etter noen sekunder, så kan du prøve å trykke last opp på nytt. Hvis du ikke ser bildet ditt, havner det ikke på veven</h1>
                 <ImageUploaderButton styleNameBrowse={style.borwseButton} styleNameButton={style.uploaderButton} setUploadedFileName={setUploadedFileName} />
                 <ImageFromFileName style={style.preveiwImage} filename={uploadedFileName}></ImageFromFileName>
             </div>
