@@ -37,8 +37,10 @@ export default function makeAuctionItem() {
             alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
             return;
         }
+
+        const bidAmountInOre = parseInt((parseFloat((e.get("startPriceInKroner") as string)) * 100).toFixed(2))
         e.append("imageFileName", uploadedFileName)
-        e.append("startPriceInOre", (parseInt(e.get("startPriceInKroner") as string) * 100).toString())
+        e.append("startPriceInOre", bidAmountInOre.toString())
         e.append("userById", (userId).toString())
         const response = await createAuctionItemFromForm(e)
 
@@ -71,7 +73,7 @@ export default function makeAuctionItem() {
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
                 <div className={style.inputBoxes} >
-                    <input name="startPriceInKroner" type="number"></input>
+                    <input name="startPriceInKroner" type="number" step="any"></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.buttonBox}`}>
