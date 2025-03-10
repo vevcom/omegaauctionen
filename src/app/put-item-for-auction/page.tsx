@@ -33,11 +33,7 @@ export default function makeAuctionItem() {
             alertBox("Ser ut som du mengler en beskrivelse")
             return;
         }
-<<<<<<< HEAD
-        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "")|| (parseInt(e.get("startPriceInKroner") as string)<0)) {
-=======
         if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "") || parseInt(e.get("startPriceInKroner") as string) < 0) {
->>>>>>> somescssstyilng
             alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
             return;
         }
