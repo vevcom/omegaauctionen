@@ -39,9 +39,10 @@ export default async function AuctionObjectPage({ params }: { params: { id: stri
     });
     await prisma.$disconnect();
     
+    // TODO: Remove before auction
     //Default object for when db call unsuccessfull
     const defaultAuctionObject = {
-        id:3,
+        id:0,
         name:"Title",
         description:"Long description",
         startPriceOre:0,
