@@ -2,7 +2,7 @@
 
 import getUserID from "@/app/api/auth/getUserId"
 import { prisma } from "@/app/prisma"
-import is_admin from "../is-admin/is-admin-func"
+import is_miniAdmin from "../is-miniAdmin/is-miniAdmin"
 
 
 //This function uses an unapproved item to registrer amounts of bongs sold
@@ -18,9 +18,8 @@ export default async function increment_bong() {
         return false;
     }
 
-    //Checks if admin
-    //TODO make this mini admin. Nåde dæ hvis du komenterer på dette albert. Jeg forklarer hva miniadmin er senere
-    const isAdmin = await is_admin()
+    //Checks if user has mini admin accsess
+    const isAdmin = await is_miniAdmin()
     if (!isAdmin){
         return false
     }

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import is_admin from "@/app/components/is-admin/is-admin-func";
 import increment_bong from "../components/incrementBong/incrementBong";
 import style from "./page.module.scss"
+import is_miniAdmin from "../components/is-miniAdmin/is-miniAdmin";
 
 
 
@@ -17,18 +17,18 @@ async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<numbe
 }
 
 export default function App() {
-    const [loadAdminPage, setLoadAdminPage] = useState(false);
+    const [loadminiAdminPage, setloadminiAdminPage] = useState(false);
     const [bongsSold, setBongsSold] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
-            const is_admin_response = await is_admin()
-            setLoadAdminPage(is_admin_response)
+            const is_admin_response = await is_miniAdmin()
+            setloadminiAdminPage(is_admin_response)
         }
         fetchData();
     }, []);
 
-    if (loadAdminPage) {
+    if (loadminiAdminPage) {
         return (
             <div className={style.mainDiv}>
                 <h1 className={style.title}> Dere har solgt {bongsSold} bonger! Forsett sånn!</h1>
