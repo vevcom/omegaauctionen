@@ -9,6 +9,7 @@ import ApproveButton from "@/app/components/approve-button/approve-button";
 import DeleteButton from "@/app/components/delete-button/delete-button";
 import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFromNameComponent";
 import buy_item from "@/app/components/buy-item/buy-item";
+import CurrentPrice from "@/app/components/currentPrice/currentPrice";
 
 
 const committeeToLink = {
@@ -53,8 +54,6 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
       alert("Please enter a positive integer.");
       return;
     }
-    // Convert from krone to ore
-    setBidAmount((Number(bidAmount) * 100).toString());
 
     // Send bidAmount and objectID to API
     try {
@@ -63,12 +62,11 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ objectId: object.id, bidAmount: bidAmount }),
+        body: JSON.stringify({ objectId: object.id, bidAmount: Number(bidAmount)*100}),
       });
       const data = await response.json();
-      console.log(response.status);
-      console.log(data.error);
-      alert(response.status);
+      // console.log(response.status);
+      // console.log(data.error);
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +97,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
 }
 
 async function buy(object: AuksjonsObjekt) {
-  if (!confirm("Vil du kjøpen til" + (object.currentPriceOre / 100).toString() + "kr?")) {
+  if (!confirm("Vil du kjøpe til" + (object.currentPriceOre / 100).toString() + "kr?")) {
     return;
   }
   await buy_item(object.id)
@@ -146,6 +144,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <div className={style.imagecontainer}>
           <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
         </div>
+        <CurrentPrice objectId={object.id}></CurrentPrice>
         <div className={style.description}>{object.description}</div>
 
         {isTime ? <BidPanel object={object}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
