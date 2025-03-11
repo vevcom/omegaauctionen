@@ -1,0 +1,254 @@
+$button-size: 20vw;
+
+.descriptionBox>textarea {
+    width: auto;
+
+}
+
+.auctionImage {
+    width: 20%;
+    height: auto;
+}
+
+.inputBoxes {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    margin-top: 2em;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+
+
+
+}
+
+.inputBoxes>* {
+    width: auto;
+    margin: auto;
+}
+
+
+
+.mainDiv {
+    /* background-color: brown; */
+    margin: auto;
+    margin-block: 10rem;
+    width: 90%;
+}
+
+/* this css is made with chat gpt */
+/* Updated input styles */
+.inputBoxes input,
+.inputBoxes textarea {
+    width: 100%;
+    padding: 0.8em 1em;
+    margin: 0.5em 0;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #f0f0f0, #d9d9d9);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease-in-out;
+}
+
+.inputBoxes input:focus,
+.inputBoxes textarea:focus {
+    outline: none;
+    border-color: #53aaa3;
+    box-shadow: 0px 0px 12px #36706bcc;
+    background: linear-gradient(145deg, #ffffff, #f1f1f1);
+}
+
+/* Label styling */
+.inputBoxes label {
+    display: block;
+    margin-bottom: 0.3em;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+.inputBoxes input:focus+label,
+.inputBoxes textarea:focus+label {
+    color: #64cec5;
+}
+
+/* Button styling */
+.buttonBox button {
+    padding: 0.8em 1.5em;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(145deg, #64cec5, #4ea099);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.buttonBox button:hover {
+    background: linear-gradient(145deg, #4ea099, #2f635e);
+    box-shadow: 0px 0px 12px #36706bcc;
+}
+
+.buttonBox button:active {
+    transform: scale(0.98);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Add hover effects for inputs */
+.inputBoxes input:hover,
+.inputBoxes textarea:hover {
+    box-shadow: 0px 0px 12px #36706b62;
+}
+
+
+.mainDiv {
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 80%;
+    padding: 3%;
+    border: black solid 3px;
+    border-radius: 1%;
+}
+
+/* CSS for the overlay grid */
+.full-page-grid {
+    position: fixed;
+    /* Stays in place even when scrolling */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Full viewport width */
+    height: 100vh;
+    /* Full viewport height */
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* 12 columns */
+    grid-template-rows: repeat(12, 1fr);
+    /* 12 rows */
+    z-index: 9999;
+    /* Ensure it stays above all other elements */
+    background: rgba(0, 0, 0, 0.1);
+    /* Semi-transparent background */
+    pointer-events: none;
+    /* Prevent interaction with the grid */
+}
+
+.inputBoxes>input {
+    text-align: center;
+}
+
+.full-page-grid div {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    /* Optional: Add borders to cells */
+    box-sizing: border-box;
+}
+
+
+
+.uploaderDiv {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    margin-block: 5vh;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+.uploaderButton {
+    font-size: 1em;
+    background-color: #64cec5;
+    border: none;
+    text-align: center;
+    border-radius: 0.3em;
+    padding: 1em;
+    margin: auto;
+}
+
+.borwseButton {
+    font-size: 1em;
+    order: 1px solid #ccc;
+    display: inline-block;
+    
+    cursor: pointer;
+}
+
+
+
+
+.preveiwImage {
+    width: 80%;
+    border-radius: 1%;
+    margin: auto;
+    margin-block: 3vh;
+}
+
+
+.mainDiv{
+    text-align: center;
+}
+
+.buttonHolder{
+    margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.bongBtn1{
+    width: $button-size;
+    height: $button-size;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+.bongBtn2{
+    width: $button-size;
+    height: $button-size;
+    background-color: green;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+.bongBtn3{
+    width: $button-size;
+    height: $button-size;
+    background-color: blue;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+.bongBtn4{
+    width: $button-size;
+    height: $button-size;
+    background-color: pink;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+
+.title{
+    font-size: 3vw;
+    border: none;
+}
+
+
+.bongBtn1::hover{
+    cursor: pointer;
+}
+.bongBtn2::hover{
+    cursor: pointer;
+}
+.bongBtn3::hover{
+    cursor: pointer;
+}
+.bongBtn4::hover{
+    cursor: pointer;
+}

@@ -39,6 +39,7 @@ export default function App() {
                 <button className={style.bongBtn3} onClick={e => placeLodd(setLoddSold,5)}>Noen har kjøpt 5 lodd</button>
                 <button className={style.bongBtn4} onClick={e => placeLodd(setLoddSold,10)}>Noen har kjøpt 10 lodd</button>
                 </div>
+                <h1><b>!MERK!</b> bare for stattestikk! Må ikke brukes for ekte pengehåndtering</h1>
             </div>
         );
     }
