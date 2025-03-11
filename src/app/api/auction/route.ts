@@ -53,7 +53,7 @@ export async function POST (request: NextRequest) {
   
   // 404 Error if no matching auctionObject at provided ID
   if (!auctionObject) {
-    return NextResponse.json({ error: 'Auction object not found. id:${objectId}' }, { status: 404 });
+    return NextResponse.json({ error: 'Auction object not found. id:'+objectId }, { status: 404 });
   }
   // 401 Error if object not approved / unauthorized
   if (!auctionObject.approved) {
@@ -81,7 +81,7 @@ export async function POST (request: NextRequest) {
     }
   });
 
-  const updatedObject = await prisma.auksjonsObjekt.update({
+  await prisma.auksjonsObjekt.update({
     where: { id: objectId },
     data: {
       currentSaleTime: new Date(),
