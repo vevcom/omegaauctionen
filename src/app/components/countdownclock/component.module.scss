@@ -1,0 +1,44 @@
+.countdowncomponent {
+    text-align: center;
+}
+.countdowntitle {
+    margin-top:10vh;
+    font-size:3vh;
+}
+.clockcontainer {
+    display:flex;
+    flex-direction: row;
+    margin-top:10vh;
+}
+.part {
+    display:flex;
+    flex-direction: column;
+    padding: 0 3vw;
+    text-align: center;
+    font-family: 'Josefin Sans', sans-serif;
+}
+.time{
+    font-size:6vh;
+}
+.unit {
+    font-size:medium;
+}
+.colon {
+    font-size:xx-large;
+    margin:auto 0;
+}
+
+@media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
+    .countdowntitle {
+        font-size:8vh;
+    }
+    .time{
+        font-size:10vh;
+    }
+    .unit {
+        font-size:large;
+    }
+
+
+
+}
