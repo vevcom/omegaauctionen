@@ -4,7 +4,7 @@ import style from "./component.module.scss"
 
 
 export default function CurrentPrice({ price }: { price: number }) {
-
+  price /=100;
   return (
     <>
     <div className={style.currentPrice} >
