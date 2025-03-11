@@ -62,18 +62,19 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
 
 
   async function tryPlaceBid(e: FormData) {
-    if (!e.get("bidAmountInKRONER")) {
+    const value = e.get("bidAmountInKRONER");
+    if (!value) {
       alertBox("Du må skrive inn tall")
       return;
     }
-    if (((typeof (parseInt(e.get("bidAmountInKRONER") as string)) === "number") == false) || ((e.get("bidAmountInKRONER") as string) == "") || parseInt(e.get("bidAmountInKRONER") as string) < 0) {
-      alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
+    if (((typeof (parseInt(value as string)) === "number") == false) || ((value as string) == "") || parseInt(value as string) < 0) {
+      alertBox("Skriv inn et gyldig tall")
       return;
     }
 
-    const bidAmountInOre = parseInt((parseFloat((e.get("bidAmountInKRONER") as string)) * 100).toFixed(2))
+    const bidAmountInOre = parseInt((parseFloat((value as string)) * 100).toFixed(2))
     if (bidAmountInOre <= object.currentPriceOre) {
-      alertBox("Du må by over den nåværende prisen")
+      alertBox("By over den nåværende prisen")
       return;
     }
     const response = await placeBid(object, bidAmountInOre)
@@ -92,6 +93,11 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         name="bidAmountInKRONER"
         step="any"
         required
+        onKeyDown={(e) => {
+          if (["+", "-", "e", "E"].includes(e.key)) {
+            e.preventDefault();
+          }
+        }}
       />
       <button className={style.button} type="submit">Legg inn bud</button>
       <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
