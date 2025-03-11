@@ -24,16 +24,16 @@ export default function makeAuctionItem() {
             return;
         }
         const userId = await getUserID()
-        if (userId == false) {
-            alertBox("couldnt get  user ")
+        if (!userId) {
+            alertBox("Ser ut som du ikke er logget inn")
             return;
 
         }
-        if ((((typeof (e.get("descripton")) === "string")) == false) || (e.get("descripton") == "")) {
-            alertBox("Ser ut som du mengler en beskrivelse")
+        if (!((typeof (e.get("descripton")) === "string")) || (e.get("descripton") == "")) {
+            alertBox("Ser ut som du mangler en beskrivelse")
             return;
         }
-        if (((typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") == false) || ((e.get("startPriceInKroner") as string) == "") || parseInt(e.get("startPriceInKroner") as string) < 0) {
+        if (!(typeof (parseInt(e.get("startPriceInKroner") as string)) === "number") || ((e.get("startPriceInKroner") as string) == "") || parseInt(e.get("startPriceInKroner") as string) < 0) {
             alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
             return;
         }
@@ -65,15 +65,15 @@ export default function makeAuctionItem() {
         <div className={style.mainDiv}>
             <form action={(e) => sendFormData(e)}>
                 <div className={style.inputBoxes}>
-                    <input name="name"></input>
+                    <input name="name" required></input>
                     <label htlm-for="name">Navn på salgsobjekt</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.descriptionBox}`}>
-                    <textarea rows={20} cols={80} name="descripton"></textarea>
+                    <textarea rows={20} cols={80} name="descripton" required></textarea>
                     <label htlm-for="descripton">Beskrivelse</label>
                 </div>
                 <div className={style.inputBoxes} >
-                    <input name="startPriceInKroner" type="number" step="any"></input>
+                    <input name="startPriceInKroner" type="number" step="any" required></input>
                     <label htmlFor="startPriceInKroner">Start pris</label>
                 </div>
                 <div className={`${style.inputBoxes} ${style.buttonBox}`}>
@@ -82,7 +82,7 @@ export default function makeAuctionItem() {
                 </div>
             </form>
             <div className={style.uploaderDiv}>
-                <h1>Last opp egendefinert bilde. <b>Merk!</b> Noen ganger kommer ikke bilde frem. Hvis bilde ikke vises etter noen sekunder, så kan du prøve å trykke last opp på nytt</h1>
+                <h1>Last opp egendefinert bilde. <b>Merk!</b> Noen ganger kommer ikke bilde frem til serverene våre når du trykker "last opp". Hvis bilde ikke vises etter noen sekunder, så kan du prøve å trykke last opp på nytt. Hvis du ikke ser bildet ditt, havner det ikke på veven</h1>
                 <ImageUploaderButton styleNameBrowse={style.borwseButton} styleNameButton={style.uploaderButton} setUploadedFileName={setUploadedFileName} />
                 <ImageFromFileName style={style.preveiwImage} filename={uploadedFileName}></ImageFromFileName>
             </div>

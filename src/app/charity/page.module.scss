@@ -1,7 +1,42 @@
 .titleCard {
     background-color: var(--titleColor);
-    width:100%;
-    padding-top:10vh;
-    padding:5vh;
-    text-align:center;
+    width: 80%;
+    padding-top: 10vh;
+    padding: 5vh;
+    text-align: center;
+    margin: auto;
+    margin-block: 5vh;
+    font-size: 4vw;
+    background-color: rgb(188, 179, 194, 0.3);
+    border-radius: 20px;
+    border: solid 1px rgb(188, 179, 194);
+}
+
+.tekst {
+    width: 70%;
+    margin: auto;
+    margin-block: 2em;
+    font-size: 2vw !important;
+}
+
+.image {
+    width: 100%;
+}
+
+.underTittle {
+    font-size: 4vw !important;
+}
+
+.underSrkiftTekst {
+    font-size: 1vw;
+}
+
+.picHolder {
+    width: 80%;
+    margin: auto;
+}
+
+.linkToWb{
+    font-size: 1vw;
+    color: blue;
 }
