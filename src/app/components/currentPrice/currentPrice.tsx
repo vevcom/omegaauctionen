@@ -7,6 +7,7 @@ import style from "./component.module.scss"
 
 export default function CurrentPrice({ objectId }: { objectId: number }) {
   const [currentPriceOre, setCurrentPriceOre] = useState<number | null>(null);
+  let lastPrice = currentPriceOre;
 
   useEffect(() => {
     const fetchPrice = async () => {
@@ -24,7 +25,7 @@ export default function CurrentPrice({ objectId }: { objectId: number }) {
   return (
     <>
     <div className={style.currentPrice} >
-        Nåværende pris:  {currentPriceOre !== null ? (<b>{currentPriceOre} kr</b>) : "Laster pris..."}
+        Nåværende pris:  {currentPriceOre !== null ? (<b>{currentPriceOre} kr</b>) : <b> kr</b>}
     </div>
     <hr className={style.separator}></hr>
     </>
