@@ -1,0 +1,50 @@
+$button-size: 20vw;
+
+
+
+.mainDiv{
+    text-align: center;
+}
+
+.buttonHolder{
+    margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.bongBtn1{
+    width: $button-size;
+    height: $button-size;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 3vw;
+}
+.bongBtn2{
+    width: $button-size;
+    height: $button-size;
+    background-color: green;
+    border-radius: 50%;
+    font-size: 3vw;
+}
+.bongBtn3{
+    width: $button-size;
+    height: $button-size;
+    background-color: blue;
+    border-radius: 50%;
+    font-size: 3vw;
+}
+.bongBtn4{
+    width: $button-size;
+    height: $button-size;
+    background-color: pink;
+    border-radius: 50%;
+    font-size: 3vw;
+}
+
+.title{
+    font-size: 3vw;
+}
