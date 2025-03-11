@@ -55,6 +55,34 @@
     align-items:center;
 
 }
+.imagecontainer::before{
+    content:"";
+    display: block;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    unicode-bidi: isolate;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    width:80%;
+    height:0;
+}
+.imagecontainer::after{
+    content:"";
+    display: block;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    unicode-bidi: isolate;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    width:80%;
+    height:0;
+}
 .separator {
     width:80%;
     margin: 0 10%;
