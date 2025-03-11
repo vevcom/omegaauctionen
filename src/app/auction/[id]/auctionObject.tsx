@@ -12,7 +12,7 @@ import buy_item from "@/app/components/buy-item/buy-item";
 import PopUpBox from "@/app/components/popUp/popUp"
 import placeBid from "@/app/components/place-bid-func/place-bid-func";
 import getObjectById from "@/app/components/get-object-from-id/get-object-from-id";
-
+import CurrentPrice from "@/app/components/currentPrice/currentPrice";
 
 
 const committeeToLink = {
@@ -62,18 +62,19 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
 
 
   async function tryPlaceBid(e: FormData) {
-    if (!e.get("bidAmountInKRONER")) {
+    const value = e.get("bidAmountInKRONER");
+    if (!value) {
       alertBox("Du må skrive inn tall")
       return;
     }
-    if (((typeof (parseInt(e.get("bidAmountInKRONER") as string)) === "number") == false) || ((e.get("bidAmountInKRONER") as string) == "") || parseInt(e.get("bidAmountInKRONER") as string) < 0) {
-      alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
+    if (((typeof (parseInt(value as string)) === "number") == false) || ((value as string) == "") || parseInt(value as string) < 0) {
+      alertBox("Skriv inn et gyldig tall")
       return;
     }
 
-    const bidAmountInOre = parseInt((parseFloat((e.get("bidAmountInKRONER") as string)) * 100).toFixed(2))
+    const bidAmountInOre = parseInt((parseFloat((value as string)) * 100).toFixed(2))
     if (bidAmountInOre <= object.currentPriceOre) {
-      alertBox("Du må by over den nåværende prisen")
+      alertBox("By over den nåværende prisen")
       return;
     }
     const response = await placeBid(object, bidAmountInOre)
@@ -92,6 +93,11 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         name="bidAmountInKRONER"
         step="any"
         required
+        onKeyDown={(e) => {
+          if (["+", "-", "e", "E"].includes(e.key)) {
+            e.preventDefault();
+          }
+        }}
       />
       <button className={style.button} type="submit">Legg inn bud</button>
       <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
@@ -99,7 +105,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
 }
 
 async function buy(object: AuksjonsObjekt) {
-  if (!confirm("Vil du kjøpen til" + (object.currentPriceOre / 100).toString() + "kr?")) {
+  if (!confirm("Vil du kjøpe til" + (object.currentPriceOre / 100).toString() + "kr?")) {
     return;
   }
   await buy_item(object.id)
@@ -158,13 +164,13 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <div className={style.imagecontainer}>
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <div className={style.description}>{currentObject.description}</div>
-        <p>Pris nå {currentObject.currentPriceOre/100}kr</p>
+        {isTime ? <CurrentPrice price={currentObject.currentPriceOre}></CurrentPrice> : null}
+        <div className={style.description}>{object.description}</div>
 
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
 
       </div>
-      <p>*MERK* Alle bud er binnende</p>
+      <div className={style.note}><b>*MERK*</b> Alle bud er binnende</div>
 
       {(isAdmin && (!currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
@@ -215,7 +221,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
                 : <h2>Denne kappen er desverre utslogt</h2>
             )
         }
-        <p>*MERK* Alle kjøp er binnende</p>
+        <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
       </div>
 
     </div>
