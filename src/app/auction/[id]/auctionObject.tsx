@@ -9,6 +9,9 @@ import ApproveButton from "@/app/components/approve-button/approve-button";
 import DeleteButton from "@/app/components/delete-button/delete-button";
 import ImageFromFileName from "@/app/components/pictureServerComponents/getImgFromNameComponent";
 import buy_item from "@/app/components/buy-item/buy-item";
+import PopUpBox from "@/app/components/popUp/popUp"
+import placeBid from "@/app/components/place-bid-func/place-bid-func";
+import getObjectById from "@/app/components/get-object-from-id/get-object-from-id";
 import CurrentPrice from "@/app/components/currentPrice/currentPrice";
 
 
@@ -36,63 +39,62 @@ const committeeToLink = {
 
 
 
+
+
 function BidPanel({ object }: { object: AuksjonsObjekt }) {
-  const [bidAmount, setBidAmount] = useState("");
+  // const [bidAmount, setBidAmount] = useState("");
+  const [popUpOn, SetPopUpOn] = useState(false)
+  const [popUpText, SetPopUpText] = useState("")
+  const popUpLengthMilliSeconds = 5000
+
+  const delay = (ms: number) => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
 
 
-  //bid-field change-handler
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (/\d/.test(value) || value === "") {
-      setBidAmount(value);
+  async function alertBox(alertText: string) {
+    SetPopUpText(alertText)
+    SetPopUpOn(true)
+    await delay(popUpLengthMilliSeconds);
+    SetPopUpOn(false)
+    SetPopUpText("")
+  }
+
+
+  async function tryPlaceBid(e: FormData) {
+    if (!e.get("bidAmountInKRONER")) {
+      alertBox("Du må skrive inn tall")
+      return;
     }
-  };
-
-  //Make POST request to auction API with objectId and bidamount
-  const placeBid = async () => {
-    if (bidAmount === "" || parseInt(bidAmount, 10) <= 0) {
-      alert("Please enter a positive integer.");
+    if (((typeof (parseInt(e.get("bidAmountInKRONER") as string)) === "number") == false) || ((e.get("bidAmountInKRONER") as string) == "") || parseInt(e.get("bidAmountInKRONER") as string) < 0) {
+      alertBox("Ser ut som du ikke skrev inn et gylding nummmer")
       return;
     }
 
-    // Send bidAmount and objectID to API
-    try {
-      const response = await fetch('../../api/auction', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ objectId: object.id, bidAmount: Number(bidAmount)*100}),
-      });
-      const data = await response.json();
-      // console.log(response.status);
-      // console.log(data.error);
-    } catch (error) {
-      console.log(error);
+    const bidAmountInOre = parseInt((parseFloat((e.get("bidAmountInKRONER") as string)) * 100).toFixed(2))
+    if (bidAmountInOre <= object.currentPriceOre) {
+      alertBox("Du må by over den nåværende prisen")
+      return;
     }
+    const response = await placeBid(object, bidAmountInOre)
+    alertBox(response)
+  }
 
-  };
   return (
     <form className={style.form}
-      onSubmit={(e) => {
-        e.preventDefault();
-        placeBid();
+    action={(e) => {
+        tryPlaceBid(e);
       }}>
       <input
         className={style.input}
         type="number"
         placeholder="Skriv inn bud"
-        min="1"
-        value={bidAmount}
-        onKeyDown={(event) => {
-          if (!(event.key >= '0' && event.key <= '9' || event.key === 'Backspace'))
-            event.preventDefault();  //Prevent keys other than 0-9 and backspace from being entered
-        }}
-        onChange={handleInputChange}
+        name="bidAmountInKRONER"
+        step="any"
         required
       />
       <button className={style.button} type="submit">Legg inn bud</button>
-
+      <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
     </form>)
 }
 
@@ -113,6 +115,7 @@ function BuyPanel({ object }: { object: AuksjonsObjekt }) {
 export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTime, setIsTime] = useState(false)
+  const [currentObject, setCurrentObject] = useState(object)
   const committeeLogoLink = committeeToLink[object.committee];
 
 
@@ -123,13 +126,24 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       const auctionDate = new Date('2025-03-20')
       const now = new Date()
       setIsTime(auctionDate == now)
-      setIsTime(true) // TODO: remove before production
-
+      if (is_admin_response && (now<auctionDate)){
+        setIsTime(true)
+      }
+      // console.log(now>auctionDate)
     }
     fetchData();
+    const interval = setInterval(async () => {
+      const newObject = await getObjectById(object.id)
+      if (!newObject){
+        return;
+      }
+      setCurrentObject(newObject)
+    }, 10000);
+  
+    return () => clearInterval(interval);
   }, []);
 
-  const itemType = object.type
+  const itemType = currentObject.type
 
 
   if (itemType == AuksjonsObjektType.AUKSJON) {
@@ -137,23 +151,23 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <div className={style.objectHeading}>
         {committeeLogoLink != "" &&
           (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{object.committee}</div>
+            <div className={style.committeeName}>{currentObject.committee}</div>
             <img src={committeeLogoLink}></img>
           </div>)}
-        <div className={style.title}>{object.name}</div>
+        <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <CurrentPrice objectId={object.id}></CurrentPrice>
+        <CurrentPrice price={currentObject.currentPriceOre}></CurrentPrice>
         <div className={style.description}>{object.description}</div>
 
-        {isTime ? <BidPanel object={object}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
+        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
 
       </div>
+      <p>*MERK* Alle bud er binnende</p>
 
-
-      {(isAdmin && (!object.approved)) ? <DeleteButton objectId={object.id} ></DeleteButton> : null}
-      {(isAdmin && (!object.approved)) ? <ApproveButton objectId={object.id} ></ApproveButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
   }
 
@@ -162,14 +176,14 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <div className={style.objectHeading}>
         {committeeLogoLink != "" &&
           (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{object.committee}</div>
+            <div className={style.committeeName}>{currentObject.committee}</div>
             <img src={committeeLogoLink}></img>
           </div>)}
-        <div className={style.title}>{object.name}</div>
+        <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <div className={style.description}>{object.description}</div>
+        <div className={style.description}>{currentObject.description}</div>
         <h2>Dette objektet er til salgs live klokken:</h2>
         {/* TODO Fiks dato */}
       </div>
@@ -184,23 +198,24 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <div className={style.objectHeading}>
         {committeeLogoLink != "" &&
           (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{object.committee}</div>
+            <div className={style.committeeName}>{currentObject.committee}</div>
             <img src={committeeLogoLink}></img>
           </div>)}
-        <div className={style.title}>{object.name}</div>
+        <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={object.imageName}></ImageFromFileName>
+          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        <div className={style.description}>{object.description}</div>
+        <div className={style.description}>{currentObject.description}</div>
         {
-          (isTime && (object.stock >= 1))
+          (isTime && (currentObject.stock >= 1))
             ? <BuyPanel object={object}></BuyPanel>
             : (
-              (object.stock >= 1)
+              (currentObject.stock >= 1)
                 ? <h2>Salget starter 03.20.2025</h2>
                 : <h2>Denne kappen er desverre utslogt</h2>
             )
         }
+        <p>*MERK* Alle kjøp er binnende</p>
       </div>
 
     </div>
