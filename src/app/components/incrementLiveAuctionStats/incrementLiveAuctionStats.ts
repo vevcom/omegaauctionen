@@ -22,7 +22,8 @@ export default async function increment_LiveAuctionStats(amountInOre:number) {
         return false;
     }
 
-    //Checks if user has mini admin accsess
+    //Checks if user has mini admin access. 
+    //Mini admin access is a system meant for users who need access to specific parts of the system
     const isAdmin = await is_miniAdmin()
     if (!isAdmin){
         return false
