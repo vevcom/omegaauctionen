@@ -17,18 +17,18 @@ async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<numbe
 }
 
 export default function App() {
-    const [loadminiAdminPage, setloadminiAdminPage] = useState(false);
+    const [loadminiadminPage, setloadminiadminPage] = useState(false);
     const [bongsSold, setBongsSold] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
             const is_admin_response = await is_miniadmin()
-            setloadminiAdminPage(is_admin_response)
+            setloadminiadminPage(is_admin_response)
         }
         fetchData();
     }, []);
 
-    if (loadminiAdminPage) {
+    if (loadminiadminPage) {
         return (
             <div className={style.mainDiv}>
                 <h1 className={style.title}> Dere har solgt {bongsSold} bonger! Forsett sånn!</h1>

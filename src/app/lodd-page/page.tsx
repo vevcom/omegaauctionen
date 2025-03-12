@@ -17,18 +17,18 @@ async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number
 }
 
 export default function App() {
-    const [loadminiAdminPage, setloadminiAdminPage] = useState(false);
+    const [loadminiadminPage, setloadminiadminPage] = useState(false);
     const [loddSold, setLoddSold] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
             const is_admin_response = await is_miniadmin()
-            setloadminiAdminPage(is_admin_response)
+            setloadminiadminPage(is_admin_response)
         }
         fetchData();
     }, []);
 
-    if (loadminiAdminPage) {
+    if (loadminiadminPage) {
         return (
             <div className={style.mainDiv}>
                 <h1 className={style.title}> Dere har solgt {loddSold} lodd! Forsett sånn!</h1>
