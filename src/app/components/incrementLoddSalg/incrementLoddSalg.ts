@@ -5,10 +5,10 @@ import { prisma } from "@/app/prisma"
 import is_miniadmin from "../is-miniadmin/is-miniadmin"
 
 
-//This function uses an unapproved item to registrer amounts of "lodd" sold (beermile)
+//This function uses an unapproved item to register amounts of money made fromm lodd(beermile)
 //it uses stock for this
 export default async function increment_lodd_sold(amount:number) {
-    //DONOTAPPROVE beacause the statisics would be ruind if approved and the item is not ment to be bid on
+    // The statistics of the site would be ruined if these items are approved. Hence we have chosen to call it "DONOTAPPROVE"
     const lodd_name = "DONOTAPPORVELodd"
     const moneyForLoddOre = 5000 //TODO Get acctual price
 
@@ -49,11 +49,15 @@ export default async function increment_lodd_sold(amount:number) {
             }
         })
     }
-    //uses stock to store amount of bongs sold
-    const respone = await prisma.auksjonsObjekt.update({ where: { id: loddObject.id }, data: { stock: loddObject.stock + amount } })
+
+
+    const newMoneyAmount = loddObject.stock + moneyForLoddOre*amount;
+
+    //uses stock to store money made
+    const respone = await prisma.auksjonsObjekt.update({ where: { id: loddObject.id }, data: { stock: newMoneyAmount } })
     if (!respone){
         return false;
     }
-    //returns number of bongs sold
-    return loddObject.stock +amount;
+    //returns number of lodd sold
+    return (newMoneyAmount/moneyForLoddOre).toFixed(0);
 }   
