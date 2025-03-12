@@ -8,7 +8,7 @@ import is_miniAdmin from "../is-miniAdmin/is-miniAdmin"
 //This function uses an unapproved item to registrer amounts of money made live. one stock = One øre
 //it uses stock for this
 export default async function increment_LiveAuctionStats(amountInOre:number) {
-    //DONOTAPPROVE beacause the statisics would be ruind if approved and the item is not ment to be bid on
+    // The statistics of the site would be ruined if these items are approved. Hence we have chosen to call it "DONOTAPPROVE"
     const lodd_name = "DONOTAPPORVELiveAuction"
     const moneyForLoddOre = 1
 
