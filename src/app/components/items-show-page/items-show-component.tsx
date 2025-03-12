@@ -12,7 +12,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
 
     //cuts of name before it overflows
     function cutOffName(name:string){
-        const maxLengthCharacters = 20;
+        const maxLengthCharacters = 15;
         if (name.length> maxLengthCharacters) {
             return name.substring(0,maxLengthCharacters) +"..."
         }
