@@ -10,6 +10,15 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
         return <p className={styles.tekst}>Laster inn... Ingen ting å se her 🙈</p>;
     }
 
+    //cuts of name before it overflows
+    function cutOffName(name:string){
+        const maxLengthCharacters = 20;
+        if (name.length> maxLengthCharacters) {
+            return name.substring(0,maxLengthCharacters) +"..."
+        }
+        return name
+    }
+
     return (<div className={styles.side}>
         
         <div>
@@ -25,7 +34,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                             
                                 <ImageComponent style={styles.auctionImage} filename={object.imageName}/>
                             <div className={styles.textContainer}>
-                                <h3 className={styles.navn}>{object.name}</h3>
+                                <h3 className={styles.navn}>{cutOffName(object.name)}</h3>
                                 <br/>
                                 <p className={styles.pris}>{object.currentPriceOre/100} kr</p>
                             </div>
