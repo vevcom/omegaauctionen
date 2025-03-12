@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "./component.module.scss";
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
-import { AuksjonsObjekt} from "@prisma/client";
+import { AuksjonsObjekt, AuksjonsObjektType} from "@prisma/client";
 
 
 export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:Array<Array<AuksjonsObjekt>>,currentPageNumber:number,pageTitle?:string}) {
@@ -18,7 +18,6 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
         }
         return name
     }
-
     return (<div className={styles.side}>
         
         <div>
@@ -36,7 +35,11 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                             <div className={styles.textContainer}>
                                 <h3 className={styles.navn}>{cutOffName(object.name)}</h3>
                                 <br/>
-                                <p className={styles.pris}>{object.currentPriceOre/100} kr</p>
+                                {object.type == AuksjonsObjektType.LIVE ?
+                                    "":
+                                    <p className={styles.pris}>{object.currentPriceOre/100} kr</p>
+                            }
+                                
                             </div>
                         </div>
                     
