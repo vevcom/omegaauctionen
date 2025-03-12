@@ -37,7 +37,7 @@ export default function App() {
                 <button className={style.bongBtn} onClick={e => placeBong(setBongsSold)}>Noen har kjøpt bong</button>
                 </div>
 
-                <h1><b>!MERK!</b> bare for stattestikk! Må ikke brukes for ekte pengehåndtering</h1>
+                <h1><b>!MERK!</b> bare for statestikk! Må ikke brukes for ekte pengehåndtering</h1>
             </div>
         );
     }
