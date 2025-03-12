@@ -5,10 +5,10 @@ import { prisma } from "@/app/prisma"
 import is_miniadmin from "../is-miniadmin/is-miniadmin"
 
 
-//This function uses an unapproved item to registrer amounts of money made live. one stock = One øre
+//This function uses an unapproved item to register amounts of money made live. one stock = One øre
 //it uses stock for this
 export default async function increment_LiveAuctionStats(amountInOre:number) {
-    //DONOTAPPROVE beacause the statisics would be ruind if approved and the item is not ment to be bid on
+    // The statistics of the site would be ruined if these items are approved. Hence we have chosen to call it "DONOTAPPROVE"
     const lodd_name = "DONOTAPPORVELiveAuction"
     const moneyForLoddOre = 1
 
@@ -34,7 +34,7 @@ export default async function increment_LiveAuctionStats(amountInOre:number) {
             name: lodd_name, // IF SOMEONE NAMES THERI AUCTION ITEM THIS, ill be mad
         }
     })
-    //makes live sale object if there is non
+    //makes live sale object if there is none
     if (!liveSaleObject) {
         liveSaleObject = await prisma.auksjonsObjekt.create({
             data: {
