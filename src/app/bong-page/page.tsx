@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import increment_bong from "../components/incrementBong/incrementBong";
 import style from "./page.module.scss"
-import is_miniAdmin from "../components/is-miniAdmin/is-miniAdmin";
+import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 
 
 
@@ -22,7 +22,7 @@ export default function App() {
 
     useEffect(() => {
         async function fetchData() {
-            const is_admin_response = await is_miniAdmin()
+            const is_admin_response = await is_miniadmin()
             setloadminiAdminPage(is_admin_response)
         }
         fetchData();

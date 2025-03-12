@@ -2,7 +2,7 @@
 import React, { FormEvent, useEffect, useState } from "react"
 import style from "./page.module.scss"
 import increment_LiveAuctionStats from "../components/incrementLiveAuctionStats/incrementLiveAuctionStats"
-import is_miniAdmin from "../components/is-miniAdmin/is-miniAdmin"
+import is_miniadmin from "../components/is-miniadmin/is-miniadmin"
 
 
 
@@ -32,7 +32,7 @@ export default function makeAuctionItem() {
 
     useEffect(() => {
         async function fetchData() {
-            const is_admin_response = await is_miniAdmin()
+            const is_admin_response = await is_miniadmin()
             setloadminiAdminPage(is_admin_response)
         }
         fetchData();

@@ -4,7 +4,7 @@ import getUserID from "@/app/api/auth/getUserId"
 import { prisma } from "@/app/prisma"
 
 
-export default async function is_miniAdmin() {
+export default async function is_miniadmin() {
     //gets user info and determins if user has miniAdmin accsess. Returns true if user has miniAdmin or admin accsess
 
     const userID = await getUserID()
