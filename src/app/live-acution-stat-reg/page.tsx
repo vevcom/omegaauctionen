@@ -28,18 +28,18 @@ async function sendFormData(e: FormData, setAmountSoldForOre: React.Dispatch<Rea
 
 export default function makeAuctionItem() {
     const [amountSoldForOre, setAmountSoldForOre] = useState(0)
-    const [loadminiAdminPage, setloadminiAdminPage] = useState(false);
+    const [loadminiadminPage, setloadminiadminPage] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             const is_admin_response = await is_miniadmin()
-            setloadminiAdminPage(is_admin_response)
+            setloadminiadminPage(is_admin_response)
         }
         fetchData();
     }, []);
 
 
-    if (loadminiAdminPage) {
+    if (loadminiadminPage) {
 
         return (
             <div className={style.mainDiv}>
