@@ -35,7 +35,7 @@ export default async function increment_LiveAuctionStats(amountInOre:number) {
             name: lodd_name, // IF SOMEONE NAMES THERI AUCTION ITEM THIS, ill be mad
         }
     })
-    //makes live sale object if there is non
+    //makes live sale object if there is none
     if (!liveSaleObject) {
         liveSaleObject = await prisma.auksjonsObjekt.create({
             data: {
