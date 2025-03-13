@@ -12,7 +12,6 @@
 
 .overskrift {
     color: rgb(0, 0, 0);
-    //text-decoration:underline;
     font-size: 5vw;
     font-weight: 300;
 
@@ -26,21 +25,13 @@
 }
 .graf {
     width: 80%;
-    margin: 4%;
-    
-    //border: "2px outset ";
-    
+    margin: 4%; 
     align-self: center;
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    //width: 100%;
-    //width: 30%;
-    //padding: "20px";
-    //background: "white";
-    //width: 100%;
+
 }
 
 @media(orientation:portrait){
@@ -62,14 +53,27 @@
 
     .graf {
         width: 70%;
-        //height: 100%;
+        
     }
-}
 
-@media(orientation: landscape) {
-    .graf {
-        //width: 50%;
+    .pengerOverskrift{
+        font-size: 4vw;
     }
+
+    .tekstboks{
+        font-size: 5vw;
+    }
+
+    .antall{
+    padding: 15%;
+    padding-inline: 25%;    
+    }
+
+    .gjennomsnitt{
+    padding: 15%;
+    padding-inline: 25%;      
+    }
+
 }
 
 .paragraf{
@@ -82,35 +86,18 @@
 
 }
 
-
-
 .bla {
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
     width: 90%;
-    //grid-template-columns: 1fr 1fr 1fr 1fr; //4 kolonner der hver kolonne dekker 25% av diven
-    //grid-template-columns: 10%;
 
     justify-items: center; //sentrerer
     margin-bottom:500px;
     margin: 5%;
     
-
-    
-    // display: flex;
-    // //justify-content: space-around; /* Fordeler grafene horisontalt */
-    // flex-wrap: wrap; /* For responsiv layout når skjermstørrelsen endres */
-    // gap: 50px; /* Legger til mellomrom mellom elementene */
-    // //margin: 0;
-    // //align-items: center; /* Sentrerer grafene vertikalt */
   }
-
-//.bar {
-   //rotate: 90deg;
-//}
-
 
 .side{
     width: 90%;
@@ -120,6 +107,9 @@
     justify-content: center;
     text-align: center;
     background-color: rgba(192,192,192,0.3);
+    
+    border: solid 1px rgba(192,192,192);
+    
     
     margin-top: 50px;     //margin til Omegaauksjon, nederste svarte strek
     border-radius: 20px;
@@ -161,21 +151,21 @@
     flex-direction: row;
     justify-content: center;
     gap: 50px;
-    margin-top: 30px;
+    margin-top: 2%;
     margin-bottom: 30px;
 
 }
 
-.antallContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    width: 40%; /* Adjust width to be similar to the previous div */
-    margin-bottom: 0;
-    padding-bottom: 0;
+// .antallContainer {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: end;
+//     align-items: center;
+//     width: 40%; /* Adjust width to be similar to the previous div */
+//     margin-bottom: 0;
+//     padding-bottom: 0;
     
-}
+// }
 
 .gjennomsnittContainer {
     display: flex;
@@ -188,33 +178,41 @@
     //margin: auto;
 }
 
-//antall objekter.......................................................................
-.antall {
-    background-color: #bcb3c2;
-    font-size: 3vw; /* Increase font size for larger text */
-    padding: 15px;
-    padding-inline: 60px;
-    //font-family: roboto;
-    
+.tekstboks{
+    font-size: 5vw;
 }
+
+//antall objekter.......................................................................
+// .antall {
+//     background-color: #bcb3c2;
+//     font-size: 3vw; /* Increase font size for larger text */
+//     padding: 7%;
+//     padding-inline: auto;
+//     //font-family: roboto;
+//     margin-top: 2%; 
+// }
 
 .antall:hover {
     transform: scale(1.01); /* Forstørrer boksen når du hover over */
   }
 
-
 //gjennomsnitsspris------------------------------------------------------------------------
 .gjennomsnitt {
     background-color: #bcb3c2;
     font-size: 3vw; /* Increase font size for larger text */
-    padding: 15px;
-    padding-inline: 60px;
+    padding: 7%;
+    padding-inline: auto;
+    margin-top: 2%;
+    width: 70%;
     //font-family: roboto;
-    
 }
 
 .gjennomsnitt:hover {
     transform: scale(1.01); /* Forstørrer boksen når du hover over */
 }
 
-
+.grafoverskrift {
+    font-size: 3vw;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}

@@ -12,21 +12,15 @@ type DataType = {
     }[];
 }
 
-export default function Graphs({ data, data2, data3,data4 }: { data: DataType, data2: DataType, data3:DataType, data4:DataType }) {
+export default function Graphs({ data3,data4,datakybelsys }: { data3:DataType, data4:DataType, datakybelsys:DataType }) {
+    console.log(datakybelsys)
     return (<div className={styles.bla}>
 
-        {/* <h1 className = {styles.overskrift}>Statistikk</h1> */}
-  
-        {/*<p className = {styles.paragraf}>Hei og velkommen til statistikk. Woooooow! Se så fine grafer:) Tekst. Tekst. Blablablablablabla. </p>*/}
-  
-        {/* <div className={styles.bla}> */}
-  
+          <h1>KYB VS ELSYS</h1>
+          <p>Hvem har brukt mest penger</p>
           <div className={styles.graf}>
-            {/* {<h1>Overskrift</h1>} */}
             <Pie 
-            data={data}
-            // width={"500px"}
-            // height={"300px"}
+            data={datakybelsys}
             options={{
 
               responsive: true,
@@ -35,7 +29,8 @@ export default function Graphs({ data, data2, data3,data4 }: { data: DataType, d
             
             ></Pie>     
           </div>
-          
+          <h1>Topp 5 auksjonsobjekt</h1>
+          <p>Hvilke auksjonsobjekter er mest populære</p>
           <div className={styles.graf}>
           <Doughnut
           data={data3}
@@ -47,75 +42,20 @@ export default function Graphs({ data, data2, data3,data4 }: { data: DataType, d
           
           ></Doughnut>  
           </div>
-  
+
+          <h1>Laveste 5 auksjonsobjekt</h1>
+          <p>Hvilke auksjonsobjekter er minst populære</p>
           <div className={styles.graf}>
-              <Bar 
-              className= {styles.bar}
-              data={data}
-              options={{
-                plugins:{
-                  title: {
-                  display: true, // Vise tittelen på diagrammet
-                  text: 'TITTELLLLLL PÅ GRAF', // Tittelen på diagrammet
-                  padding: {
-                    top: 1, // Padding på toppen av tittelen
-                    bottom: 1, // Padding på bunnen av tittelen
-                  },
-                },
-              },
-              responsive: true, // Sørger for at diagrammet er responsivt (tilpasser seg skjermstørrelsen)
-              maintainAspectRatio: false, // Tillater endring i forholdet mellom bredde og høyde
-              scales: {
-                x: {
-                    type: 'category',
-                    display: true, // Vise tittel på X-aksen
-                    
-                    //labels: ['January', 'February', 'March', 'April', 'May', 'June'] bare et eks. på navn
-                },
-                y: {
-                  title: {
-                    display: true, // Vise tittel på Y-aksen
-                    text: 'Y-Axis Label', // Tekst for Y-aksens tittel
-                  },
-                  ticks: {
-                    // beginAtZero: true, // Sørger for at Y-aksen starter fra 0
-                    stepSize: 1000, // Angir steglengde mellom tallene på Y-aksen
-                  },
-                },
-
-            }
-
-              }}
-              ></Bar>
-
-          </div>
-  
-          <div className={styles.graf}>
-          <Line 
+          <Doughnut
           data={data4}
           options={{
 
             responsive: true,
             maintainAspectRatio: false,
-          }}            
+          }}
           
-          
-          ></Line>            {/*width={400}*/}
+          ></Doughnut>  
           </div>
-  
-          {/* <div  className={styles.graf}> */}
-          {/* <Doughnut data={data2}></Doughnut>   */}
-          {/* </div> */}
-  
-  
-          <div>
-          {/*<Radar data={data}></Radar>*/}
-          {/*<PolarArea data={data}></PolarArea>*/}
-          </div>
-  
-  
-  
-  
-        {/* </div>   */}
+
       </div>)
 }
