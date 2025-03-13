@@ -82,7 +82,7 @@
 
 .navbar {
     height:6.5vh;
-    font-size:4vw;
+    font-size:4.5vw;
     width:100%;
     display:flex;
     align-items: center;
@@ -178,6 +178,6 @@
     .bannerLeft .imageContainer:hover {height:2vw;}
     .bannerLeft .imageContainer:active {height:2vw;}
     .loginbutton {font-size:2vw;height:14.4vh;}
-    .navbar {height:1.5px;}
+    .navbar {height:1.5px;content:"";}
     .logintext {height:5vh;font-size:3vh;}
 }

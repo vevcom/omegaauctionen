@@ -7,7 +7,7 @@ export default function CountdownClock() {
     const [timeLeft,setTimeLeft] = useState([0,0,0,0]);
 
     useEffect(() => {
-    const countDownDate = new Date("Mar 20, 2025 17:00:00").getTime();
+    const countDownDate = new Date("Mar 20, 2025 12:00:00").getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();

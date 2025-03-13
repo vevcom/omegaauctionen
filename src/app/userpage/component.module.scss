@@ -1,0 +1,42 @@
+.listTitle {
+    text-align: center;
+}
+.list{
+    display:flex;
+    flex-direction:column;
+    list-style-position: inside;
+    list-style-type: none;
+    padding-left:0;
+}
+.signoutbutton{
+    font-size:large;
+
+    cursor:pointer;
+    height: 3em;
+    width:10em;
+    line-height:3em;
+    border-radius:0.5em;
+    text-align: center;
+
+    background-color: var(--foreground);
+    color: var(--background);
+}
+
+.item {
+    line-height:2em;
+    height:3em;
+    border-top:3px var(--green) solid;
+    background: var(--background);
+    margin: 1em;
+    padding: 0.5em 3em;
+    max-width: 50vw;
+    overflow-y: hidden;
+    overflow-x:hidden;
+}
+
+
+@media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
+    .list{
+        flex-direction: row;
+    }
+}
