@@ -7,7 +7,7 @@ import { AuksjonsObjekt, AuksjonsObjektType} from "@prisma/client";
 
 export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:Array<Array<AuksjonsObjekt>>,currentPageNumber:number,pageTitle?:string}) {
     if (!allPages[currentPageNumber]){
-        return <p className={styles.tekst}>Laster inn... Ingen ting å se her 🙈</p>;
+        return <p className={styles.tekst}>Laster inn... Ingen ting å se her 🙈 HS må gå</p>;
     }
 
     //cuts of name before it overflows
