@@ -15,3 +15,7 @@ services:
       - 5000:5000
     volumes:
       - ./services/picture_server/uploads:/usr/src/app/uploads
+  vipps:
+    build: ./services/vipps
+    ports:
+      - 8000:8000

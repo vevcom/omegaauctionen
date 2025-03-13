@@ -50,6 +50,10 @@ services:
       NEXTAUTH_URL: ${NEXTAUTH_URL}
     depends_on:
       - database
+  vipps:
+    build: ./services/vipps
+    ports:
+      - 8000:8000
   picture_server:
     build: ./services/picture_server
       # context: ./services/picture_server/
