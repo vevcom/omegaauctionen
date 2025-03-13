@@ -5,7 +5,7 @@ import { AuksjonsObjektType } from "@prisma/client"
 
 
 // intentional extra split up for easier understanding and for copying parts of code for other potential statists later
-export default async function get_money_made() {
+export default async function get_money_made_in_ore() {
     let sumInOre = 0 // initial value
 
     //Money made from online auction
