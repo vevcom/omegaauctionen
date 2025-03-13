@@ -14,6 +14,7 @@ export default function Hansafight() {
         </div>
         <div className={styles.optionBox}>
             <BeerInput object="Hansa"></BeerInput>
+            <BeerInput object="IkkeHansa"></BeerInput>
         </div>
     </div>);
 }

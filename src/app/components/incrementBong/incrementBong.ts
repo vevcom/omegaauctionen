@@ -49,7 +49,10 @@ export default async function increment_bong() {
     const newMoneyAmount = bongObject.stock + moneyForBongOre;
 
     //uses stock to store amount of money made
-    const respone = await prisma.auksjonsObjekt.update({ where: { id: bongObject.id }, data: { stock: newMoneyAmount } })
+    const respone = await prisma.auksjonsObjekt.update({ 
+        where: { id: bongObject.id }, 
+        data: { stock: newMoneyAmount } 
+    })
     if (!respone){
         return false;
     }
