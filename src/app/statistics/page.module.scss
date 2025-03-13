@@ -21,18 +21,25 @@
     margin-bottom: 1%;
 }
 
+.pengerOverskrift{
+    font-size: 2vw;
+}
 .graf {
-    // width: "30%";
-    margin: 5%;
-    background: "white";
-    border: "2px outset ";
-    //padding: "20px";
+    width: 80%;
+    margin: 4%;
+    
+    //border: "2px outset ";
+    
     align-self: center;
-    width: 50%;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
 
+    //width: 100%;
+    //width: 30%;
+    //padding: "20px";
+    //background: "white";
     //width: 100%;
 }
 
@@ -54,13 +61,14 @@
     }
 
     .graf {
-        width: 80%;
+        width: 70%;
+        //height: 100%;
     }
 }
 
 @media(orientation: landscape) {
     .graf {
-        width: 50%;
+        //width: 50%;
     }
 }
 

@@ -22,8 +22,18 @@ export default function Graphs({ data, data2, data3,data4 }: { data: DataType, d
         {/* <div className={styles.bla}> */}
   
           <div className={styles.graf}>
-            {/*<h1 className={styles.overskrift}>Overskrift</h1> */}
-            <Pie data={data}></Pie>     
+            {/* {<h1>Overskrift</h1>} */}
+            <Pie 
+            data={data}
+            // width={"500px"}
+            // height={"300px"}
+            options={{
+
+              responsive: true,
+              maintainAspectRatio: false,      
+            }}            
+            
+            ></Pie>     
           </div>
           
           <div className={styles.graf}>
@@ -68,7 +78,7 @@ export default function Graphs({ data, data2, data3,data4 }: { data: DataType, d
                     text: 'Y-Axis Label', // Tekst for Y-aksens tittel
                   },
                   ticks: {
-                    beginAtZero: true, // Sørger for at Y-aksen starter fra 0
+                    // beginAtZero: true, // Sørger for at Y-aksen starter fra 0
                     stepSize: 1000, // Angir steglengde mellom tallene på Y-aksen
                   },
                 },
@@ -81,7 +91,16 @@ export default function Graphs({ data, data2, data3,data4 }: { data: DataType, d
           </div>
   
           <div className={styles.graf}>
-          <Line data={data4} ></Line>            {/*width={400}*/}
+          <Line 
+          data={data4}
+          options={{
+
+            responsive: true,
+            maintainAspectRatio: false,
+          }}            
+          
+          
+          ></Line>            {/*width={400}*/}
           </div>
   
           {/* <div  className={styles.graf}> */}

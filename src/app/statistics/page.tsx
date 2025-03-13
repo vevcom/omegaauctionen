@@ -1,3 +1,4 @@
+import { AuksjonsObjektType } from '@prisma/client';
 import { options } from '../api/auth/[...nextauth]/options';
 import { prisma } from '../prisma';
 import Graphs from './Graphs';
@@ -10,6 +11,29 @@ import styles from './page.module.scss'
 //Chart.register(ChartSankey);
 
 export default async function Klassetrinn() {
+  
+  const elesysKyb = await prisma.auksjonsObjekt.findMany({
+    where:{
+      type:AuksjonsObjektType.AUKSJON,
+      approved: true,
+    },
+      select:{
+        bids: {
+          orderBy: {
+            priceOre:'desc'
+          },
+          take: 1,
+          select:{
+            bidder:{
+              
+            }
+          }
+        }
+      }
+  })
+
+
+
   const top5ExpensiveObjects = await prisma.auksjonsObjekt.findMany({
     orderBy: {
       currentPriceOre: 'desc',  // Sorting by the current price in descending order
@@ -68,7 +92,7 @@ export default async function Klassetrinn() {
     
     console.log(formattedlow5);
   
-  
+  //ikke brukt kode..........................................................................
     //mulig å implementere, ikke fått til enda. 
     const priceRanges = [
       { range: '0-100', count: 0 },
@@ -83,6 +107,8 @@ export default async function Klassetrinn() {
       },
     });
     
+
+    //ikke brukt kode: 
     // Gå gjennom objektene og inkrementer antall for hvert intervall
     objects.forEach(obj => {
       if (obj.currentPriceOre <= 10000) {   //pris i 
@@ -97,7 +123,7 @@ export default async function Klassetrinn() {
     });
     
     console.log(priceRanges);
-    
+    //-------------------------------------------------------------------------------------
 
 
 
@@ -195,7 +221,7 @@ export default async function Klassetrinn() {
     </div>
 
     <div className={styles.sumContainer}>
-      <p >Penger samlet inn: </p>
+      <p className = {styles.pengerOverskrift}>Penger samlet inn: </p>
       <div className={styles.sum}>
         <p>{Math.round(total._sum.currentPriceOre/100)} kr</p>
       </div>
@@ -226,11 +252,6 @@ export default async function Klassetrinn() {
       </div>
 
     </div>
-      
-      
-      
-
-      
       
       <Graphs data={data} data2={data2} data3={data3} data4 = {data4}></Graphs>  
     </div>
