@@ -23,14 +23,14 @@ export default function App() {
             <h1 className={style.headLine}>Kjøp live!</h1>
             <h3 className={style.promoText}> Oi oi oi. Det selges ting live! Da kan du møte opp og by live! Akkurat som storage wars!(Omega gir ingen garanti på liveauksjonens likhet til det amerikanske TV-programmet storage wars). Møt opp i EL5. Livesalgene går i fire puljer.
 
-                <br></br>
+                {/* <br></br>
                 Pulje 1: __tid__
                 <br></br>
                 Pulje 2: __tid__
                 <br></br>
                 Pulje 3: __tid__
                 <br></br>
-                Pulje 4: __tid__
+                Pulje 4: __tid__ */}
             </h3>
             {allPages.length === 0 ? <p className={style.tekst}>Ingen ting å se her 🙈</p> : <div>
             <div className={style.buttonContainer}>
