@@ -32,7 +32,7 @@ export default function App() {
                 <br></br>
                 Pulje 4: __tid__ */}
             </h3>
-            {allPages.length === 0 ? <p className={style.tekst}>Ingen ting å se her 🙈</p> : <div>
+            {allPages.length === 0 ? <p className={style.tekst}>HS må gå</p> : <div>
             <div className={style.buttonContainer}>
                 <button className={style.knapp} onClick={() => setPageNumber((prev) => Math.max(0, prev - 1))}>Forrige</button>
                 <p className={style.sidetall}>{pageNumber + 1}/{allPages.length}</p>
