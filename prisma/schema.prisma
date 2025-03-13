@@ -53,12 +53,12 @@ model AuksjonsObjekt {
   currentPriceOre Int
   stock           Int                 @default(1)
 
-  finalSaleTime   DateTime //TODO legg inn default
-  currentSaleTime DateTime //TODO legg inn default
+  finalSaleTime   DateTime @default(dbgenerated("TIMESTAMP '2025-03-21 01:00:00'"))
+  currentSaleTime DateTime @default(dbgenerated("TIMESTAMP '2025-03-20 23:00:00'")) //DO not adjust for timezone
 
   approved        Boolean  @default(false)
   imageName       String   @default("default.jpeg")
-  authorId        String? //TODO fiks tilbake til requiered
+  authorId        String? //Do not make required 
   author          User?    @relation(fields: [authorId], references: [id])
   bids            Bid[]
 }

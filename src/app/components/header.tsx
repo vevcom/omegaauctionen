@@ -16,7 +16,8 @@ export function Header() {
                 break;
         }
       }    
-      const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/put-item-for-auction","Legg ut for salg"],["/live-auction","Live auksjon","Live auksjon"],["/kappe-side","Kapper"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
+      // First three links get added to top navbar on page, and need to contain link,name Menu overlay, and name for top navbar
+      const links = [["/auction","Auksjonsobjekter","Auksjon"], ["/live-auction","Live auksjon","Live objekter"],["/put-item-for-auction","Legg ut for salg","Selg"],["/kappe-side","Kapper"],["/statistics","Statistikk"],["/charity","Årets veldedighet"],["/about","Om auksjonen"],["/",""]]
 
     return <>
         <Overlay overlay_width={overlay_width} toggle_overlay={toggle_overlay_width} links={links}></Overlay>

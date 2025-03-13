@@ -1,16 +1,23 @@
+
 import Link from "next/link";
-import styles from "./component.module.scss"
+import styles from "./component.module.scss";
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
-import { AuksjonsObjekt} from "@prisma/client";
+import { AuksjonsObjekt, AuksjonsObjektType} from "@prisma/client";
 
 
 export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:Array<Array<AuksjonsObjekt>>,currentPageNumber:number,pageTitle?:string}) {
     if (!allPages[currentPageNumber]){
-        return <p>Laster inn... Ingen ting å se her 🙈</p>;
-      }
+        return <p className={styles.tekst}>Laster inn... Ingen ting å se her 🙈</p>;
+    }
 
-
-
+    //cuts of name before it overflows
+    function cutOffName(name:string){
+        const maxLengthCharacters = 15;
+        if (name.length> maxLengthCharacters) {
+            return name.substring(0,maxLengthCharacters) +"..."
+        }
+        return name
+    }
     return (<div className={styles.side}>
         
         <div>
@@ -26,9 +33,13 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                             
                                 <ImageComponent style={styles.auctionImage} filename={object.imageName}/>
                             <div className={styles.textContainer}>
-                                <h3 className={styles.navn}>{object.name}</h3>
+                                <h3 className={styles.navn}>{cutOffName(object.name)}</h3>
                                 <br/>
-                                <p className={styles.pris}>{object.startPriceOre/100} kr</p>
+                                {object.type == AuksjonsObjektType.LIVE ?
+                                    "":
+                                    <p className={styles.pris}>{object.currentPriceOre/100} kr</p>
+                            }
+                                
                             </div>
                         </div>
                     

@@ -1,0 +1,27 @@
+
+
+.mainDiv{
+    text-align: center;
+}
+
+.buttonHolder{
+    margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.bongBtn{
+    width: 35vw;
+    height: 35vw;
+    background-color: red;
+    border-radius: 50%;
+    border: none;
+    margin: auto;
+    font-size: 4vw;
+}
+
+.title{
+    font-size: 3vw;
+}
