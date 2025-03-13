@@ -2,13 +2,13 @@
 
 import getUserID from "@/app/api/auth/getUserId"
 import { prisma } from "@/app/prisma"
-import is_admin from "../is-admin/is-admin-func"
+import is_miniadmin from "../is-miniadmin/is-miniadmin"
 
 
-//This function uses an unapproved item to registrer amounts of bongs sold
+//This function uses an unapproved item to register amounts of money made from bongs in ore
 //it uses stock for this
 export default async function increment_bong() {
-    //DONOTAPPROVE beacause the statisics would be ruind if approved and the item is not ment to be bid on
+    // The statistics of the site would be ruined if these items are approved. Hence we have chosen to call it "DONOTAPPROVE"
     const bong_name = "DONOTAPPORVEBong"
     const moneyForBongOre = 5000 //TODO Get acctual price
 
@@ -18,9 +18,8 @@ export default async function increment_bong() {
         return false;
     }
 
-    //Checks if admin
-    //TODO make this mini admin. Nåde dæ hvis du komenterer på dette albert. Jeg forklarer hva miniadmin er senere
-    const isAdmin = await is_admin()
+    //Checks if user has mini admin accsess
+    const isAdmin = await is_miniadmin()
     if (!isAdmin){
         return false
     }
@@ -46,11 +45,14 @@ export default async function increment_bong() {
             }
         })
     }
-    //uses stock to store amount of bongs sold
-    const respone = await prisma.auksjonsObjekt.update({ where: { id: bongObject.id }, data: { stock: bongObject.stock + 1 } })
+
+    const newMoneyAmount = bongObject.stock + moneyForBongOre;
+
+    //uses stock to store amount of money made
+    const respone = await prisma.auksjonsObjekt.update({ where: { id: bongObject.id }, data: { stock: newMoneyAmount } })
     if (!respone){
         return false;
     }
     //returns number of bongs sold
-    return bongObject.stock +1;
+    return (newMoneyAmount/moneyForBongOre).toFixed(0);
 }   
