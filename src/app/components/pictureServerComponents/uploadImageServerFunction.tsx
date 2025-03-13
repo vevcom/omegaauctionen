@@ -2,7 +2,7 @@
 
 export async function uploadImage(formData) {
   // const serverIP = process.env.NEXT_PUBLIC_PICTURE_SERVER_URL
-  const serverIP = "https://beta.omega.ntnu.no:42069"
+  const serverIP = "https://auctionen.omega.ntnu.no:42069"
   const uploadPath = serverIP + '/upload'
   try {
     const response = await fetch(uploadPath, {
