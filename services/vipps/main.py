@@ -47,7 +47,7 @@ async def payment_created_webhook(request: Request):
         content={"status": "success", "message": "Webhook received successfully"}
     )
 
-@app.get("/")
+@app.get("/api/vipps/status")
 async def root():
     """Root endpoint to verify the API is running."""
     return {"status": "online", "message": "Vipps webhook receiver is running"}
