@@ -6,8 +6,6 @@ import {Header} from "@/app/components/header";
 import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
 
-
-
 export const oldEnglish = localFont({
   src: "./fonts/OldEnglishFive.woff",
   variable: "--font-english-five",
