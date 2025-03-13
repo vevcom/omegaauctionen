@@ -123,7 +123,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isTime, setIsTime] = useState(false)
   const [currentObject, setCurrentObject] = useState(object)
   const committeeLogotoLink = committeeToLink[object.committee];
-
+  const auksjonsDate = "2025-03-20T11:00:00.000Z"
 
   useEffect(() => {
     async function fetchData() {
@@ -132,7 +132,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
 
 
-      const auctionDate = new Date('2025-03-20 12:00:00') //DON'T ADJUST FOR time difference it uses right time
+      const auctionDate = new Date(auksjonsDate) //DON'T ADJUST FOR time difference it uses right time
       const currentSaleTime = currentObject.currentSaleTime
       const now = new Date()
       setIsTime((now > auctionDate) && (now < currentSaleTime))
@@ -154,7 +154,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       setIsAdmin(is_admin_response)
 
 
-      const auctionDate = new Date('2025-03-20 12:00:00') //DON'T ADJUST FOR time difference it uses right time
+      const auctionDate = new Date(auksjonsDate) //DON'T ADJUST FOR time difference it uses right time
       const currentSaleTime = currentObject.currentSaleTime
       const now = new Date()
       setIsTime((now > auctionDate) && (now < currentSaleTime))
