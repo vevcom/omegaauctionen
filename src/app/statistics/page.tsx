@@ -44,8 +44,8 @@ export default async function Klassetrinn() {
   })
 
   const studyCount: Record<string, number> = {
-    [Study.ELSYS.toUpperCase()]:  10000,
-    [Study.KYB.toUpperCase()]: 69420,
+    [Study.ELSYS.toUpperCase()]: 0,
+    [Study.KYB.toUpperCase()]: 0,
     [Study.OTHER.toUpperCase()]: 0,
     [Study.NOTANSWERD.toUpperCase()]: 0,
   };

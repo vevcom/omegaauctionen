@@ -24,8 +24,7 @@ export default async function UserBids({userId}: {userId: string }) {
     if (!userwithlist || userwithlist.bids.length<1) {
         return <div><h3 className={style.listTitle}>Dine bud: </h3>
         <div className={style.list}>
-        <a href="#"><div className={style.item}>Objekt 1</div></a>
-        <a href="#"><div className={style.item}>Objekt 2</div></a>
+                <p>Ingen bud enda.</p>
             </div></div>;
     }
 
