@@ -122,20 +122,26 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTime, setIsTime] = useState(false)
   const [currentObject, setCurrentObject] = useState(object)
-  const committeeLogoLink = committeeToLink[object.committee];
+  const committeeLogotoLink = committeeToLink[object.committee];
 
 
   useEffect(() => {
     async function fetchData() {
       const is_admin_response = await is_admin()
       setIsAdmin(is_admin_response)
-      const auctionDate = new Date('2025-03-20')
+
+
+
+      // const auctionDate = new Date('2025-03-20 12:00:00') //DON'T ADJUST FOR time difference it uses right time
+      const auctionDate = new Date('2025-03-01 12:00:00') //DON'T ADJUST FOR time difference it uses right time
+      const currentSaleTime = currentObject.currentSaleTime
       const now = new Date()
-      setIsTime(auctionDate == now)
-      if (is_admin_response && (now<auctionDate)){
+      setIsTime((now > auctionDate) && (now < currentSaleTime))
+      
+      if (is_admin_response){ //TODO: remove before prod
         setIsTime(true)
       }
-      // console.log(now>auctionDate)
+
     }
     fetchData();
     const interval = setInterval(async () => {
@@ -144,6 +150,21 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         return;
       }
       setCurrentObject(newObject)
+
+      const is_admin_response = await is_admin()
+      setIsAdmin(is_admin_response)
+
+
+      const auctionDate = new Date('2025-03-20 12:00:00') //DON'T ADJUST FOR time difference it uses right time
+      const currentSaleTime = currentObject.currentSaleTime
+      const now = new Date()
+      setIsTime((now > auctionDate) && (now < currentSaleTime))
+      
+      if (is_admin_response){ //TODO: remove before prod
+        setIsTime(true)
+      }
+    
+
     }, 10000);
   
     return () => clearInterval(interval);
@@ -155,10 +176,10 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   if (itemType == AuksjonsObjektType.AUKSJON) {
     return (<div className={style.objectPage}>
       <div className={style.objectHeading}>
-        {committeeLogoLink != "" &&
+        {committeeLogotoLink != "" &&
           (<div className={style.committeeHeading}>
             <div className={style.committeeName}>{currentObject.committee}</div>
-            <img src={committeeLogoLink}></img>
+            <img src={committeeLogotoLink}></img>
           </div>)}
         <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
@@ -167,7 +188,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <CurrentPrice price={currentObject.currentPriceOre}></CurrentPrice> : null}
         <div className={style.description}>{object.description}</div>
 
-        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025</h2>}
+        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0,5)}</h2>}
 
       </div>
       <div className={style.note}><b>*MERK*</b> Alle bud er binnende</div>
@@ -180,18 +201,16 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   if (itemType == AuksjonsObjektType.LIVE) {
     return (<div className={style.objectPage}>
       <div className={style.objectHeading}>
-        {committeeLogoLink != "" &&
+        {committeeLogotoLink != "" &&
           (<div className={style.committeeHeading}>
             <div className={style.committeeName}>{currentObject.committee}</div>
-            <img src={committeeLogoLink}></img>
+            <img src={committeeLogotoLink}></img>
           </div>)}
         <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
         <div className={style.description}>{currentObject.description}</div>
-        <h2>Dette objektet er til salgs live klokken:</h2>
-        {/* TODO Fiks dato */}
       </div>
     </div>)
   }
@@ -202,10 +221,10 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   if (itemType == AuksjonsObjektType.SALG) {
     return (<div className={style.objectPage}>
       <div className={style.objectHeading}>
-        {committeeLogoLink != "" &&
+        {committeeLogotoLink != "" &&
           (<div className={style.committeeHeading}>
             <div className={style.committeeName}>{currentObject.committee}</div>
-            <img src={committeeLogoLink}></img>
+            <img src={committeeLogotoLink}></img>
           </div>)}
         <div className={style.title}>{currentObject.name}</div>
         <div className={style.imagecontainer}>
@@ -217,7 +236,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
             ? <BuyPanel object={object}></BuyPanel>
             : (
               (currentObject.stock >= 1)
-                ? <h2>Salget starter 03.20.2025</h2>
+                ? <h2>Salget starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0,5)}</h2>
                 : <h2>Denne kappen er desverre utslogt</h2>
             )
         }
