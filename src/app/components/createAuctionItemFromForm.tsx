@@ -15,8 +15,8 @@ export async function createAuctionItemFromForm(e: FormData) {
     }
     await prisma.auksjonsObjekt.create({
         data: {
-            currentSaleTime: new Date("2022-03-25"),
-            finalSaleTime: new Date("2022-03-25"),
+            currentSaleTime: new Date("2025-03-20T22:00:00.000Z"),
+            finalSaleTime: new Date("2025-03-21T00:00:00.000Z"),
             description: e.get("descripton") as string,
             name: e.get("name") as string,
             startPriceOre: parseInt(e.get("startPriceInOre") as string),
