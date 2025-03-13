@@ -1,0 +1,48 @@
+.welcome{
+    margin:5vh 0;
+    text-align: center;
+    font-size:large;
+}
+.name{
+    font-size:xx-large;
+}
+.auctionListContainer {
+    display:flex;
+    flex-direction: column;
+    margin: 5vh 0;
+    background-color: rgba(191, 191, 191, 0.2);
+    border-radius:3vh;
+    border: 2px var(--altgrey) solid;
+
+}
+.auctionList {
+    padding: 0 5%;
+    padding-top:5%;
+    padding-bottom:20%;
+    min-width: 18em;
+    max-width:60vw;
+    opacity:1;
+}
+
+.separator{
+    content:"";
+    display: block;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    unicode-bidi: isolate;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+    width:80%;
+    height:0;
+}
+
+@media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
+    .auctionListContainer{
+        flex-direction: row;
+        margin-top: 10vh;
+
+    }
+}
