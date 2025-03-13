@@ -132,8 +132,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
 
 
-      // const auctionDate = new Date('2025-03-20 12:00:00') //DON'T ADJUST FOR time difference it uses right time
-      const auctionDate = new Date('2025-03-01 12:00:00') //DON'T ADJUST FOR time difference it uses right time
+      const auctionDate = new Date('2025-03-20 12:00:00') //DON'T ADJUST FOR time difference it uses right time
       const currentSaleTime = currentObject.currentSaleTime
       const now = new Date()
       setIsTime((now > auctionDate) && (now < currentSaleTime))
