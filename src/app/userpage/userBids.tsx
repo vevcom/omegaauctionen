@@ -23,10 +23,13 @@ export default async function UserBids({userId}: {userId: string }) {
     })
     if (!userwithlist || userwithlist.bids.length<1) {
         return <div><h3 className={style.listTitle}>Dine bud: </h3>
-        <div className={style.list}>
-        <a href="#"><div className={style.item}>Objekt 1</div></a>
-        <a href="#"><div className={style.item}>Objekt 2</div></a>
-            </div></div>;
+                <div className={style.list}>
+                <a className={style.itemwrapper} href="#"><div className={style.item}>Objekt 1</div></a>
+                <a className={style.itemwrapper} href="#"><div className={style.item}>Objekt 2</div></a>
+                <a className={style.itemwrapper} href="#"><div className={style.item}>Objekt 2</div></a>
+                <a className={style.itemwrapper} href="#"><div className={style.item}>Objekt 2</div></a>
+            </div>
+        </div>;
     }
 
 
@@ -37,7 +40,7 @@ export default async function UserBids({userId}: {userId: string }) {
         
             {
                 userwithlist.bids.map((bid,index) => (
-                    <a href={"auction/"+bid.auctionObject.id}><div className={style.item} key={index}>{bid.auctionObject.name}</div></a>
+                    <a className={style.itemwrapper} href={"auction/"+bid.auctionObject.id}><div className={style.item} key={index}>{bid.auctionObject.name}</div></a>
                 ))
             }
         </div>
