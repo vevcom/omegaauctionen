@@ -14,6 +14,8 @@ function cutOffName(name:string){
   return name
 }
 
+export const dynamic = "force-dynamic";
+
 //Chart.register(ChartSankey);
 
 export default async function Klassetrinn() {
