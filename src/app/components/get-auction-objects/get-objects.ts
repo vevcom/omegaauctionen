@@ -6,7 +6,7 @@ import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client"
 
 
 export default async function get_objects_all(sortType: string, reverse = false, adminMode = false,enumType="") {
-    let enumTypeSelected
+    let enumTypeSelected;
     if (enumType=="salg"){
         enumTypeSelected = AuksjonsObjektType.SALG
     }
@@ -14,10 +14,8 @@ export default async function get_objects_all(sortType: string, reverse = false,
         enumTypeSelected = AuksjonsObjektType.LIVE
     }
     else{
-        enumTypeSelected = AuksjonsObjektType.AUKSJON
+        enumTypeSelected =  AuksjonsObjektType.AUKSJON
     }
-
-
 
     // const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_OBJECTS_PER_PAGE as string)
     const itemsPerPage = 12
