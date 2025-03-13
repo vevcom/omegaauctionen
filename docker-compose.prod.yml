@@ -19,9 +19,12 @@ services:
     environment:
       DOMAIN: ${DOMAIN}
       PROXY_PASS: 'omegaauctionen:3000'
+      VIPPS_HOST: vipps:8000
+      PICTURE_SERVER_HOST: picture_server:5000
     depends_on:
       - omegaauctionen
       - vipps
+      - picture_server
     volumes:
       - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./services/nginx/default.conf:/etc/nginx/templates/default.conf.template:ro
