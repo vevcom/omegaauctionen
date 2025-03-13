@@ -34,6 +34,8 @@ export default function about() {
         <p className={style.explainationText}>Enkelt! Bare logg inn, trykk på det du vil by på og legg inn et bud</p>
         <h2 className={style.subSection}>Hvem kan delta?</h2>
         <p className={style.explainationText}>Alle med feidebruker innad ntnu. Auksjonen er primært for medlemmer av omega, men hvis du har en ntnu bruker er du velkommen til å delta! :)</p>
+        <h2 className={style.subSection}>Lei av å tape auksjonen rett den slutter?</h2>
+        <p className={style.explainationText}>Ikke denne gangen! Bud stenger normalt 23:00, men! Hvis noen byr rett før tiden er ute, utsettes tiden med 5min. Hvis noen byr rett før den nye fristen øker tiden igjen! <b>Merk!</b> Grunnet begrensninger går ikke utsettelsene for alltid</p>
 
     </div>
 }

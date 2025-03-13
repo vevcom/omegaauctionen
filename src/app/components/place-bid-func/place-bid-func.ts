@@ -24,6 +24,28 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: n
     return "kunne ikke hente bruker";
   }
 
+
+  //edge case catch for time
+  const now = new Date()
+  const currentSaleTime = object.currentSaleTime
+  if (now > currentSaleTime) {
+    return "Ser ut som du var for sen"
+  }
+
+  const finalSaleTime = object.finalSaleTime
+  const newTime = new Date(now.getTime() + 5 * 1000 * 60)
+
+  let newTimeToSet = currentSaleTime;
+
+  if (newTime > currentSaleTime) {
+    newTimeToSet = newTime
+    if (newTime > finalSaleTime) {
+      newTimeToSet = finalSaleTime
+    }
+  }
+
+
+
   await prisma.bid.create({
     data: {
       priceOre: bidAmountInOre,
@@ -37,12 +59,13 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: n
   })
 
   await prisma.auksjonsObjekt.update({
-    where:{
-        id:object.id,
+    where: {
+      id: object.id,
     },
-    data:{
-        currentPriceOre: bidAmountInOre,
+    data: {
+      currentPriceOre: bidAmountInOre,
+      currentSaleTime: newTimeToSet,
     }
-})
+  })
   return "Ditt bud er plassert"
 }

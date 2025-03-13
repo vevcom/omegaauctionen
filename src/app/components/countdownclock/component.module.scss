@@ -6,9 +6,11 @@
     font-size:3vh;
 }
 .clockcontainer {
+    margin: auto;
     display:flex;
     flex-direction: row;
     margin-top:10vh;
+    justify-content: center;
 }
 .part {
     display:flex;
