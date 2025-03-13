@@ -4,12 +4,43 @@ import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
 import { connect } from "http2";
 
+function validObject(object:string) {
+    if (object == "Hansa" || object == "IkkeHansa") {return true;}
+    return false;
+}
 
-export default async function beerToServer (
+async function getPrice(object:string) {
+    if (!validObject(object)) {
+        console.log("error: not valid object name")
+        return false;
+    }
+    let objectname = "DONOTAPPROVE" + object;
+    let beerObject = await prisma.auksjonsObjekt.findFirst({
+        where: {
+            name: objectname,
+        }
+    });
+    if (!beerObject) {
+        return false;
+    }
+    return beerObject.currentPriceOre;
+}
+export async function getPrices() {
+    let hansa = await getPrice("Hansa");
+    let ikkehansa = await getPrice("IkkeHansa");
+    if (!hansa || !ikkehansa) {return [0,0];}
+    return ([hansa,ikkehansa]);
+}
+
+export async function beerToServer (
     {e, object} 
     : 
     {e:FormData, object:string}
 ) {
+    if (!validObject(object)) {
+        console.log("error: not valid object name")
+        return 1;
+    }
     let objectname = "DONOTAPPROVE" + object;
     let pattern = /^[0-9]+$/;
     if (!pattern.test(String(e.get("number")))) {

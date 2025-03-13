@@ -1,8 +1,5 @@
 "use client"
-
-import { INTERCEPTION_ROUTE_REWRITE_MANIFEST } from "next/dist/shared/lib/constants";
-import beerToServer from "./upload";
-
+import {beerToServer} from "./beer-fight-api";
 
 export default function BeerInput({object} : {object:string}) {
     async function beerSubmit(e:FormData) {
