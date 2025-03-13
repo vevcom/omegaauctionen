@@ -1,3 +1,5 @@
+$button-size: 20vw;
+
 .descriptionBox>textarea {
     width: auto;
 
@@ -182,4 +184,71 @@
     border-radius: 1%;
     margin: auto;
     margin-block: 3vh;
+}
+
+
+.mainDiv{
+    text-align: center;
+}
+
+.buttonHolder{
+    margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.bongBtn1{
+    width: $button-size;
+    height: $button-size;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+.bongBtn2{
+    width: $button-size;
+    height: $button-size;
+    background-color: green;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+.bongBtn3{
+    width: $button-size;
+    height: $button-size;
+    background-color: blue;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+.bongBtn4{
+    width: $button-size;
+    height: $button-size;
+    background-color: pink;
+    border-radius: 50%;
+    font-size: 2.69vw;
+    border: none;
+}
+
+.title{
+    font-size: 3vw;
+    border: none;
+}
+
+
+.bongBtn1::hover{
+    cursor: pointer;
+}
+.bongBtn2::hover{
+    cursor: pointer;
+}
+.bongBtn3::hover{
+    cursor: pointer;
+}
+.bongBtn4::hover{
+    cursor: pointer;
 }

@@ -3,8 +3,9 @@ import { useEffect, useState, Dispatch, SetStateAction } from "react";
 
 import styles from "./page.module.scss";
 import getUserID from "./api/auth/getUserId";
-import reportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
+import getReportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
 import registerUserCourse from "@/app/components/register-user-course/register-user-course"
+import CountdownClock from "./components/countdownclock/countdown";
 
 
 type BoolSetUseState = Dispatch<SetStateAction<boolean>>
@@ -26,7 +27,7 @@ export default function Home() {
         return;
       }
       setIsLoggedIn(true)
-      const hasAnswerd_response = await reportedFieldOfStudy(userID)
+      const hasAnswerd_response = await getReportedFieldOfStudy(userID)
       console.log(hasAnswerd_response)
       setReportedFieldOfStudy(hasAnswerd_response)
     }
@@ -36,12 +37,12 @@ export default function Home() {
 
   if (isLoggedIn) {
     if (reportedFieldOfStudy) {
-      console.log("logged in and answerd")
+      console.log("logged in and answered")
     }
     else {
       return (
         <div className={styles.mainDivStat}>
-          <h1 className={styles.statTitle}>Hvilket studieløp går du? Dette er for stattestikk.</h1>
+          <h1 className={styles.statTitle}>Hvilket studieløp går du? Dette er for statistikk.</h1>
           <div className={styles.answerButtonsDiv}>
             
             <div className={styles.buttonDivsAnswer}>
@@ -61,8 +62,8 @@ export default function Home() {
     }
   }
   return (
-    <div>
-      <p>Hovedside</p>
-    </div>
+    <>
+      <CountdownClock></CountdownClock>
+    </>
   );
 }

@@ -15,6 +15,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 42069:42069
     environment:
       DOMAIN: ${DOMAIN}
       PROXY_PASS: 'omegaauctionen:3000'
@@ -59,7 +60,5 @@ services:
     build: ./services/picture_server
       # context: ./services/picture_server/
       # dockerfile: ./services/picture_server/Dockerfile
-    ports:
-      - 5000:5000
     volumes:
       - ./services/picture_server/uploads:/usr/src/app/uploads

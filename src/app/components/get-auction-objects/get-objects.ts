@@ -19,7 +19,8 @@ export default async function get_objects_all(sortType: string, reverse = false,
 
 
 
-    const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_OBJECTS_PER_PAGE as string)
+    // const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_OBJECTS_PER_PAGE as string)
+    const itemsPerPage = 12
     let objekter: AuksjonsObjekt[] = await prisma.auksjonsObjekt.findMany({
         where:
         {
