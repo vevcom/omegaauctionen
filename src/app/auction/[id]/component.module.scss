@@ -1,8 +1,8 @@
 .objectPage {
     color:auto;
-    margin:5%;
-
     width:100vw;
+    margin: auto;
+    margin-block:5%;
     align-items:center;
 }
 
@@ -45,6 +45,7 @@
 .title {
     padding-bottom:1vh;
     margin: 0 20%;
+    word-wrap: break-word !important;
 }
 .imagecontainer {
     content:"";
