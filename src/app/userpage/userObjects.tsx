@@ -19,7 +19,7 @@ export async function UserObjectsList({user} : {user: UserWithAuksjonsObjekter})
 
     return(
     
-    <div>
+    <div className={style.auctionList}>
     <h3 className={style.listTitle}>Dine auksjonsobjekter: </h3>
     <div className={style.list}>
         {itemList.map((object, index) => (

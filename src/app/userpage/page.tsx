@@ -1,10 +1,8 @@
 'use server'
 import style from "./page.module.scss"
-import getUserID from "../api/auth/getUserId";
 
-import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 import getUser from "../api/auth/getUser";
-import { useSession } from "next-auth/react";
 import { SignoutButton } from "./signout_button";
 import { UserObjectsList } from "./userObjects";
 import { AuksjonsObjekt, AuksjonsObjektType, Committee, Prisma, Study, User } from "@prisma/client"
@@ -47,27 +45,21 @@ const defaultUser = {
 
 
 export default async function UserPageAesthetic() {
-    // const { data: session, status } = useSession()
     let user = await getUser()
     if (!user) {
         user = defaultUser;
-        
-
+        // TODO: REMOVE DEFAULT USER BEFORE FINAL RELEASE
+        // redirect("api/auth/signin");
     }
 
-    //FINN UT HVORDAN Å KOMBINERE ASYNC FUNCTION, OG USE CLIENT + CLASS COMPONENTS (BUTTON, OSV)
 
     return (<>
         <div className={style.welcome}>Velkommen,<br></br> <div className={style.name}>{user?.name}</div></div>
         <hr></hr>
         <div className={style.auctionListContainer}>
-            <div className={style.auctionList}>
                 <UserObjectsList user={user}></UserObjectsList>
-            </div>
         
-            <div className={style.auctionList}>
                 <UserBids userId={user.id}></UserBids>
-            </div>
         </div>
 
         {/* <div><b>Email: </b>{user?.email}</div> */}

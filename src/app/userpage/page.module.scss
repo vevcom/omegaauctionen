@@ -9,19 +9,13 @@
 .auctionListContainer {
     display:flex;
     flex-direction: column;
+    align-items: center;
+    width:100%;
     margin: 5vh 0;
     background-color: rgba(191, 191, 191, 0.2);
     border-radius:3vh;
     border: 2px var(--altgrey) solid;
 
-}
-.auctionList {
-    padding: 0 5%;
-    padding-top:5%;
-    padding-bottom:20%;
-    min-width: 18em;
-    max-width:60vw;
-    opacity:1;
 }
 
 .separator{
