@@ -1,7 +1,7 @@
 import CurrentPrice from "../components/currentPrice/currentPrice";
 import style from "./component.module.scss"
 
-export default function DisplayBid({id,name,price,currentPrice}:{id:number,name:string,price?:number,currentPrice:number}) {
+export default function DisplayBid({key,id,name,price,currentPrice}:{key:number,id:number,name:string,price?:number,currentPrice:number}) {
 
     function itemStyle() {
         if (!price || price>=currentPrice) {
@@ -11,7 +11,7 @@ export default function DisplayBid({id,name,price,currentPrice}:{id:number,name:
     }
     
     return <>
-        <a className={style.itemwrapper} href={"/auction/"+id}>
+        <a className={style.itemwrapper} href={"/auction/"+id} key={key}>
             <div className={`${style.item} ${itemStyle()}`}> 
                 <div className={style.name}>{name}</div> 
                 <div className={style.bidPrice}>

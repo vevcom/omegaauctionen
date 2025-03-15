@@ -36,10 +36,11 @@ const defaultUser = {
     emailVerified: null,
     image: null,
     isAdmin: true,
-    // auksjonsObjekter: [defaultObjects],
-    auksjonsObjekter: [],
+    auksjonsObjekter: [defaultObjects],
+    // auksjonsObjekter: [],
     studyCourse: Study.ELSYS,
     bids: [],
+    isMiniadmin:true,
 }
 
 
