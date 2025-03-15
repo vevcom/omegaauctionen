@@ -124,7 +124,12 @@ export default async function Klassetrinn() {
     spent: object.currentPriceOre / 100, // Assigning the current price as spent
   }));
 
-  
+  const formattedHighestBidder = [
+    {name:"Navn1",spent:2000},
+    {name:"Navn2",spent:5000},
+    {name:"Navn3",spent:3678},
+    
+    ]
 
 
   const colors = [               //definert farger 
@@ -222,7 +227,7 @@ export default async function Klassetrinn() {
     </div>
     
 
-    <Graphs data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
+    {/* <Graphs data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs> */}
   </div>
 }
 
