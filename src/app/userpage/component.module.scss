@@ -1,5 +1,4 @@
-.auctionList {
-    // padding: 0 5%;
+.listContainer {
     padding-top:5%;
     padding-bottom:20%;
     width:85vw;
@@ -8,38 +7,25 @@
 }
 .listTitle {
     text-align: center;
+    padding-bottom:1vh;
+    border: 0 solid var(--altgrey);
+    border-width: 0 0 1px 0;
+
 }
 .list{
     display:flex;
     flex-direction:column;
     align-items:center;
-    list-style-position: inside;
-    list-style-type: none;
-    justify-content:center;
     border: 0 solid var(--altgrey);
     border-width: 0 1px;
 
+    margin-top:2vh;
+
+    max-height:50vh;
+    overflow-y: auto;
+
 }
 
-
-.item {
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: space-around;
-    line-height:2em;
-    height:3em;
-    // border-top:3px var(--green) solid;
-    // background: var(--background);
-    padding: 2em 0;
-    width:80%;
-    overflow-y: hidden;
-    overflow-x:hidden;
-    text-align: center;
-
-    border: 0 solid var(--altgrey);
-    border-width: 1px 0 0 0;
-}
 .itemwrapper {
     width:100%;
     // margin: 1em;
@@ -47,7 +33,27 @@
     flex-direction: column;
     align-items:center;
     justify-content:space-around;
+    margin-bottom:1vh;
+}
 
+.item {
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: space-around;
+
+    line-height:2em;
+    height:3em;
+    width:80%;
+
+    padding: 2em 0;
+    overflow-y: hidden;
+    overflow-x:hidden;
+    text-align: center;
+
+    border: 1px solid var(--altgrey);
+    // border-width: 1px 0 0 0;
+    border-radius:0.25em;
 }
 
 .name{
@@ -56,20 +62,21 @@
     text-overflow: ellipsis; /* Shows "..." when text is too long */
     flex-basis:45%;
 }
-.bulletPoint {
-    content:"";
-    background-color: var(--foreground);
-    color: var(--background);
-    border-radius: 50%;
-    height:1.5em;
-    width:1em;
-    flex-basis: 10%;;
+.bidPrice {
+    flex-basis:35%;
+    text-align:right;
+    font-weight:bold;
+}
+.linethrough {
+    text-decoration: line-through;
 }
 .highestBid {
-    background-color: var(--green);
+    background-color: var(--background);
 }
 .notHighestBid {
-    background-color: var(--red);
+    // background-color: var(--red);
+    // background-color: var(--altgrey);
+    background-color: rgba(255, 89, 117, 0.579);
 }
 .signoutbutton{
     font-size:large;
@@ -80,6 +87,8 @@
     line-height:3em;
     border-radius:0.5em;
     text-align: center;
+
+    margin-bottom:20vh;
 
     background-color: var(--foreground);
     color: var(--background);

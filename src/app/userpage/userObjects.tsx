@@ -3,6 +3,8 @@ import { AuksjonsObjekt, Prisma, User } from "@prisma/client"
 
 
 import style from "./component.module.scss"
+import DisplayBid from "./displayBid"
+import sortObjectsFunc from "../components/get-auction-objects/sort-objects-func"
 
 
 type UserWithAuksjonsObjekter = Prisma.UserGetPayload<{
@@ -19,13 +21,11 @@ export async function UserObjectsList({user} : {user: UserWithAuksjonsObjekter})
 
     return(
     
-    <div className={style.auctionList}>
+    <div className={style.listContainer}>
     <h3 className={style.listTitle}>Dine auksjonsobjekter: </h3>
     <div className={style.list}>
         {itemList.map((object, index) => (
-            <a className={style.itemwrapper} href={"auction/"+object.id}><div className={style.item} key={index}>
-                {object.name}
-            </div></a>
+            <DisplayBid id={object.id} name={object.name} currentPrice={object.currentPriceOre}></DisplayBid>
         ))}
     </div>
     </div>)

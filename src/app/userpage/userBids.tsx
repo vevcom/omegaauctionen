@@ -25,21 +25,25 @@ export default async function UserBids({userId}: {userId: string }) {
     await prisma.$disconnect();
 
     if (!userwithlist || userwithlist.bids.length<1) {
-        return <div className={style.auctionList}>
-            <h3 className={style.listTitle}>Dine bud: </h3>
+        return <div className={style.listContainer}>
+            <h3 className={style.listTitle}>Du har bydd på: </h3></div>
+        return <div className={style.listContainer}>
+            <h3 className={style.listTitle}>Du har bydd på: </h3>
             <div className={style.list}>
                 <DisplayBid id={1} name={"Objekt 1 2 2 2 2 2 2 2 2"} price={6942} currentPrice={6942}></DisplayBid>
-                <DisplayBid num={2} id={1} name={"Objekt 2"} price={42069} currentPrice={6942}></DisplayBid>
-                <DisplayBid num={3} id={1} name={"Objekt 3"} price={1200} currentPrice={6942}></DisplayBid>
-                <DisplayBid num={4} id={1} name={"Objekt 4"} price={5700} currentPrice={6942}></DisplayBid>
+                <DisplayBid id={1} name={"Objekt 2"} price={42069} currentPrice={69492}></DisplayBid>
+                <DisplayBid id={1} name={"Objekt 3"} price={1200} currentPrice={6942}></DisplayBid>
+                <DisplayBid id={1} name={"Objekt 4"} price={5700} currentPrice={6942}></DisplayBid>
+                <DisplayBid id={1} name={"Objekt 5"} price={5700} currentPrice={5700}></DisplayBid>
+                <DisplayBid id={1} name={"Objekt 6"} price={4200} currentPrice={4200}></DisplayBid>
                 
             </div>
         </div>;
     }
 
     let registered:number[] = [];
-    return <div className={style.auctionList}>
-        <h3 className={style.listTitle}>Dine bud: </h3>
+    return <div className={style.listContainer}>
+        <h3 className={style.listTitle}>Du har bydd på: </h3>
         <div className={style.list}>
         
             {
@@ -48,7 +52,7 @@ export default async function UserBids({userId}: {userId: string }) {
                         return null;
                     }
                     registered.push(bid.auctionObject.id);
-                    return( <DisplayBid num={4} id={bid.auctionObject.id} name={bid.auctionObject.name} price={bid.priceOre} currentPrice={bid.auctionObject.currentPriceOre}></DisplayBid>);
+                    return( <DisplayBid id={bid.auctionObject.id} name={bid.auctionObject.name} price={bid.priceOre} currentPrice={bid.auctionObject.currentPriceOre}></DisplayBid>);
                 })
             }
         </div>
