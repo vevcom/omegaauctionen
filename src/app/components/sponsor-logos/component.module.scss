@@ -1,0 +1,41 @@
+.sponsorHolder {
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: center; 
+    gap: 20px;
+    width: 70vw;
+    margin: auto;
+    padding: 20px;
+}
+
+.imageContainer {
+    flex: 1 1 calc(50% - 20px); 
+    max-width: calc(50% - 20px);
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {  
+    .imageContainer {
+        flex: 1 1 100%; //
+        max-width: 100%;
+    }
+}
+
+.sponsorTitle{
+    font-size: 5vh;
+    text-align: center;
+}
+
+.mainDiv{
+    margin-block: 10vh;
+     
+}

@@ -6,6 +6,7 @@ import getUserID from "./api/auth/getUserId";
 import getReportedFieldOfStudy from "./components/has-answerd-question/has-answerd-question";
 import registerUserCourse from "@/app/components/register-user-course/register-user-course"
 import CountdownClock from "./components/countdownclock/countdown";
+import SponsorLogos from "./components/sponsor-logos/sponsor-logos";
 
 
 type BoolSetUseState = Dispatch<SetStateAction<boolean>>
@@ -64,6 +65,7 @@ export default function Home() {
   return (
     <>
       <CountdownClock></CountdownClock>
+      <SponsorLogos></SponsorLogos>
     </>
   );
 }
