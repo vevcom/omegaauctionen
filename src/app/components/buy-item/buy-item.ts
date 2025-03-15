@@ -48,8 +48,10 @@ export default async function buy_item(saleObjectID: number) {
 
 
     const dateTimeNow = new Date().toISOString();
-    await prisma.bid.create({
-        data: {
+
+    const createResponse = await prisma.bid.create({
+        data:{
+
             bidDate: dateTimeNow,
             priceOre: saleItem.currentPriceOre,
             auctionObject: {
@@ -60,6 +62,11 @@ export default async function buy_item(saleObjectID: number) {
             }
         }
     })
+
+    if (!createResponse){
+        return;
+    }
+
     await prisma.auksjonsObjekt.update({
         where: {
             id: saleObjectID,
@@ -68,4 +75,7 @@ export default async function buy_item(saleObjectID: number) {
             stock: (saleItem.stock - 1)
         }
     })
+
+    return true
+
 }

@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useState,Dispatch, SetStateAction } from "react";
 import style from "./component.module.scss"
 import { Committee } from "@prisma/client";
 
@@ -13,6 +13,7 @@ import PopUpBox from "@/app/components/popUp/popUp"
 import placeBid from "@/app/components/place-bid-func/place-bid-func";
 import getObjectById from "@/app/components/get-object-from-id/get-object-from-id";
 import CurrentPrice from "@/app/components/currentPrice/currentPrice";
+import has_bought_cape from "@/app/components/has-bought-cape/has-bought-cape";
 
 
 const committeeToLink = {
@@ -83,7 +84,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
 
   return (
     <form className={style.form}
-    action={(e) => {
+      action={(e) => {
         tryPlaceBid(e);
       }}>
       <input
@@ -104,25 +105,50 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
     </form>)
 }
 
-async function buy(object: AuksjonsObjekt) {
+async function buy(object: AuksjonsObjekt,setHasBoughtCape: Dispatch<SetStateAction<boolean>>) {
   if (!confirm("Vil du kjøpe til" + (object.currentPriceOre / 100).toString() + "kr?")) {
     return;
   }
-  await buy_item(object.id)
-  
+  const buyItemResponse = await buy_item(object.id)
+  if (buyItemResponse){
+    setHasBoughtCape(true)
+  }
 }
 
-function BuyPanel({ object }: { object: AuksjonsObjekt }) {
+function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape }: {
+  object: AuksjonsObjekt, hasBoughtCape: boolean, isTime: boolean, setHasBoughtCape: Dispatch<SetStateAction<boolean>>
+}) {
+  if (!isTime) { 
+    return (
+      <h2 className={style.buyPanelText}>Salget starter 03.20.2025 12:00 og slutter {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>
+    )
+  }
+
+  if (hasBoughtCape) {
+    return (
+      <h2 className={style.buyPanelText} >Du har kjøpt denne kappen 😎</h2>
+    )
+  }
+
+  if (object.stock < 1) {
+    return (
+      <h2 className={style.buyPanelText} >Denne kappen er desverre utslogt</h2>
+    )
+  }
+
+
   return (
-    <button onClick={e => buy(object)}>Kjøp for {object.currentPriceOre / 100}kr</button>
+    <button className={style.buyButton} onClick={e => buy(object, setHasBoughtCape)}>Kjøp for {object.currentPriceOre / 100}kr</button>
   )
 
 }
+
 
 export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTime, setIsTime] = useState(false)
   const [currentObject, setCurrentObject] = useState(object)
+  const [hasBoughtCape, setHasBoughtCape] = useState(false)
   const committeeLogotoLink = committeeToLink[object.committee];
   const auksjonsDate = "2025-03-20T11:00:00.000Z"
 
@@ -131,14 +157,17 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       const is_admin_response = await is_admin()
       setIsAdmin(is_admin_response)
 
-
+      if (currentObject.type == AuksjonsObjektType.SALG) {
+        const hasBoughtCapeResponse = await has_bought_cape(currentObject.id)
+        setHasBoughtCape(hasBoughtCapeResponse)
+      }
 
       const auctionDate = new Date(auksjonsDate) //DON'T ADJUST FOR time difference it uses right time
       const currentSaleTime = currentObject.currentSaleTime
       const now = new Date()
       setIsTime((now > auctionDate) && (now < currentSaleTime))
-      
-      if (is_admin_response){ //TODO: remove before prod
+
+      if (is_admin_response) { //TODO: remove before prod
         setIsTime(true)
       }
 
@@ -146,7 +175,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
     fetchData();
     const interval = setInterval(async () => {
       const newObject = await getObjectById(object.id)
-      if (!newObject){
+      if (!newObject) {
         return;
       }
       setCurrentObject(newObject)
@@ -159,14 +188,14 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       const currentSaleTime = currentObject.currentSaleTime
       const now = new Date()
       setIsTime((now > auctionDate) && (now < currentSaleTime))
-      
-      if (is_admin_response){ //TODO: remove before prod
+
+      if (is_admin_response) { //TODO: remove before prod
         setIsTime(true)
       }
-    
+
 
     }, 10000);
-  
+
     return () => clearInterval(interval);
   }, []);
 
@@ -193,7 +222,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <CurrentPrice price={currentObject.currentPriceOre}></CurrentPrice> : null}
         <div className={style.description}>{object.description}</div>
 
-        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0,5)}</h2>}
+        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
 
       </div>
       <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
@@ -239,18 +268,13 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
         <div className={style.description}>{currentObject.description}</div>
-        {
-          (isTime && (currentObject.stock >= 1))
-            ? <BuyPanel object={object}></BuyPanel>
-            : (
-              (currentObject.stock >= 1)
-                ? <h2>Salget starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0,5)}</h2>
-                : <h2>Denne kappen er desverre utslogt</h2>
-            )
-        }
-        <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
+        <h2 className={style.capesLeftText}>{currentObject.stock} kapper igjen!</h2>
+        <BuyPanel setHasBoughtCape={setHasBoughtCape} hasBoughtCape={hasBoughtCape} isTime={isTime} object={currentObject}></BuyPanel>
+        <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
+
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
+
       </div>
 
     </div>
