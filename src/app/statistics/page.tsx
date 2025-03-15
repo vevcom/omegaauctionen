@@ -227,7 +227,7 @@ export default async function Klassetrinn() {
     </div>
     
 
-    {/* <Graphs data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs> */}
+    <Graphs data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
   </div>
 }
 
