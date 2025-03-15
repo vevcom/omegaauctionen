@@ -156,6 +156,7 @@ export default async function generateDebtReport() {
 
 
     for (const [userName, data] of Object.entries(userDebtData)) {
+        if (data.totalDebt==0){continue;}
         reportTextForm += "---------------Person start" + "\n"
         reportTextForm += "Navn:" + userName + "\n"
         reportTextForm += "Mail:" + data.email + "\n"

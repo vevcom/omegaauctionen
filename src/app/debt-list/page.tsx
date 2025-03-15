@@ -34,7 +34,7 @@ export default function DownloadAuctionData() {
     };
 
     if (auctionData === "") {
-        return <p>Komplimerer data</p>
+        return <p>Komplimerer data. Dette kan ta en stund...</p>
     }
     return (
         <div className="flex flex-col items-center gap-4 p-4">
