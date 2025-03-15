@@ -109,6 +109,7 @@ async function buy(object: AuksjonsObjekt) {
     return;
   }
   await buy_item(object.id)
+  
 }
 
 function BuyPanel({ object }: { object: AuksjonsObjekt }) {

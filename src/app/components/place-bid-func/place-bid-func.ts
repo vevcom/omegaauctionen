@@ -30,7 +30,7 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: n
   const openingDate = new Date("2025-03-20T11:00:00.000Z")
   const currentSaleTime = object.currentSaleTime
   if (now > currentSaleTime) {
-    return "Ser ut som du var for sen"
+    return "Budrunden er over"
   }
   if (now < openingDate) {
     return "Budrunden har ikke startet"
