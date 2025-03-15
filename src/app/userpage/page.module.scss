@@ -2,9 +2,12 @@
     margin:5vh 0;
     text-align: center;
     font-size:large;
+    width:100vw;
 }
 .name{
     font-size:xx-large;
+    margin: 0 auto;
+    width:90%;
 }
 .auctionListContainer {
     display:flex;
@@ -37,7 +40,6 @@
     .auctionListContainer{
         flex-direction: row;
         margin-top: 10vh;
-        width:80vw;
-
+        width:95%;
     }
 }

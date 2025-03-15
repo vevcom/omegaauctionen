@@ -1,7 +1,6 @@
 "use server"
 import { prisma } from "../prisma"
 import style from "./component.module.scss"
-import { Bid, User, AuksjonsObjekt} from "@prisma/client"
 import DisplayBid from "./displayBid"
 
 
@@ -10,7 +9,8 @@ export default async function UserBids({userId}: {userId: string }) {
         where:{id:userId},
         select:{
             bids: {
-            include: {
+            select: {
+                priceOre:true,
                 auctionObject:{
                     select:{
                         name: true,
@@ -30,7 +30,7 @@ export default async function UserBids({userId}: {userId: string }) {
         return <div className={style.listContainer}>
             <h3 className={style.listTitle}>Du har bydd på: </h3>
             <div className={style.list}>
-                <DisplayBid id={1} name={"Objekt 1 2 2 2 2 2 2 2 2"} price={6942} currentPrice={6942}></DisplayBid>
+                <DisplayBid id={1} name={"Objektttttttttttttttttt 1"} price={6942} currentPrice={6942}></DisplayBid>
                 <DisplayBid id={1} name={"Objekt 2"} price={42069} currentPrice={69492}></DisplayBid>
                 <DisplayBid id={1} name={"Objekt 3"} price={1200} currentPrice={6942}></DisplayBid>
                 <DisplayBid id={1} name={"Objekt 4"} price={5700} currentPrice={6942}></DisplayBid>
@@ -38,6 +38,7 @@ export default async function UserBids({userId}: {userId: string }) {
                 <DisplayBid id={1} name={"Objekt 6"} price={4200} currentPrice={4200}></DisplayBid>
                 
             </div>
+            <div className={style.explanation}></div>
         </div>;
     }
 
@@ -56,6 +57,8 @@ export default async function UserBids({userId}: {userId: string }) {
                 })
             }
         </div>
+        <div className={style.explanation}></div>
+
     </div>
 }
 

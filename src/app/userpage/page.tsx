@@ -3,7 +3,7 @@ import style from "./page.module.scss"
 
 import { redirect } from "next/navigation";
 import getUser from "../api/auth/getUser";
-import { SignoutButton } from "./signout_button";
+import { SignoutButton } from "./signoutButton";
 import { UserObjectsList } from "./userObjects";
 import { AuksjonsObjekt, AuksjonsObjektType, Committee, Prisma, Study, User } from "@prisma/client"
 import UserBids from "./userBids";
@@ -36,8 +36,8 @@ const defaultUser = {
     emailVerified: null,
     image: null,
     isAdmin: true,
-    auksjonsObjekter: [defaultObjects],
-    // auksjonsObjekter: [],
+    // auksjonsObjekter: [defaultObjects],
+    auksjonsObjekter: [],
     studyCourse: Study.ELSYS,
     bids: [],
 }
@@ -47,9 +47,9 @@ const defaultUser = {
 export default async function UserPageAesthetic() {
     let user = await getUser()
     if (!user) {
-        // user = defaultUser;
+        user = defaultUser;
         // TODO: REMOVE DEFAULT USER BEFORE FINAL RELEASE
-        redirect("api/auth/signin");
+        // redirect("api/auth/signin");
     }
 
 
@@ -58,7 +58,7 @@ export default async function UserPageAesthetic() {
         <hr></hr>
         <div className={style.auctionListContainer}>
             <UserObjectsList user={user}></UserObjectsList>
-            
+
             <UserBids userId={user.id}></UserBids>
         </div>
     
