@@ -171,6 +171,11 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
   const itemType = currentObject.type
 
+  if (!currentObject.approved && !isAdmin){
+    return(
+      <h1>Ingen tillgang.Dette objektet er ikke godkjent</h1>
+    )
+  }
 
   if (itemType == AuksjonsObjektType.AUKSJON) {
     return (<div className={style.objectPage}>
@@ -192,7 +197,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       </div>
       <div className={style.note}><b>*MERK*</b> Alle bud er binnende</div>
 
-      {(isAdmin && (!currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
   }
@@ -211,6 +216,9 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         </div>
         <div className={style.description}>{currentObject.description}</div>
       </div>
+
+      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
   }
 
@@ -240,6 +248,8 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
             )
         }
         <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
+      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
       </div>
 
     </div>
