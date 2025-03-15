@@ -173,7 +173,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
   if (!currentObject.approved && !isAdmin){
     return(
-      <h1>Ingen tillgang.Dette objektet er ikke godkjent</h1>
+      <h1>Du har ikke tilgang. Dette objektet er ikke godkjent.</h1>
     )
   }
 
@@ -195,7 +195,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0,5)}</h2>}
 
       </div>
-      <div className={style.note}><b>*MERK*</b> Alle bud er binnende</div>
+      <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
 
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
@@ -247,7 +247,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
                 : <h2>Denne kappen er desverre utslogt</h2>
             )
         }
-        <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
+        <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
       </div>

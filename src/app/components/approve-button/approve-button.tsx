@@ -14,7 +14,7 @@ export default function ApproveButton({ objectId }: { objectId: number }) {
         resolve => setTimeout(resolve, ms)
     );
     async function sendApproval() {
-        const consent = confirm("Vil du godkjenne til dette objektet?")
+        const consent = confirm("Vil du godkjenne dette objektet?")
         if (!consent) {
             alertBox("avbryter...")
             return;
