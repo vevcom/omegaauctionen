@@ -14,15 +14,20 @@ export default function deleteButton({ objectId }: { objectId: number }) {
         resolve => setTimeout(resolve, ms)
     );
 
-    
-    
+
+
     async function sendDelete() {
+        const consent = confirm("Vil du fjerne godkjenningen til dette objektet?")
+        if (!consent) {
+            alertBox("avbryter...")
+            return;
+        }
         let response = await deleteFunc(objectId)
         if (response[1]) {
-            alertBox("It worked")
+            alertBox("Det funket")
         }
         else {
-            alertBox("it no work")
+            alertBox("Det funket ikke")
         }
         console.log(response[0])
     }
@@ -36,7 +41,7 @@ export default function deleteButton({ objectId }: { objectId: number }) {
 
     return (
         <div className={styles.buttDiv}>
-            <button className={styles.delteButton} onClick={sendDelete} id="deleteButton">Slett</button>
+            <button className={styles.delteButton} onClick={sendDelete} id="deleteButton">Fjern godkjenning</button>
             <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
         </div >
     )

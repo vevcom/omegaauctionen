@@ -201,6 +201,11 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
   const itemType = currentObject.type
 
+  if (!currentObject.approved && !isAdmin){
+    return(
+      <h1>Du har ikke tilgang. Dette objektet er ikke godkjent.</h1>
+    )
+  }
 
   if (itemType == AuksjonsObjektType.AUKSJON) {
     return (<div className={style.objectPage}>
@@ -220,9 +225,9 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
 
       </div>
-      <div className={style.note}><b>*MERK*</b> Alle bud er binnende</div>
+      <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
 
-      {(isAdmin && (!currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
   }
@@ -241,6 +246,9 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         </div>
         <div className={style.description}>{currentObject.description}</div>
       </div>
+
+      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
   }
 
@@ -263,6 +271,10 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <h2 className={style.capesLeftText}>{currentObject.stock} kapper igjen!</h2>
         <BuyPanel setHasBoughtCape={setHasBoughtCape} hasBoughtCape={hasBoughtCape} isTime={isTime} object={currentObject}></BuyPanel>
         <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
+
+      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
+
       </div>
 
     </div>
