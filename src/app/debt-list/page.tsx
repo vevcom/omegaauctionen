@@ -12,7 +12,7 @@ export default function DownloadAuctionData() {
         async function compile() {
             const compileResponse = await generateDebtReport()
             if (!compileResponse) {
-                alert("noe gikk galt")
+                alert("noe gikk galt eller du har ikke tilgang")
                 return;
             }
             setAuctionData(compileResponse)

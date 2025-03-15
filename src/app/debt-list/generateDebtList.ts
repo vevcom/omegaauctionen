@@ -1,10 +1,15 @@
 "use server"
 import { AuksjonsObjektType } from "@prisma/client";
 import { prisma } from "../prisma";
+import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 
 
 
 export default async function generateDebtReport() {
+    const is_minAdmni = await is_miniadmin()
+    if (!is_minAdmni){
+        return false;
+    }
     let reportTextForm = ""
     let userDebtData: {
         [index: string]: {
