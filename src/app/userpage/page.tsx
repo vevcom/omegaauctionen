@@ -47,9 +47,9 @@ const defaultUser = {
 export default async function UserPageAesthetic() {
     let user = await getUser()
     if (!user) {
-        user = defaultUser;
+        // user = defaultUser;
         // TODO: REMOVE DEFAULT USER BEFORE FINAL RELEASE
-        // redirect("api/auth/signin");
+        redirect("api/auth/signin");
     }
 
 
@@ -63,7 +63,6 @@ export default async function UserPageAesthetic() {
         </div>
     
         <SignoutButton></SignoutButton>
-
         </>
         
     
