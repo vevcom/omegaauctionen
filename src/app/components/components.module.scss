@@ -1,6 +1,5 @@
 
 .imagecontainer {
-    cursor:pointer;
     display:flex;
     align-items:center;
     height:5vh;
@@ -38,6 +37,7 @@
     align-items: center;
     text-align: center;
     flex-basis: 15%;
+    cursor:pointer;
 }
 
 .bannerCenter {
