@@ -12,7 +12,7 @@ type DataType = {
     }[];
 }
 
-export default function Graphs({ data3,data4,datakybelsys }: { data3:DataType, data4:DataType, datakybelsys:DataType }) {
+export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataType, data4:DataType, datakybelsys:DataType,data5:DataType }) {
     console.log(datakybelsys)
     return (<div className={styles.bla}>
 
@@ -55,6 +55,20 @@ export default function Graphs({ data3,data4,datakybelsys }: { data3:DataType, d
           }}
           
           ></Doughnut>  
+          </div>
+
+          <h1>Biggest Spender</h1>
+          <p>Hvem ligger ann til å bruke mest penger</p>
+          <div className={styles.graf}>
+          <Bar
+          data={data5}
+          options={{
+
+            responsive: true,
+            maintainAspectRatio: false,
+          }}
+          
+          ></Bar>  
           </div>
 
       </div>)

@@ -17,7 +17,7 @@ export default function AuctionItemsPage() {
     fetchData();
   }, []);
   if (allPages.length === 0){
-    return <p>Ingen ting å se her 🙈</p>;
+    return <p>Ingen ting å se her 🙈 HS må gå</p>;
   }
   return (
     <div className={styles.container}>
