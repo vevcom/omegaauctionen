@@ -6,8 +6,6 @@ import {Header} from "@/app/components/header";
 import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
 
-
-
 export const oldEnglish = localFont({
   src: "./fonts/OldEnglishFive.woff",
   variable: "--font-english-five",
@@ -40,7 +38,11 @@ export default function RootLayout({
     <html lang="no">
       <head>
         <title>Omegaauctionen 2025</title>
-        <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link>
+        {/* <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link> */}
+
+        <link rel="icon" type="image/png" sizes="32x32" href="https://omega.ntnu.no/static/favicon.png"></link>
+        <link rel="apple-touch-icon" sizes="512x512" href="https://omega.ntnu.no/static/icon_512x512.546e2b5b0d39ea55ebaca438b8611e33.png"></link>
+        <link rel="shortcut icon" href="https://omega.ntnu.no/static/favicon.png"></link>
       </head>
       <body>
         <Header></Header>

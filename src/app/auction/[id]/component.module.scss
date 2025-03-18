@@ -133,6 +133,7 @@
     justify-content: center;
     align-items:center;
     max-width:80vw;
+    max-height: 70vh;
     margin:auto;
     object-fit: contain;
     padding:5% 0;
@@ -176,3 +177,24 @@
         // padding-top:0;
     }
   }
+
+
+
+.capesLeftText{
+    font-size: 5vh;
+    margin-block: 5vh;
+}
+
+
+.buyPanelText{
+    font-size: 5vh;
+}
+.buyButton{
+    font-size: 5vh;
+    background-color: #64cec5;
+    border: none;
+    text-align: center;
+    border-radius: 0.3em;
+    padding: 1em;
+    margin: auto;
+}

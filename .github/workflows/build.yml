@@ -1,0 +1,19 @@
+name: build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: build
+      run: docker compose --env-file default.env -f docker-compose.prod.yml build
+    - name: up
+      run: docker compose --env-file default.env -f docker-compose.prod.yml up -d
+ 

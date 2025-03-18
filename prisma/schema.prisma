@@ -43,24 +43,24 @@ enum Committee {
 }
 
 model AuksjonsObjekt {
-  id              Int                 @id @default(autoincrement())
-  name            String
-  description     String
-  committee       Committee @default(NOTCOM)
-  type            AuksjonsObjektType  @default(AUKSJON)
+  id          Int                @id @default(autoincrement())
+  name        String
+  description String
+  committee   Committee          @default(NOTCOM)
+  type        AuksjonsObjektType @default(AUKSJON)
 
-  startPriceOre   Int      @map("startPrice")
+  startPriceOre   Int @map("startPrice")
   currentPriceOre Int
-  stock           Int                 @default(1)
+  stock           Int @default(1)
 
   finalSaleTime   DateTime @default(dbgenerated("TIMESTAMP '2025-03-21 01:00:00'"))
   currentSaleTime DateTime @default(dbgenerated("TIMESTAMP '2025-03-20 23:00:00'")) //DO not adjust for timezone
 
-  approved        Boolean  @default(false)
-  imageName       String   @default("default.jpeg")
-  authorId        String? //Do not make required 
-  author          User?    @relation(fields: [authorId], references: [id])
-  bids            Bid[]
+  approved  Boolean @default(false)
+  imageName String  @default("default.jpeg")
+  authorId  String? //Do not make required 
+  author    User?   @relation(fields: [authorId], references: [id])
+  bids      Bid[]
 }
 
 model Bid {
@@ -106,6 +106,7 @@ model User {
   accounts         Account[]
   sessions         Session[]
   isAdmin          Boolean          @default(false)
+  isMiniAdmin      Boolean          @default(false)
   auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
   bids             Bid[]
 
