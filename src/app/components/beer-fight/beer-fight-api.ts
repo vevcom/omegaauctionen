@@ -79,11 +79,11 @@ export async function beerToServer (
     }
     else {
         let newprice = price + beerObject.currentPriceOre;
-        prisma.auksjonsObjekt.update({
+        await prisma.auksjonsObjekt.update({
             where: {id:beerObject.id},
             data: {
-                currentPriceOre:newprice,
-                startPriceOre:newprice
+                currentPriceOre:{increment:price},
+                startPriceOre:{increment:price},
             }
         })
     }
