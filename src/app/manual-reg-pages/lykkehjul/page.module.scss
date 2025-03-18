@@ -1,0 +1,26 @@
+$button-size: 35vw;
+
+
+
+.mainDiv{
+    text-align: center;
+}
+
+.buttonHolder{
+    margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  
+}
+.bongBtn{
+    width: $button-size;
+    height: $button-size;
+    background-color: yellow;
+    border-radius: 50%;
+    border: none;
+    margin: auto;
+    font-size: 4vw;
+}

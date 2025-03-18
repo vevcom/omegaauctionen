@@ -1,8 +1,8 @@
 "use client"
 import React, { FormEvent, useEffect, useState } from "react"
 import style from "./page.module.scss"
-import increment_LiveAuctionStats from "../components/incrementLiveAuctionStats/incrementLiveAuctionStats"
-import is_miniadmin from "../components/is-miniadmin/is-miniadmin"
+import is_miniadmin from "@/app/components/is-miniadmin/is-miniadmin"
+import increment_manual_money_registration from "@/app/components/manual-money-registration-component/manual-money-registration-component"
 
 
 
@@ -12,15 +12,16 @@ async function sendFormData(e: FormData, setAmountSoldForOre: React.Dispatch<Rea
         return;
     }
 
+    const liveAuctionName = "liveAuctionMoney"
     const bidAmountInOre = parseInt((parseFloat((e.get("startPriceInKroner") as string)) * 100).toFixed(2))
-    const response = await increment_LiveAuctionStats(bidAmountInOre)
+    const response = await increment_manual_money_registration(liveAuctionName,bidAmountInOre)
 
 
     if (!response) {
         alert("Det funket ikke. vent litt og prøv igjen")
     }
     else {
-        setAmountSoldForOre(response)
+        setAmountSoldForOre(response.moneyMade)
     }
 }
 
