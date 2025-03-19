@@ -19,7 +19,7 @@ function generateMail(
 ) {
     let mailText = `"Hei ${userName},\n\n` +
         `Takk for din deltakelse i Omega-auksjonen! Du har det høyeste budet / kjøpt / stemt på ` +
-        `${data.wonObjects.length} ting. Totalsummen er ${data.totalDebt / 100} kr, som kan vippses til ${phoneNumberForVipps}.\n\n` +
+        `${data.wonObjects.length} ting. Totalsummen er ${data.totalDebt / 100} kr, som skal vippses til ${668205}.\n\n` +
         `Mener du dette er feil? Vennligst svar på denne e-posten. Under finner du en oversikt over dine bud, kjøp og stemmer:\n\n` +
         `----- Oversikt -----\n`;
 

@@ -3,21 +3,24 @@ import { AuksjonsObjektType, Study } from "@prisma/client";
 import { prisma } from "../prisma";
 import get_money_made_in_ore from "../components/get-money-made/get-money-made";
 import get_biggest_spenders from "../components/get-biggest-spenders/get-biggest-spenders";
+import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 
 
 
 function cutOffName(name: string) {
-    const maxLengthCharacters = 15;
-    if (!name){
-        return ""
-    }
-    if (name.length > maxLengthCharacters) {
-      return name.substring(0, maxLengthCharacters) + "..."
-    }
-    return name
+  const maxLengthCharacters = 15;
+  if (!name) {
+    return ""
   }
+  if (name.length > maxLengthCharacters) {
+    return name.substring(0, maxLengthCharacters) + "..."
+  }
+  return name
+}
 
 export default async function loadData() {
+  const miniadmin = await is_miniadmin();
+  if (miniadmin) {
     const elesysKyb = await prisma.auksjonsObjekt.findMany({
       where: {
         type: AuksjonsObjektType.AUKSJON,
@@ -181,7 +184,7 @@ export default async function loadData() {
     ]
 
     const datakybelsys = {
-      labels: spenders3.map(a => cutOffName(a.name)), //cutOffName funksjon kutter av navnet
+      labelsdata3: spenders3.map(a => cutOffName(a.name)), //cutOffName funksjon kutter av navnet
       datasets: [{
         label: "dataset3",
         data: spenders3.map(spenders3 => spenders3.spent),
@@ -209,15 +212,35 @@ export default async function loadData() {
       }]
     }
 
-    let topBiggestSpenders =  await get_biggest_spenders()
+    let topBiggestSpenders = await get_biggest_spenders()
 
-    const data5 ={
-        labels: topBiggestSpenders.map(a => cutOffName(a.name)),
-        datasets: [{
-          label: "dataset",
-          data: topBiggestSpenders.map(topBiggestSpenders => topBiggestSpenders.spent/100),
-          backgroundColor: colors,                          //farger på charts = farger definert i colors
-        }]
-      }
-    return [data3,data4,datakybelsys,avarageAndcount,total,data5]
+    const data5 = {
+      labels: topBiggestSpenders.map(a => cutOffName(a.name)),
+      datasets: [{
+        label: "dataset",
+        data: topBiggestSpenders.map(topBiggestSpenders => topBiggestSpenders.spent / 100),
+        backgroundColor: colors,                          //farger på charts = farger definert i colors
+      }]
+    }
+    return [data3, data4, datakybelsys, avarageAndcount, total, data5]
   }
+  else{
+    const avarageAndcount = await prisma.auksjonsObjekt.aggregate({
+      _avg: {
+        currentPriceOre: true
+      },
+      _count: {
+        name: true,
+      },
+      where: {
+        approved: true,
+        type: AuksjonsObjektType.AUKSJON
+      }
+    })
+
+    
+    const total = await get_money_made_in_ore()
+    return [null , null, null, avarageAndcount, total, null]
+
+  }
+}
