@@ -37,21 +37,31 @@ export async function beerToServer (
     : 
     {e:FormData, object:string}
 ) {
+    
+    const now = new Date()
+    const start = new Date("2025-03-20T16:00:00.000Z")
+    const end = new Date("2025-03-20T22:00:00.000Z")
+    if (now < start || now > end) {
+        return "ikke i tidsrammen"
+    }
+
+
+
     if (!validObject(object)) {
         console.log("error: not valid object name")
-        return 1;
+        return "error: not valid object name";
     }
     let objectname = "DONOTAPPROVE" + object;
     let pattern = /^[0-9]+$/;
     if (!pattern.test(String(e.get("number")))) {
         console.log("error: number missing")
-        return 1;
+        return "error: number missing";
     }
     let price = Number(e.get("number"))*100;
     const userID = await getUserID();
     if (!userID) {
         console.log("Not logged in")
-        return 1;
+        return "Not logged in";
     }
     // checks if a beer exists
     let beerObject = await prisma.auksjonsObjekt.findFirst({
@@ -74,7 +84,7 @@ export async function beerToServer (
         })
         if (!beerObject) {
             console.log("unable to create beerObject");
-            return 1;
+            return "unable to create beerObject";
         }
     }
     else {
@@ -104,7 +114,7 @@ export async function beerToServer (
     });
     if (!bud) {
         console.log("Could not create bid")
-        return 1;
+        return "Could not create bid";
     }
-    return 0;
+    return null;
 }

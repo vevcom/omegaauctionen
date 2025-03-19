@@ -5,6 +5,6 @@ export default function BeerFightGraph(
 ) {
     //TODO add graphs
     return (<>
-        {price}
+        <p>{price/100} stemmer</p>
     </>);
 }

@@ -1,16 +1,191 @@
 .titleCard {
-    background-color: var(--titleColor);
-    width:100%;
-    padding:10vh;
-    padding-bottom:7vh;
-    text-align:center;
+    // background-color: var(--titleColor);
+    width: 100%;
+    padding: 10vh;
+    // padding-bottom: 7vh;
+    text-align: center;
+
 }
+
+.title {
+    font-size: 5vw;
+    text-align: center;
+}
+
 .program {
     background-color: var(--titleColor);
-    width:70%;
-    line-height:2;
+    width: 70%;
+    line-height: 2;
 
-    padding-top:15vh;
-    padding-bottom:15vh;
-    margin:5vh;
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    margin: 5vh;
+}
+
+.optionBoxHolder {
+    display: grid;
+    grid-template-columns: 5fr 1fr 5fr;
+    background: linear-gradient(145deg, #f0f0f0, #d9d9d9);
+    width: 80%;
+    padding: 1%;
+    border: black solid 3px;
+    margin: auto;
+}
+
+.optionBox {
+    // background-color: blue;
+    // background-color: ;
+    margin-block: 1%;
+
+    border: black solid 2px;
+    padding: 2%;
+    width: 90%;
+    margin: auto;
+}
+
+.optionBox>* {
+    // background-color: wheat;
+    margin-block: 1%;
+    width: 100%;
+
+}
+
+.optionBox>p {
+    text-align: center;
+    font-size: 4vw;
+    margin-bottom: 20vh;
+
+}
+
+.winning {
+    background-color: rgba(30, 255, 30, 0.164) !important;
+}
+
+.losing {
+    background-color: rgba(255, 2, 2, 0.158) !important;
+}
+
+.leadingInfo {
+    font-size: 4vw;
+    text-align: center;
+    margin-bottom: 1vh;
+}
+
+.optionBox>form {
+    text-align: center;
+    font-size: 2vw;
+    width: 80%;
+    margin: auto;
+    display: grid;
+    gap: 1vh;
+    grid-template-columns: 1fr;
+
+}
+
+.optionBox>form>button {
+    font-size: 1em;
+    background-color: #64cec5;
+    border: none;
+    text-align: center;
+    border-radius: 0.3em;
+    padding: 1vw;
+    margin: auto;
+
+}
+
+.optionBox>form>input {
+    width: 50%;
+    margin: auto;
+    height: 4vh;
+    font-size: 4vh;
+    text-align: center;
+
+}
+
+.voteName {
+    text-align: center;
+    font-size: 5vw;
+}
+
+.vsText {
+    text-align: center;
+    font-size: 4vw;
+    // border: 0px solid black;
+}
+
+
+@media (orientation:portrait) {
+    .optionBoxHolder {
+        grid-template-columns: 1fr;
+    }
+
+
+    .optionBox>form>button {
+        font-size: 4em;
+        background-color: #64cec5;
+        border: none;
+        text-align: center;
+        border-radius: 0.3em;
+        padding: 1vw;
+        margin: auto;
+
+    }
+
+    .optionBox>form>input {
+        width: 70%;
+        margin: auto;
+        height: 5vh;
+        font-size: 4vh;
+        text-align: center;
+    }
+
+
+    .optionBox>p {
+        text-align: center;
+        font-size: 8vw;
+        margin-bottom: 4vh;
+
+    }
+
+    .voteName {
+        text-align: center;
+        font-size: 8vw;
+    }
+
+    .leadingInfo {
+        margin-top: 2vh;
+        font-size: 8vw;
+        text-align: center;
+        margin-bottom: 1vh;
+    }
+
+    .titleCard {
+        // background-color: var(--titleColor);
+        width: 90%;
+        padding: 0vh;
+        padding-bottom: 0vh;
+        text-align: center;
+        margin-top: 3vh;
+        margin-bottom: 3vh;
+        margin: auto;
+
+    }
+
+    .title {
+        font-size: 8vw;
+    }
+
+
+    .program {
+        background-color: var(--titleColor);
+        width: 90%;
+        line-height: 0;
+
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin:4vh;
+    }
+    .info{
+        font-size: 3vw;
+    }
 }
