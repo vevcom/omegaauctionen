@@ -27,7 +27,7 @@ function generateMail(
         mailText += `${index + 1}: ${object.objectName}\n`;
         mailText += `\t - Pris: ${object.price / 100} kr\n`;
     });
-    mailText+='"'
+    mailText += '"'
     return mailText;
 }
 
@@ -158,6 +158,98 @@ export default async function generateDebtReport() {
 
 
 
+    const hansa = await prisma.auksjonsObjekt.findFirst({
+        where: {
+            name: "DONOTAPPROVE" + "Hansa"
+        },
+        select: {
+            bids: {
+                orderBy: {
+                    priceOre: "desc"
+                },
+                select: {
+                    bidder: {
+                        select: {
+                            name: true
+                        }
+                    },
+                    priceOre: true
+                }
+            },
+        }
+    })
+    const motHansa = await prisma.auksjonsObjekt.findFirst({
+        where: {
+            name: "DONOTAPPROVE" + "IkkeHansa"
+        },
+        select: {
+            bids: {
+                orderBy: {
+                    priceOre: "desc"
+                },
+                select: {
+                    bidder: {
+                        select: {
+                            name: true
+                        }
+                    },
+                    priceOre: true
+                }
+            },
+        }
+    })
+
+    if (hansa) {
+        const data = hansa
+        const bids = data.bids
+        if (bids) {
+            for (let j = 0; j < bids.length; j++) {
+                const bid = bids[j]
+                if (!bid || !bid.priceOre || !bid.bidder.name) { continue; }
+                const authorName = "HS"
+                const authorEmail = "Ikke nødvendig med mail"
+                const bidPrice = bid.priceOre
+                const bidBidderName = bid.bidder.name
+                const objectName = "Hansa stemme"
+                userDebtData[bidBidderName].wonObjects.push(
+                    {
+                        price: bidPrice,
+                        objectName: objectName,
+                        authorEmail: authorEmail,
+                        authorName: authorName
+                    }
+                )
+                userDebtData[bidBidderName].totalDebt += bidPrice;
+            }
+        }
+    }
+    if (motHansa) {
+        const data = motHansa
+        const bids = data.bids
+        if (bids) {
+            for (let j = 0; j < bids.length; j++) {
+                const bid = bids[j]
+                if (!bid || !bid.priceOre || !bid.bidder.name) { continue; }
+                const authorName = "HS"
+                const authorEmail = "Ikke nødvendig med mail"
+                const bidPrice = bid.priceOre
+                const bidBidderName = bid.bidder.name
+                const objectName = "Imot hansa stemme"
+                userDebtData[bidBidderName].wonObjects.push(
+                    {
+                        price: bidPrice,
+                        objectName: objectName,
+                        authorEmail: authorEmail,
+                        authorName: authorName
+                    }
+                )
+                userDebtData[bidBidderName].totalDebt += bidPrice;
+            }
+        }
+    }
+
+
+
 
     for (let i = 0; i < capes.length; i++) {
         const data = capes[i]
@@ -184,6 +276,7 @@ export default async function generateDebtReport() {
             userDebtData[bidBidderName].totalDebt += topPrice;
         }
     }
+
 
 
 
@@ -222,5 +315,5 @@ export default async function generateDebtReport() {
             + "Betaling for Omega auksjonen (Auto generert mail)" + ";"
             + generateMail(userName, data, phoneNumberForVipps)
     }
-    return [reportTextForm, overviewList,preMadeMail]
+    return [reportTextForm, overviewList, preMadeMail]
 }

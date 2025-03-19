@@ -10,7 +10,7 @@ import is_miniadmin from "../is-miniadmin/is-miniadmin"
 //manual-money-registration-component. Registers amount of money made and returns how much money is made and how many of that item is sold
 //This function uses an unapproved item to register amounts of money made. Stores it in current price
 export default async function increment_manual_money_registration(name: string, moneyMadeOre: number,amountSold=1) {
-    const dataBaseName = "DONOTAPPORVE" + name
+    const dataBaseName = "DONOTAPPROVE" + name
 
     //checks if negative amount
     if (moneyMadeOre <= 0) {

@@ -69,7 +69,7 @@ export default async function get_money_made_in_ore() {
         },
         where: {
             name: {
-                contains: "DONOTAPPORVE"
+                contains: "DONOTAPPROVE"
             },
             approved: false,
         }
