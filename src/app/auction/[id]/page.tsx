@@ -2,7 +2,8 @@
 import {prisma } from "../../prisma";  
 import { AuksjonsObjektType,Committee } from "@prisma/client";
 import AuctionObject from "./auctionObject";
-import { createAuctionItem } from "@/app/examples/components/createAuctionItem";
+// import { createAuctionItem } from "@/app/examples/components/createAuctionItem";
+
 
 interface AuctionObjectType {
     id: number;

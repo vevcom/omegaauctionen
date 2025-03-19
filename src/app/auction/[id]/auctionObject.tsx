@@ -14,6 +14,7 @@ import placeBid from "@/app/components/place-bid-func/place-bid-func";
 import getObjectById from "@/app/components/get-object-from-id/get-object-from-id";
 import CurrentPrice from "@/app/components/currentPrice/currentPrice";
 import has_bought_cape from "@/app/components/has-bought-cape/has-bought-cape";
+import HighestBidder from "@/app/components/highestBidder/highestBidder";
 
 
 const committeeToLink = {
@@ -192,6 +193,9 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       if (is_admin_response) { //TODO: remove before prod
         setIsTime(true)
       }
+      // TODO: Remove
+      setIsTime(true);
+
 
 
     }, 10000);
@@ -206,7 +210,6 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       <h1>Du har ikke tilgang. Dette objektet er ikke godkjent.</h1>
     )
   }
-
   if (itemType == AuksjonsObjektType.AUKSJON) {
     return (<div className={style.objectPage}>
       <div className={style.objectHeading}>
@@ -223,7 +226,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <div className={style.description}>{object.description}</div>
 
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
-
+        {isTime ? <HighestBidder objectId={3}></HighestBidder> : null}
       </div>
       <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
 
