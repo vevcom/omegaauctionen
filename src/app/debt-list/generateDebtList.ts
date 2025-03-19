@@ -1,5 +1,5 @@
 "use server"
-import { AuksjonsObjektType } from "@prisma/client";
+import { AuksjonsObjektType, Committee } from "@prisma/client";
 import { prisma } from "../prisma";
 import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 
@@ -13,6 +13,7 @@ function generateMail(
             objectName: string;
             authorEmail: string;
             authorName: string;
+            committee: string | null;
         }[];
     },
     phoneNumberForVipps: string
@@ -24,8 +25,14 @@ function generateMail(
         `----- Oversikt -----\n`;
 
     data.wonObjects.forEach((object, index) => {
+        let kontaktInfo = object.authorEmail + " - " + object.authorName
+        if (object.committee) {
+            kontaktInfo = "komitee:"+ object.committee + " - person som la ut: "+object.authorName
+        }
         mailText += `${index + 1}: ${object.objectName}\n`;
         mailText += `\t - Pris: ${object.price / 100} kr\n`;
+        mailText += "\t - KontaktInfo:" + kontaktInfo +"\n"
+
     });
     return mailText;
 }
@@ -35,7 +42,7 @@ export default async function generateDebtReport() {
     const phoneNumberForVipps = "PLACEHOLDER"
     const is_minAdmni = await is_miniadmin()
     if (!is_minAdmni) {
-        return [false,1];
+        return [false, 1];
     }
     let reportTextForm = ""
     let userDebtData: {
@@ -46,14 +53,15 @@ export default async function generateDebtReport() {
                 price: number,
                 objectName: string,
                 authorEmail: string,
-                authorName: string
+                authorName: string,
+                committee: string | null,
             }[]
         }
     } = {}
     const allUserInfo = await prisma.user.findMany({})
 
     if (!allUserInfo) {
-        return [false,2];
+        return [false, 2];
     }
 
     for (let i = 0; i < allUserInfo.length; i++) {
@@ -92,21 +100,20 @@ export default async function generateDebtReport() {
                     email: true
                 }
             },
-            name: true
+            name: true,
+            committee: true
         }
     })
 
     if (!highestBidsAuctionObjects) {
-        return [false,3];
+        return [false, 3];
     }
-
-
 
     for (let i = 0; i < highestBidsAuctionObjects.length; i++) {
         const data = highestBidsAuctionObjects[i]
         if (!data) { continue; }
         if (!data.name) { continue; }
-        if (!data.author || !data.author.email || !data.author.name) { continue; }
+        if (!data.author || !data.author.email || !data.author.name || !data.committee) { continue; }
         const topBid = data.bids[0]
         if (!topBid || !topBid.priceOre || !topBid.bidder.name) { continue; }
         const authorName = data.author.name
@@ -114,12 +121,14 @@ export default async function generateDebtReport() {
         const topPrice = topBid.priceOre
         const topBidBidderName = topBid.bidder.name
         const objectName = data.name
+        const objectCometee = data.committee != Committee.NOTCOM ? data.committee.toLocaleUpperCase() : null
         userDebtData[topBidBidderName].wonObjects.push(
             {
                 price: topPrice,
                 objectName: objectName,
                 authorEmail: authorEmail,
-                authorName: authorName
+                authorName: authorName,
+                committee: objectCometee,
             }
         )
         userDebtData[topBidBidderName].totalDebt += topPrice;
@@ -215,7 +224,8 @@ export default async function generateDebtReport() {
                         price: bidPrice,
                         objectName: objectName,
                         authorEmail: authorEmail,
-                        authorName: authorName
+                        authorName: authorName,
+                        committee:  Committee.HS.toString(),
                     }
                 )
                 userDebtData[bidBidderName].totalDebt += bidPrice;
@@ -239,7 +249,8 @@ export default async function generateDebtReport() {
                         price: bidPrice,
                         objectName: objectName,
                         authorEmail: authorEmail,
-                        authorName: authorName
+                        authorName: authorName,
+                        committee: Committee.HS.toString(),
                     }
                 )
                 userDebtData[bidBidderName].totalDebt += bidPrice;
@@ -269,7 +280,8 @@ export default async function generateDebtReport() {
                     price: topPrice,
                     objectName: objectName,
                     authorEmail: authorEmail,
-                    authorName: authorName
+                    authorName: authorName,
+                    committee: Committee.VEVCOM.toString(),
                 }
             )
             userDebtData[bidBidderName].totalDebt += topPrice;
@@ -293,27 +305,28 @@ export default async function generateDebtReport() {
             reportTextForm += "\t -Pris:" + (object.price / 100).toString() + "kr" + "\n"
             reportTextForm += "\t -Navn på person som la ut:" + object.authorName + "\n"
             reportTextForm += "\t -Mail til den som la ut:" + object.authorEmail + "\n"
+            reportTextForm += object.committee ? "\t Komitee: " + object.committee + "\n" : ""
         })
         reportTextForm += "----- Oversikt slutt" + "\n"
         reportTextForm += "---------------Person slutt" + "\n" + "\n" + "\n" + "\n"
-        
+
     }
-    
+
     let overviewList = "Navn;Skylder[kr];Betalt\n"
     for (const [userName, data] of Object.entries(userDebtData)) {
         if (data.totalDebt == 0) { continue; }
         overviewList += userName + ";" + (data.totalDebt / 100).toString() + ";" + "nei\n"
     }
-    
+
     let preMadeMail = ""
     for (const [userName, data] of Object.entries(userDebtData)) {
         if (data.totalDebt == 0) { continue; }
         preMadeMail += "---------------Person start" + "\n"
-        +"Navn: "+ userName + "\n"
-        +"Mail: " + data.email + "\n"
-        +"Emne: "+ "Betaling for Omega auksjonen (Auto generert mail)" + "\n"
-        + "Mail: \n"+ generateMail(userName, data, phoneNumberForVipps)
-        + "---------------Person slutt" + "\n" + "\n" + "\n" + "\n"
+            + "Navn: " + userName + "\n"
+            + "Mail: " + data.email + "\n"
+            + "Emne: " + "Betaling for Omega auksjonen (Auto generert mail)" + "\n"
+            + "Mail: \n" + generateMail(userName, data, phoneNumberForVipps)
+            + "---------------Person slutt" + "\n" + "\n" + "\n" + "\n"
     }
     return [reportTextForm, overviewList, preMadeMail]
 }
