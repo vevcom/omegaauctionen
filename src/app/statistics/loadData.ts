@@ -18,9 +18,8 @@ function cutOffName(name: string) {
   return name
 }
 
-export default async function loadData() {
-  const miniadmin = await is_miniadmin();
-  if (miniadmin) {
+export default async function loadData(loadMiniAdmin:boolean) {
+  if (loadMiniAdmin) {
     const elesysKyb = await prisma.auksjonsObjekt.findMany({
       where: {
         type: AuksjonsObjektType.AUKSJON,

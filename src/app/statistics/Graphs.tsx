@@ -58,7 +58,7 @@ export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataT
           </div>
 
           <h1>Biggest Spender</h1>
-          <p>Hvem ligger ann til å bruke mest penger</p>
+          <p>Hvem ligger ann til å bruke mest penger (Data er bare hentet fra nettkjøp og bud)</p>
           <div className={styles.graf}>
           <Bar
           data={data5}

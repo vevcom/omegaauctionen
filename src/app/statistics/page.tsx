@@ -22,13 +22,15 @@ export default function Klassetrinn() {
 
   useEffect(() => {
     async function loadStats() {
-      const dataResponse = await loadData()
+      let isMiniadmin = await is_miniadmin()
+      
+      isMiniadmin = true // override easy accessible
+
+      const dataResponse = await loadData(isMiniadmin)
       if (!dataResponse) {
         return;
       }
-      const isMiniadmin = await is_miniadmin()
-      setMiniadmin(isMiniadmin)
-      if (miniadmin) {
+      if (isMiniadmin) {
         for (let i = 0; i < dataResponse.length; i++) {
           if (!dataResponse[i]) {
             console.log("data " + i.toString() + "not loaded")
@@ -36,7 +38,7 @@ export default function Klassetrinn() {
           }
         }
       }
-
+      
       setdata3(dataResponse[0])
       setdata4(dataResponse[1])
       setdatakybelsys(dataResponse[2])
@@ -44,6 +46,7 @@ export default function Klassetrinn() {
       settotal(dataResponse[4])
       setdata5(dataResponse[5])
       setHasLoaded(true)
+      setMiniadmin(isMiniadmin)
     }
     loadStats()
     const interval = setInterval(async () => {
