@@ -17,9 +17,9 @@ function generateMail(
     },
     phoneNumberForVipps: string
 ) {
-    let mailText = `"Hei ${userName},\n\n` +
+    let mailText = `Hei ${userName},\n\n` +
         `Takk for din deltakelse i Omega-auksjonen! Du har det høyeste budet / kjøpt / stemt på ` +
-        `${data.wonObjects.length} ting. Totalsummen er ${data.totalDebt / 100} kr, som skal vippses til ${668205}.\n\n` +
+        `${data.wonObjects.length} ting. Totalsummen er ${data.totalDebt / 100} kr, som skal vippses til 668205. NB:Du må selv kontakte de du må for å få det du har vunnet.\n\n` +
         `Mener du dette er feil? Vennligst svar på denne e-posten. Under finner du en oversikt over dine bud, kjøp og stemmer:\n\n` +
         `----- Oversikt -----\n`;
 
@@ -27,7 +27,6 @@ function generateMail(
         mailText += `${index + 1}: ${object.objectName}\n`;
         mailText += `\t - Pris: ${object.price / 100} kr\n`;
     });
-    mailText += '"'
     return mailText;
 }
 
@@ -36,7 +35,7 @@ export default async function generateDebtReport() {
     const phoneNumberForVipps = "PLACEHOLDER"
     const is_minAdmni = await is_miniadmin()
     if (!is_minAdmni) {
-        return false;
+        return [false,1];
     }
     let reportTextForm = ""
     let userDebtData: {
@@ -54,7 +53,7 @@ export default async function generateDebtReport() {
     const allUserInfo = await prisma.user.findMany({})
 
     if (!allUserInfo) {
-        return false;
+        return [false,2];
     }
 
     for (let i = 0; i < allUserInfo.length; i++) {
@@ -98,7 +97,7 @@ export default async function generateDebtReport() {
     })
 
     if (!highestBidsAuctionObjects) {
-        return false;
+        return [false,3];
     }
 
 
@@ -297,23 +296,24 @@ export default async function generateDebtReport() {
         })
         reportTextForm += "----- Oversikt slutt" + "\n"
         reportTextForm += "---------------Person slutt" + "\n" + "\n" + "\n" + "\n"
-
+        
     }
-
+    
     let overviewList = "Navn;Skylder[kr];Betalt\n"
     for (const [userName, data] of Object.entries(userDebtData)) {
         if (data.totalDebt == 0) { continue; }
         overviewList += userName + ";" + (data.totalDebt / 100).toString() + ";" + "nei\n"
     }
-
-    let preMadeMail = "Navn;Mail;Emne;Innhold\n"
+    
+    let preMadeMail = ""
     for (const [userName, data] of Object.entries(userDebtData)) {
         if (data.totalDebt == 0) { continue; }
-        preMadeMail += ""
-            + userName + ";"
-            + data.email + ";"
-            + "Betaling for Omega auksjonen (Auto generert mail)" + ";"
-            + generateMail(userName, data, phoneNumberForVipps)
+        preMadeMail += "---------------Person start" + "\n"
+        +"Navn: "+ userName + "\n"
+        +"Mail: " + data.email + "\n"
+        +"Emne: "+ "Betaling for Omega auksjonen (Auto generert mail)" + "\n"
+        + "Mail: \n"+ generateMail(userName, data, phoneNumberForVipps)
+        + "---------------Person slutt" + "\n" + "\n" + "\n" + "\n"
     }
     return [reportTextForm, overviewList, preMadeMail]
 }
