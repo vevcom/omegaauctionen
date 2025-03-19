@@ -24,6 +24,7 @@ services:
     volumes:
       - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./services/nginx/default.conf:/etc/nginx/templates/default.conf.template:ro
+      - ./services/picture_server/uploads:/var/www/image:ro
       - ./certs/conf:/etc/letsencrypt:ro
       - ./certs/www/:/var/www/certbot:ro
 
