@@ -1,188 +1,105 @@
-import { AuksjonsObjektType, Study } from '@prisma/client';
-import { options } from '../api/auth/[...nextauth]/options';
-import { prisma } from '../prisma';
+"use client"
+import is_miniadmin from '../components/is-miniadmin/is-miniadmin';
 import Graphs from './Graphs';
+import loadData from './loadData';
 import styles from './page.module.scss'
-import get_money_made_in_ore from '../components/get-money-made/get-money-made';
+import { useEffect, useState } from 'react';
 //import {ChartSankey} from 'chartjs-chart-sankey'; 
 
-function cutOffName(name:string){
-  const maxLengthCharacters = 15;
-  if (name.length> maxLengthCharacters) {
-      return name.substring(0,maxLengthCharacters) +"..."
-  }
-  return name
-}
 
 export const dynamic = "force-dynamic";
 
-//Chart.register(ChartSankey);
 
-export default async function Klassetrinn() {
+export default function Klassetrinn() {
+  const [hasLoaded, setHasLoaded] = useState(false)
+  const [data3, setdata3] = useState<null | any>(null)
+  const [data4, setdata4] = useState<null | any>(null)
+  const [datakybelsys, setdatakybelsys] = useState<null | any>(null)
+  const [avarageAndcount, setavarageAndcount] = useState<null | any>(null)
+  const [total, settotal] = useState<null | any>(null)
+  const [data5, setdata5] = useState<null | any>(null)
+  const [miniadmin, setMiniadmin] = useState(false)
 
-  const elesysKyb = await prisma.auksjonsObjekt.findMany({
-    where: {
-      type: AuksjonsObjektType.AUKSJON,
-      approved: true,
-    },
-    select: {
-      bids: {
-        orderBy: {
-          priceOre: 'desc'
-        },
-        take: 1,
-        select: {
-          bidder: {
-            select: {
-              studyCourse: true,
-            }
-          },
-          priceOre:true,
+  useEffect(() => {
+    async function loadStats() {
+      let isMiniadmin = await is_miniadmin()
+      
+      isMiniadmin = true // override easy accessible
+
+      const dataResponse = await loadData(isMiniadmin)
+      if (!dataResponse) {
+        return;
+      }
+      if (isMiniadmin) {
+        for (let i = 0; i < dataResponse.length; i++) {
+          if (!dataResponse[i]) {
+            console.log("data " + i.toString() + "not loaded")
+            return;
+          }
         }
       }
+      
+      setdata3(dataResponse[0])
+      setdata4(dataResponse[1])
+      setdatakybelsys(dataResponse[2])
+      setavarageAndcount(dataResponse[3])
+      settotal(dataResponse[4])
+      setdata5(dataResponse[5])
+      setHasLoaded(true)
+      setMiniadmin(isMiniadmin)
     }
-  })
+    loadStats()
+    const interval = setInterval(async () => {
+      loadStats()
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const studyCount: Record<string, number> = {
-    [Study.ELSYS.toUpperCase()]: 0,
-    [Study.KYB.toUpperCase()]: 0,
-    [Study.OTHER.toUpperCase()]: 0,
-    [Study.NOTANSWERD.toUpperCase()]: 0,
-  };
-
-  // Loop through the results and count the study courses for highest bids
-  elesysKyb.forEach(auction => {
-    if (auction.bids.length > 0) {
-      const studyCourse = auction.bids[0].bidder.studyCourse;
-      studyCount[studyCourse.toUpperCase()]+=auction.bids[0].priceOre;
-    }
-  });
-
-
-  const top5ExpensiveObjects = await prisma.auksjonsObjekt.findMany({
-    where:{
-    approved: true,
-    type: AuksjonsObjektType.AUKSJON,
-    },
-    orderBy: {
-      currentPriceOre: 'desc',  // Sorting by the current price in descending order
-    },
-    take: 5, // Limiting to 5 most expensive
-    select: {
-      name: true, // Only the name of the auction object
-      currentPriceOre: true, // The current price in Ore
-    }
-
-  });
-
-  const avarageAndcount = await prisma.auksjonsObjekt.aggregate({
-    _avg: {
-        currentPriceOre: true
-    },
-    _count:{
-      name:true,
-    },
-    where: {
-        approved: true,
-        type: AuksjonsObjektType.AUKSJON
-    }
-})
-
-  const leastExpensiveObjects = await prisma.auksjonsObjekt.findMany({
-    where:{
-      approved: true,
-      type: AuksjonsObjektType.AUKSJON,
-      },
-    orderBy: {
-      currentPriceOre: 'asc',  // Sorting by the current price in descending order
-    },
-    take: 5, // Limiting to 5 most expensive
-    select: {
-      name: true, // Only the name of the auction object
-      currentPriceOre: true, // The current price in Ore
-    }
-
-  });
-
-
-  const total = await get_money_made_in_ore()
-  
-  // Antall objekt
-  const totalCount = await prisma.auksjonsObjekt.count();
-  
-
-  // 
-  const formattedTop5 = top5ExpensiveObjects.map((object) => ({
-    name: object.name,
-    spent: object.currentPriceOre / 100, // Assigning the current price as spent
-  }));
-
- 
-  // 
-  const formattedlow5 = leastExpensiveObjects.map((object) => ({
-    name: object.name,
-    spent: object.currentPriceOre / 100, // Assigning the current price as spent
-  }));
-
-  
-
-
-  const colors = [               //definert farger 
-    'rgb(240, 8, 58)',     //farge nummer 1 tilhører nå 1.klasse feks
-    "rgb(255,125,0)",
-    'rgb(252, 235, 5)',
-    'rgb(6, 202, 16)',
-    'rgb(54, 162, 235)',
-    'rgb(153, 102, 255)'
-  ];
-
-  const colors2 = [
-    'rgb(54, 162, 235)',
-    'rgb(6, 202, 16)',
-  ];
-
-// elsys og kyb: 
-  const spenders3 = [
-    {
-      name: "ELSYS",    //navn
-      spent: studyCount["ELSYS"],       //sum
-    },
-    {
-      name: "KYB",
-      spent: studyCount["KYB"],
-    },
-  ]
-
-  const datakybelsys = {
-    labels: spenders3.map(a => cutOffName(a.name)), //cutOffName funksjon kutter av navnet
-    datasets: [{
-      label: "dataset3",
-      data: spenders3.map(spenders3 => spenders3.spent),
-      backgroundColor: colors2,                          //farger på charts = farger definert i colors
-    }]
+  if (!hasLoaded) {
+    return <p>Laster inn data... HS må gå</p>
   }
+  if (!miniadmin) {
+    return <div className={styles.side}>
+      <div className={styles.overskriftContainer}>
+        <h1 className={styles.overskrift}>Statistikk</h1>
+      </div>
 
-  //top 5 dyreste objekter
-  const data3 = {
-    labels: formattedTop5.map(a => cutOffName(a.name)),
-    datasets: [{
-      label: "dataset",
-      data: formattedTop5.map(formattedTop5 => formattedTop5.spent),
-      backgroundColor: colors,                          //farger på charts = farger definert i colors
-    }]
+      <div className={styles.sumContainer}>
+        <p className={styles.pengerOverskrift}>Penger samlet inn: </p>
+        <div className={styles.sum}>
+          <p>{Math.round(total / 100)} kr</p>
+        </div>
+      </div>
+
+
+      {/* gjennomsnitt og antall auksjonsobjekt */}
+      <div className={styles.dataContainer}>
+
+        <div className={styles.gjennomsnittContainer}>
+
+          <p className={styles.tekst}>Antall auksjonsobjekt</p>
+
+          <div className={styles.gjennomsnitt}>
+            <p className={styles.tekstboks}>{avarageAndcount._count.name} stk</p>
+          </div>
+
+        </div>
+
+        <div className={styles.gjennomsnittContainer}>
+
+          <p className={styles.tekst}>Gjennomsnittspris</p>
+
+          <div className={styles.gjennomsnitt}>
+            <p className={styles.tekstboks}>{Math.round(avarageAndcount._avg.currentPriceOre / 100)} kr</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   }
-
-  //laveste 5 pris objekt
-  const data4 = {
-    labels: formattedlow5.map(a => cutOffName(a.name)),
-    datasets: [{
-      label: "dataset",
-      data: formattedlow5.map(formattedlow5 => formattedlow5.spent),
-      backgroundColor: colors,                          //farger på charts = farger definert i colors
-    }]
-  }
-
-
   return <div className={styles.side}>
     <div className={styles.overskriftContainer}>
       <h1 className={styles.overskrift}>Statistikk</h1>
@@ -204,7 +121,7 @@ export default async function Klassetrinn() {
         <p className={styles.tekst}>Antall auksjonsobjekt</p>
 
         <div className={styles.gjennomsnitt}>
-          <p className = {styles.tekstboks}>{avarageAndcount._count.name} stk</p>
+          <p className={styles.tekstboks}>{avarageAndcount._count.name} stk</p>
         </div>
 
       </div>
@@ -214,15 +131,15 @@ export default async function Klassetrinn() {
         <p className={styles.tekst}>Gjennomsnittspris</p>
 
         <div className={styles.gjennomsnitt}>
-          <p className = {styles.tekstboks}>{Math.round(avarageAndcount._avg.currentPriceOre/100)} kr</p>
+          <p className={styles.tekstboks}>{Math.round(avarageAndcount._avg.currentPriceOre / 100)} kr</p>
         </div>
 
       </div>
 
     </div>
-    
 
-    <Graphs data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
+
+    <Graphs data5={data5} data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
   </div>
 }
 

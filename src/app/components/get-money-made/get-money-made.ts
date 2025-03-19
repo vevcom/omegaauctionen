@@ -61,15 +61,15 @@ export default async function get_money_made_in_ore() {
         moneyMadeCapeOre = moneyPerCapeTypeOre.reduceRight((prev, current) => prev + current, 0);
     }
 
-    // Money made from live registration objects. They are identified by containing "DONOTAPPROVE" in their name. The money made is stored kinda stupidly in the stock. but has its reasons
+    // Money made from live registration objects. They are identified by containing "DONOTAPPROVE" in their name. 
     // gets sum of all monet made
     const liveRegisteredAuctionObjectsSumOre = await prisma.auksjonsObjekt.aggregate({
         _sum: {
-            stock: true
+            currentPriceOre: true
         },
         where: {
             name: {
-                contains: "DONOTAPPORVE"
+                contains: "DONOTAPPROVE"
             },
             approved: false,
         }
@@ -77,11 +77,11 @@ export default async function get_money_made_in_ore() {
 
     //checks if null
     let moneyMadeLiveRegisteredAuctionObjectsOre
-    if (!liveRegisteredAuctionObjectsSumOre || !liveRegisteredAuctionObjectsSumOre._sum.stock) {
+    if (!liveRegisteredAuctionObjectsSumOre || !liveRegisteredAuctionObjectsSumOre._sum.currentPriceOre) {
         moneyMadeLiveRegisteredAuctionObjectsOre = 0
     }
     else {
-        moneyMadeLiveRegisteredAuctionObjectsOre = liveRegisteredAuctionObjectsSumOre._sum.stock
+        moneyMadeLiveRegisteredAuctionObjectsOre = liveRegisteredAuctionObjectsSumOre._sum.currentPriceOre
     }
 
     sumInOre += moneyMadeCapeOre

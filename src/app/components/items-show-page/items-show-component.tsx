@@ -47,7 +47,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                 ))}                
         </div>
         
-
+        
         
         
        </div> 
