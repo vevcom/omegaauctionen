@@ -51,7 +51,7 @@ export default function Klassetrinn() {
     loadStats()
     const interval = setInterval(async () => {
       loadStats()
-    }, 5000);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
