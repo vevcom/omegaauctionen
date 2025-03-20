@@ -10,15 +10,21 @@
     padding-inline: 1vw;
 }
 
-.howSaleList {
-    text-align: left;
-    list-style-type: decimal;
-    margin-left: 20px;
-
-    li {
-        margin-bottom: 8px;
+.howSaleDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .howSaleList {
+        text-align: left;
+        list-style-type: decimal;
+        margin-left: 20px;
+    
+        li {
+            margin-bottom: 8px;
+        }
     }
 }
+
 
 // Make sure this is a standalone class
 .nestedhowSaleList {
@@ -26,11 +32,11 @@
     margin-left: 30px;
 }
 .subSection{
-    margin-block: 1vh;
-    font-size: 2em;
+    margin-top: 1em;
+    font-size: 1.5em;
 }
 
-.explainationText {
+.explainationText { 
     font-size: 1em;
     margin-bottom: 2vh;
 }

@@ -22,8 +22,9 @@ export async function UserObjectsList({user} : {user: UserWithAuksjonsObjekter})
         <h3 className={style.listTitle}>Dine auksjonsobjekter: </h3>
         <div className={style.list}>
             {itemList.map((object,index) => (
-                <DisplayBid key={index} id={object.id} name={object.name} currentPrice={object.currentPriceOre}></DisplayBid>
+                <DisplayBid key={index} id={object.id} name={object.name} currentPrice={object.currentPriceOre} showAsOutbid={!object.approved}></DisplayBid>
             ))}
         </div>
+        {itemList.some(object => !object.approved) && <div className={`${style.explanation} ${style.objectExplanation}`}></div>}
     </div>)
 }

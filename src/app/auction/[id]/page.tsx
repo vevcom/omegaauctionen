@@ -23,13 +23,15 @@ interface AuctionObjectType {
 }
 
 
-export default async function AuctionObjectPage({ params }: { params: { id: string } }) {
+export default async function AuctionObjectPage({ params }: { params: Promise<{ id?: string }> }) {
     // await createAuctionItem("Lundheim sitt skjegg","Lars Lundheim sitt skjegg",1000,true);
-    if (!params || !params.id) {
+    const { id } = await params;
+
+    if (!id) {
         return <div><h2>No object ID provided</h2></div>;
     }
     // Gets id from the URL
-    const objectId = parseInt(params.id, 10);
+    const objectId = parseInt(id, 10);
 
     if (isNaN(objectId)) {
         return <div><h2>Invalid object ID</h2></div>;

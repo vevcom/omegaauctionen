@@ -68,7 +68,9 @@ export default async function UserBids({ userId }: { userId: string }) {
 
     if (!userwithlist || userwithlist.bids.length < 1) {
         return <div className={style.listContainer}>
-            <h3 className={style.listTitle}>Du har bydd på: </h3></div>
+            <h3 className={style.listTitle}>Du har bydd på: </h3>
+            <p className={style.listTitle}><i>Ingen ting enda...</i></p>
+        </div>
         return <div className={style.listContainer}>
             <h3 className={style.listTitle}>Du har bydd på: </h3>
             <div className={style.list}>
@@ -99,7 +101,7 @@ export default async function UserBids({ userId }: { userId: string }) {
                 })
             }
         </div>
-        <div className={style.explanation}></div>
+        {userwithlist.bids.some(bid => bid.priceOre < bid.auctionObject.currentPriceOre) && <div className={`${style.explanation} ${style.bidExplanation}`}></div>}
 
     </div>
 }
