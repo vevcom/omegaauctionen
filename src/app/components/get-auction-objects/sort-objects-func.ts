@@ -1,16 +1,29 @@
 "use server"
 
-import { prisma } from "@/app/prisma"
+import { Prisma } from "@prisma/client"
 
-export default async function sortObjectsFunc(auksjonsObjektListe:any[],sortType:string,reverse=false) {
+type AuksjonsObjekt = Prisma.AuksjonsObjektGetPayload<{ include: { _count: { select: { bids: true } } } }>
+export type SortType = "price" | "numberOfBids"
+
+export default async function sortObjectsFunc(auksjonsObjektListe: AuksjonsObjekt[], sortType: SortType | string, reverse=false) {
     let sortedList = auksjonsObjektListe
-    if (sortType=="price"){
-        sortedList = sortedList.sort((a,b)=>a.startPriceInOre -b.startPriceInOre)
+
+    switch (sortType) {
+        case "price":
+            console.log("Sorting by price")
+            sortedList = sortedList.sort((a,b)=>a.startPriceOre - b.startPriceOre)
+            break;
+        case "numberOfBids":
+            console.log("Sorting by number of bids")
+            sortedList = sortedList.sort((a,b)=>a._count.bids - b._count.bids)
+            break;
+        default:
+            console.warn("Received unknown sortType: ", sortType)
+            break;
     }
     
-    
     if (reverse){
-        sortedList= sortedList.reverse()
+        sortedList = sortedList.reverse()
     }
 
     return sortedList

@@ -12,6 +12,16 @@
     cursor: pointer;
 }
 
+.dropDown {
+    background-color: #ffd500;
+    color: #000;
+    border-radius: 5px;
+    text-align: center;
+    border: solid 2px #ffbb00;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .knapp:hover {
     background-color: #ffea00;
 }
@@ -20,7 +30,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5%;
+    margin-top: 5%;
+}
+
+.sortContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+
+    > select, p {
+        margin: 0 0.5em;
+    }
 }
 
 .sidetall {
