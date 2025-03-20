@@ -68,6 +68,8 @@ export default async function UserPageAesthetic() {
             <div className={style.debtTable}>
                 <p>{"Din e-post: " + userDebtData?.email}</p>
                 <p>Skylder totalt: <b>{((userDebtData?.totalDebt ?? 0) / 100).toString() + " kr"}</b></p>
+                <p>Vipps nummer: <b>668205</b></p>
+                <p><b>NB:</b>Du må selv kontakte de du må for å få det du har vunnet</p>
                 <table>
                     <thead>
                         <tr>
