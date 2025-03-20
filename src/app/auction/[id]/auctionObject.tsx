@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import style from "./component.module.scss"
-import { Committee } from "@prisma/client";
+import { Committee, Study } from "@prisma/client";
 
 import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client";
 import is_admin from "@/app/components/is-admin/is-admin-func";
@@ -15,6 +15,28 @@ import getObjectById from "@/app/components/get-object-from-id/get-object-from-i
 import CurrentPrice from "@/app/components/currentPrice/currentPrice";
 import has_bought_cape from "@/app/components/has-bought-cape/has-bought-cape";
 import HighestBidder from "@/app/components/highestBidder/highestBidder";
+import get_user_info from "@/app/components/getUSerInfo/getUserinfo";
+
+
+
+
+function UserObject({ userInfo }: {
+  userInfo: {
+    name: string;
+    email: string | null;
+    studyCourse: Study;
+  }
+}) {
+  console.log("hei")
+  return (
+    <div>
+      <p>Name:{userInfo.name}</p>
+      <p>Mail:{userInfo.email}</p>
+      <p>Studie:{userInfo.studyCourse.toLocaleUpperCase()}</p>
+    </div>
+  )
+}
+
 
 
 const committeeToLink = {
@@ -152,6 +174,12 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [currentObject, setCurrentObject] = useState(object)
   const [hasBoughtCape, setHasBoughtCape] = useState(false)
   const [reload, setReload] = useState(false)
+  const [userInfo, setUserInfo] = useState<{
+    name: string;
+    email: string | null;
+    studyCourse: Study;
+  } | null>
+    (null)
   const committeeLogotoLink = committeeToLink[object.committee];
   const auksjonsDate = "2025-03-20T11:00:00.000Z"
 
@@ -170,6 +198,16 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       const now = new Date()
       setIsTime((now > auctionDate) && (now < currentSaleTime))
 
+
+      if (is_admin_response) {
+        if (!currentObject.authorId) { return; }
+        const userInfoResponse = await get_user_info(currentObject.authorId)
+        if (userInfoResponse) {
+          setUserInfo(userInfoResponse)
+        }
+      }
+
+
       if (is_admin_response) { //TODO: remove before prod
         setIsTime(true)
       }
@@ -185,7 +223,13 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
       const is_admin_response = await is_admin()
       setIsAdmin(is_admin_response)
-
+      if (is_admin_response) {
+        if (!currentObject.authorId) { return; }
+        const userInfoResponse = await get_user_info(currentObject.authorId)
+        if (userInfoResponse) {
+          setUserInfo(userInfoResponse)
+        }
+      }
 
       const auctionDate = new Date(auksjonsDate) //DON'T ADJUST FOR time difference it uses right time
       const currentSaleTime = currentObject.currentSaleTime
@@ -229,8 +273,8 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
       </div>
       {isTime ? <HighestBidder reload={reload} objectId={currentObject.id}></HighestBidder> : null}
-      <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn siste bud.</div>
-
+      <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+      {(isAdmin && userInfo) ? <UserObject userInfo={userInfo}></UserObject>:null}
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
