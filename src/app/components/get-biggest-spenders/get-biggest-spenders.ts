@@ -98,16 +98,14 @@ export default async function get_biggest_spenders() {
     })
 
     if (liveBud?.bids){
-        liveBud.bids.reduce((acc, bid) => {
+        liveBud.bids.forEach((bid) => {
             const bidderName = bid.bidder.name
             const biddingPrice = bid.priceOre
     
             // Legger sammen nåverende sum for en bruker og prisen til budet
             // Hvis brukeren ikke har noe sum fra før av bruk 0
-            acc[bidderName] = (acc[bidderName] ?? 0) + biddingPrice
-    
-            return acc
-        }, biggestSpenders)
+            biggestSpenders[bidderName] = (biggestSpenders[bidderName] ?? 0) + biddingPrice
+        })
     }
 
     for (let i = 0; i < capeData.length; i++) {
