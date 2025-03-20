@@ -195,7 +195,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
     const data3 = {
       labels: formattedTop5.map(a => cutOffName(a.name)),
       datasets: [{
-        label: "dataset",
+        label: "Top 5 auksjonsobjekter",
         data: formattedTop5.map(formattedTop5 => formattedTop5.spent),
         backgroundColor: colors,                          //farger på charts = farger definert i colors
       }]
@@ -205,7 +205,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
     const data4 = {
       labels: formattedlow5.map(a => cutOffName(a.name)),
       datasets: [{
-        label: "dataset",
+        label: "Top 5 auksjonsobjekter",
         data: formattedlow5.map(formattedlow5 => formattedlow5.spent),
         backgroundColor: colors,                          //farger på charts = farger definert i colors
       }]
@@ -216,7 +216,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
     const data5 = {
       labels: topBiggestSpenders.map(a => cutOffName(a.name)),
       datasets: [{
-        label: "dataset",
+        label: "Biggest spenders",
         data: topBiggestSpenders.map(topBiggestSpenders => topBiggestSpenders.spent / 100),
         backgroundColor: colors,                          //farger på charts = farger definert i colors
       }]
