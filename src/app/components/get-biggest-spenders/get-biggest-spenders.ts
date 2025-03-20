@@ -15,7 +15,7 @@ function sortDictByValue(dict:{[key:string]:number}) {
 
 export default async function get_biggest_spenders() {
     const topThreeBiggestSpenders:{name:string,spent:number}[] =[]
-    const biggestSpenders:{[key:string]:number} ={}
+    let biggestSpenders:{[key:string]:number} ={}
 
     const biggestSpenderData = await prisma.auksjonsObjekt.findMany({
         where:{
@@ -76,6 +76,39 @@ export default async function get_biggest_spenders() {
     })
 
 
+
+    const liveBud = await prisma.auksjonsObjekt.findFirst({
+        where:{
+            name:"DO_NOT_APPROVE_LIVE_BIDS",
+            approved:false,
+        },
+        select:{
+            bids:{
+                select:{
+                    priceOre:true,
+                    bidder:{
+                        select:{
+                            name:true
+                        }
+                    }
+                }
+            },
+    
+        }
+    })
+
+    if (liveBud?.bids){
+        liveBud.bids.reduce((acc, bid) => {
+            const bidderName = bid.bidder.name
+            const biddingPrice = bid.priceOre
+    
+            // Legger sammen nåverende sum for en bruker og prisen til budet
+            // Hvis brukeren ikke har noe sum fra før av bruk 0
+            acc[bidderName] = (acc[bidderName] ?? 0) + biddingPrice
+    
+            return acc
+        }, biggestSpenders)
+    }
 
     for (let i = 0; i < capeData.length; i++) {
         const data = capeData[i]
