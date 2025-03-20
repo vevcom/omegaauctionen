@@ -57,13 +57,14 @@ export default async function UserPageAesthetic() {
     return (<>
         <div className={style.welcome}>Velkommen,<br></br> <div className={style.name}>{user?.name}</div></div>
         <hr></hr>
-        <div className={style.auctionListContainer}>
-            <UserObjectsList user={user}></UserObjectsList>
+        <div>   
+            <div className={style.auctionListContainer}>
+                <UserObjectsList user={user}></UserObjectsList>
 
-            <UserBids userId={user.id}></UserBids>
+                <UserBids userId={user.id}></UserBids>
+            </div>
+            <SignoutButton></SignoutButton>
         </div>
-    
-        <SignoutButton></SignoutButton>
         </>
         
     
