@@ -25,7 +25,7 @@ def upload_image():
 
     # Save the file
     filneName = str(rd.randint(0,1000))+ file.filename
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filneName)
 
     while os.path.isfile(file_path):
         filneName = str(rd.randint(0,1000))+ filneName
