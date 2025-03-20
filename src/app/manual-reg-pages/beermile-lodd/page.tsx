@@ -1,19 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import style from "./page.module.scss"
-import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
-import increment_lodd_sold from "../components/incrementLoddSalg/incrementLoddSalg";
+import is_miniadmin from "@/app/components/is-miniadmin/is-miniadmin"
+import increment_manual_money_registration from "@/app/components/manual-money-registration-component/manual-money-registration-component"
 
 
 
 
 async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number>>,amount:number) {
-    const response = await increment_lodd_sold(amount)
+    const beerMileLoddName = "beerMileLodd"
+    const moneyMadeFromBeermileLoddOre = 30*100
+    const response = await increment_manual_money_registration(beerMileLoddName,moneyMadeFromBeermileLoddOre*amount,amount)
     if (!response){
         alert("noe gikk galt! prøv igjen")
         return;
     }
-    setLoddSold(response)
+    setLoddSold(response.amountSold)
 }
 
 export default function App() {
@@ -31,7 +33,7 @@ export default function App() {
     if (loadminiadminPage) {
         return (
             <div className={style.mainDiv}>
-                <h1 className={style.title}> Dere har solgt {loddSold} lodd! Forsett sånn!</h1>
+                <h1 className={style.title}> Dere har solgt {loddSold} beermilelodd! Forsett sånn!</h1>
                 <br></br>
                 <div className={style.buttonHolder}>
                 <button className={style.bongBtn1} onClick={e => placeLodd(setLoddSold,1)}>Noen har kjøpt 1 lodd</button>
@@ -43,5 +45,6 @@ export default function App() {
             </div>
         );
     }
+
     return (<p>Du har ikke tilgang</p>)
 }
