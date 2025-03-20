@@ -40,6 +40,8 @@ export default async function get_objects_all(sortType: SortType | string, rever
     
     objekter = await sortObjectsFunc(objekter, sortType, reverse)
 
+    console.log(objekter)
+
     let currentPageList:AuksjonsObjekt[] = []
     for (let i = 0; i < objectAmount; i++) {
         if (currentPageList.length == itemsPerPage) {
