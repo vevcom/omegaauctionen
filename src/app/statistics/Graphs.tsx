@@ -22,6 +22,15 @@ export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataT
             <Pie 
             data={datakybelsys}
             options={{
+              plugins: {
+                legend: {
+                  display: true,
+                  position: "top",
+                  labels: {
+                    boxWidth: 10,
+                  },
+                },
+              },
 
               responsive: true,
               maintainAspectRatio: false,      
@@ -35,6 +44,15 @@ export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataT
           <Doughnut
           data={data3}
           options={{
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                labels: {
+                  boxWidth: 10,
+                },
+              },
+            },
 
             responsive: true,
             maintainAspectRatio: false,
@@ -49,6 +67,15 @@ export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataT
           <Doughnut
           data={data4}
           options={{
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                labels: {
+                  boxWidth: 10,
+                },
+              },
+            },
 
             responsive: true,
             maintainAspectRatio: false,
@@ -63,6 +90,15 @@ export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataT
           <Bar
           data={data5}
           options={{
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                labels: {
+                  boxWidth: 10,
+                },
+              },
+            },
 
             responsive: true,
             maintainAspectRatio: false,
