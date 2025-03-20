@@ -107,7 +107,7 @@ export default function Graphs({ data3,data4,datakybelsys,data5,data6 }: { data3
           ></Bar>  
           </div>
 
-          <h1>Topp 10 biggest spender</h1>
+          {/* <h1>Topp 10 biggest spender</h1>
           <table><body>
           {data6.datasets.map((a,index) => (
               <tr key={index}>
@@ -116,7 +116,7 @@ export default function Graphs({ data3,data4,datakybelsys,data5,data6 }: { data3
                 <td>{a.data[index]} kr</td>
               </tr>
             ))}
-          </body></table>
+          </body></table> */}
 
       </div>)
 }
