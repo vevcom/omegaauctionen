@@ -243,7 +243,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
       setReload(prev => !prev);
 
 
-    }, 10000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
