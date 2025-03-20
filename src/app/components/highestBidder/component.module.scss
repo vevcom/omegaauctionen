@@ -1,17 +1,39 @@
 .separator {
-    width:80%;
+    width: 80%;
     margin: 5% 10%;
 }
-.highestBidContainer{
-    font-size:large;
-    margin-top:10%;
+
+.highestBidContainer {
+    font-size: large;
+    margin-top: 10%;
 }
+
 .bidContainer {
-    width:80%;
+    width: 80%;
     margin: 5% 10%;
     font-size: medium;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     text-wrap: nowrap;
+    font-size: 2vw;
+
+}
+
+.title {
+    text-align: center;
+}
+
+@media (orientation:portrait) {
+    .bidContainer {
+        width: 80%;
+        margin: 5% 10%;
+        font-size: medium;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-wrap: nowrap;
+        font-size: 2.5vw;
+
+    }
 }

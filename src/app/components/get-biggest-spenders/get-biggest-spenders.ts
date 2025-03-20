@@ -44,9 +44,9 @@ export default async function get_biggest_spenders() {
     for (let i = 0; i < biggestSpenderData.length; i++) {
         const data = biggestSpenderData[i]
         if (!data) { continue; }
-        if (!data.bids[i]||!data.bids[i].bidder.name||!data.bids[i].priceOre) { continue; }
-        const currentBidPrice = data.bids[i].priceOre
-        const currentBidder = data.bids[i].bidder.name
+        if (!data.bids[0]||!data.bids[0].bidder.name||!data.bids[0].priceOre) { continue; }
+        const currentBidPrice = data.bids[0].priceOre
+        const currentBidder = data.bids[0].bidder.name
         if (!biggestSpenders[currentBidder]){
             biggestSpenders[currentBidder] = currentBidPrice
         }

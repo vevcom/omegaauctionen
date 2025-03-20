@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState,Dispatch, SetStateAction } from "react";
+import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import style from "./component.module.scss"
 import { Committee } from "@prisma/client";
 
@@ -106,12 +106,12 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
     </form>)
 }
 
-async function buy(object: AuksjonsObjekt,setHasBoughtCape: Dispatch<SetStateAction<boolean>>) {
+async function buy(object: AuksjonsObjekt, setHasBoughtCape: Dispatch<SetStateAction<boolean>>) {
   if (!confirm("Vil du kjøpe til" + (object.currentPriceOre / 100).toString() + "kr?")) {
     return;
   }
   const buyItemResponse = await buy_item(object.id)
-  if (buyItemResponse){
+  if (buyItemResponse) {
     setHasBoughtCape(true)
   }
 }
@@ -119,7 +119,7 @@ async function buy(object: AuksjonsObjekt,setHasBoughtCape: Dispatch<SetStateAct
 function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape }: {
   object: AuksjonsObjekt, hasBoughtCape: boolean, isTime: boolean, setHasBoughtCape: Dispatch<SetStateAction<boolean>>
 }) {
-  if (!isTime) { 
+  if (!isTime) {
     return (
       <h2 className={style.buyPanelText}>Salget starter 03.20.2025 12:00 og slutter {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>
     )
@@ -150,6 +150,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
   const [isTime, setIsTime] = useState(false)
   const [currentObject, setCurrentObject] = useState(object)
   const [hasBoughtCape, setHasBoughtCape] = useState(false)
+  const [reload, setReload] = useState(false)
   const committeeLogotoLink = committeeToLink[object.committee];
   const auksjonsDate = "2025-03-20T11:00:00.000Z"
 
@@ -194,8 +195,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         setIsTime(true)
       }
       // TODO: Remove
-      
-
+      setReload(prev => !prev);
 
 
     }, 10000);
@@ -205,8 +205,8 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
 
   const itemType = currentObject.type
 
-  if (!currentObject.approved && !isAdmin){
-    return(
+  if (!currentObject.approved && !isAdmin) {
+    return (
       <h1>Du har ikke tilgang. Dette objektet er ikke godkjent.</h1>
     )
   }
@@ -226,8 +226,8 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <div className={style.description}>{object.description}</div>
 
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
-        {isTime ? <HighestBidder objectId={3}></HighestBidder> : null}
       </div>
+      {isTime ? <HighestBidder reload={reload} objectId={currentObject.id}></HighestBidder> : null}
       <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
 
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
@@ -275,8 +275,8 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <BuyPanel setHasBoughtCape={setHasBoughtCape} hasBoughtCape={hasBoughtCape} isTime={isTime} object={currentObject}></BuyPanel>
         <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
 
-      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
-      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
+        {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
+        {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
 
       </div>
 
