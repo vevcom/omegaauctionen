@@ -12,7 +12,7 @@ type DataType = {
     }[];
 }
 
-export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataType, data4:DataType, datakybelsys:DataType,data5:DataType }) {
+export default function Graphs({ data3,data4,datakybelsys,data5,data6 }: { data3:DataType, data4:DataType, datakybelsys:DataType,data5:DataType,data6:DataType }) {
     console.log(datakybelsys)
     return (<div className={styles.bla}>
 
@@ -105,6 +105,16 @@ export default function Graphs({ data3,data4,datakybelsys,data5 }: { data3:DataT
           }}
           
           ></Bar>  
+          </div>
+
+          <h1>Topp 10 biggest spender</h1>
+          <div className={styles.graf}>
+            {data6.datasets.map((a,index) => (
+              <div key={index} className={styles.topp10item}>
+                <div className={styles.bulletPoint}>{index+1}</div><div>{a.label}</div><div>{a.data}</div>
+              </div>
+
+            ))}
           </div>
 
       </div>)

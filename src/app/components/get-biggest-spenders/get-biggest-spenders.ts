@@ -14,7 +14,7 @@ function sortDictByValue(dict:{[key:string]:number}) {
   }
 
 export default async function get_biggest_spenders() {
-    const topThreeBiggestSpenders:{name:string,spent:number}[] =[]
+    const topTenBiggestSpenders:{name:string,spent:number}[] =[]
     let biggestSpenders:{[key:string]:number} ={}
 
     const biggestSpenderData = await prisma.auksjonsObjekt.findMany({
@@ -124,10 +124,10 @@ export default async function get_biggest_spenders() {
 
 
     const biggestSpendersSorted = sortDictByValue(biggestSpenders)
-    for(let i = 0;i<3;i++){
+    for(let i = 0;i<10;i++){
         const personNameByIndex = Object.keys(biggestSpendersSorted)[i]
         const formattedPerson = {name:personNameByIndex,spent:biggestSpendersSorted[personNameByIndex]}
-        topThreeBiggestSpenders.push(formattedPerson)
+        topTenBiggestSpenders.push(formattedPerson)
     }
-    return topThreeBiggestSpenders
+    return topTenBiggestSpenders
 }
