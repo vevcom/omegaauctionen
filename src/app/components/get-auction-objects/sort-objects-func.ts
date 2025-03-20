@@ -10,11 +10,9 @@ export default async function sortObjectsFunc(auksjonsObjektListe: AuksjonsObjek
 
     switch (sortType) {
         case "price":
-            console.log("Sorting by price")
             sortedList = sortedList.sort((a,b)=> a.currentPriceOre - b.currentPriceOre)
             break;
         case "numberOfBids":
-            console.log("Sorting by number of bids")
             sortedList = sortedList.sort((a,b)=> a._count.bids - b._count.bids)
             break;
         default:
