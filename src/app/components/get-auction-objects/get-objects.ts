@@ -1,11 +1,11 @@
 "use server"
 
 import { prisma } from "@/app/prisma"
-import sortObjectsFunc from "@/app/components/get-auction-objects/sort-objects-func"
+import sortObjectsFunc, { SortType } from "@/app/components/get-auction-objects/sort-objects-func"
 import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client"
 
 
-export default async function get_objects_all(sortType: string, reverse = false, adminMode = false,enumType="") {
+export default async function get_objects_all(sortType: SortType | string, reverse = false, adminMode = false,enumType="") {
     let enumTypeSelected;
     if (enumType=="salg"){
         enumTypeSelected = AuksjonsObjektType.SALG
@@ -19,16 +19,25 @@ export default async function get_objects_all(sortType: string, reverse = false,
 
     // const itemsPerPage = parseInt(process.env.NEXT_PUBLIC_OBJECTS_PER_PAGE as string)
     const itemsPerPage = 12
-    let objekter: AuksjonsObjekt[] = await prisma.auksjonsObjekt.findMany({
-        where:
-        {
+    let objekter = await prisma.auksjonsObjekt.findMany({
+        where: {
             approved: !adminMode,
             type:  enumTypeSelected,
+        },
+        include: {
+            _count: {
+                select: {
+                    bids: true,
+                }
+            }
+        },
+        orderBy: {
+            id: "desc",
         },
     })
     let objectAmount = objekter.length
     let pagesList:AuksjonsObjekt[][] = []
-
+    
     objekter = await sortObjectsFunc(objekter, sortType, reverse)
 
     let currentPageList:AuksjonsObjekt[] = []

@@ -12,7 +12,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
 
     //cuts of name before it overflows
     function cutOffName(name:string){
-        const maxLengthCharacters = 15;
+        const maxLengthCharacters = 69;
         if (name.length> maxLengthCharacters) {
             return name.substring(0,maxLengthCharacters) +"..."
         }
@@ -31,7 +31,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                     
                         <div className={styles.objectContainer}>
                             
-                                <ImageComponent style={styles.auctionImage} filename={object.imageName}/>
+                            <ImageComponent style={styles.auctionImage} filename={object.imageName}/>
                             <div className={styles.textContainer}>
                                 <h3 className={styles.navn}>{cutOffName(object.name)}</h3>
                                 <br/>

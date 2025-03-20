@@ -30,7 +30,7 @@ function KappeSide() {
 
     useEffect(() => {
         async function fetchData() {
-            const pageData = await get_objects_all("", false, false, "salg");
+            const pageData = await get_objects_all("price", true, false, "salg");
             setAllPages(pageData);
         }
         fetchData();

@@ -116,6 +116,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         placeholder="Skriv inn bud"
         name="bidAmountInKRONER"
         step="any"
+        min={object.currentPriceOre / 100 + 10}
         required
         onKeyDown={(e) => {
           if (["+", "-", "e", "E"].includes(e.key)) {
@@ -272,7 +273,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
       </div>
       {isTime ? <HighestBidder reload={reload} objectId={currentObject.id}></HighestBidder> : null}
-      <div className={style.note}><b>*MERK*</b> Alle bud er bindende</div>
+      <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
       {(isAdmin && userInfo) ? <UserObject userInfo={userInfo}></UserObject>:null}
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
