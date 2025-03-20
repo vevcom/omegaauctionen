@@ -18,6 +18,7 @@ export default function Klassetrinn() {
   const [avarageAndcount, setavarageAndcount] = useState<null | any>(null)
   const [total, settotal] = useState<null | any>(null)
   const [data5, setdata5] = useState<null | any>(null)
+  const [data6, setdata6] = useState<null | any>(null)
   const [miniadmin, setMiniadmin] = useState(false)
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function Klassetrinn() {
       setavarageAndcount(dataResponse[3])
       settotal(dataResponse[4])
       setdata5(dataResponse[5])
+      setdata6(dataResponse[6])
       setHasLoaded(true)
       setMiniadmin(isMiniadmin)
     }
@@ -139,7 +141,7 @@ export default function Klassetrinn() {
     </div>
 
 
-    <Graphs data5={data5} data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
+    <Graphs data6={data6} data5={data5} data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
   </div>
 }
 

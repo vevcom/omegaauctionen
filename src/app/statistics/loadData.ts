@@ -211,9 +211,21 @@ export default async function loadData(loadMiniAdmin:boolean) {
       }]
     }
 
-    let topBiggestSpenders = await get_biggest_spenders()
+    let topBiggestSpenders = await get_biggest_spenders();
+    let topThreeBiggestSpenders:{name:string,spent:number}[] = [];
+    for (let i = 0; i<3; i++) {
+      topThreeBiggestSpenders.push(topBiggestSpenders[i]);
+    }
 
     const data5 = {
+      labels: topThreeBiggestSpenders.map(a => cutOffName(a.name)),
+      datasets: [{
+        label: "Biggest spenders",
+        data: topThreeBiggestSpenders.map(topThreeBiggestSpenders => topThreeBiggestSpenders.spent / 100),
+        backgroundColor: colors,                          //farger på charts = farger definert i colors
+      }]
+    }
+    const data6 = {
       labels: topBiggestSpenders.map(a => cutOffName(a.name)),
       datasets: [{
         label: "Biggest spenders",
@@ -221,7 +233,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
         backgroundColor: colors,                          //farger på charts = farger definert i colors
       }]
     }
-    return [data3, data4, datakybelsys, avarageAndcount, total, data5]
+    return [data3, data4, datakybelsys, avarageAndcount, total, data5, data6]
   }
   else{
     const avarageAndcount = await prisma.auksjonsObjekt.aggregate({
