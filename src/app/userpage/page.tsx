@@ -7,6 +7,8 @@ import { SignoutButton } from "./signoutButton";
 import { UserObjectsList } from "./userObjects";
 import { AuksjonsObjekt, AuksjonsObjektType, Committee, Prisma, Study, User } from "@prisma/client"
 import UserBids from "./userBids";
+import get_user_info from "../components/getUSerInfo/getUserinfo";
+import get_total_debt_user from "../components/get_user_pay_amount/get_user_pay_amount";
 
 
 type UserWithAuksjonsObjekter = Prisma.UserGetPayload<{
@@ -52,7 +54,7 @@ export default async function UserPageAesthetic() {
         // TODO: REMOVE DEFAULT USER BEFORE FINAL RELEASE
         redirect("api/auth/signin");
     }
-
+    let userDebtData = await get_total_debt_user(user.name)
 
     return (<>
         <div className={style.welcome}>Velkommen,<br></br> <div className={style.name}>{user?.name}</div></div>
@@ -62,6 +64,28 @@ export default async function UserPageAesthetic() {
                 <UserObjectsList user={user}></UserObjectsList>
 
                 <UserBids userId={user.id}></UserBids>
+            </div>
+            <div className={style.debtTable}>
+                <p>{"Din e-post: " + userDebtData?.email}</p>
+                <p>Skylder totalt: <b>{((userDebtData?.totalDebt ?? 0) / 100).toString() + " kr"}</b></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Objekt</th>
+                            <th>Pris</th>
+                            <th>Ansvarlig</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                        userDebtData?.wonObjects.map((object) => <tr>
+                            <td>{object.objectName}</td>
+                            <td align="right">{(object.price / 100).toString() + " kr"}</td>
+                            <td>{object.committee ? <><i>Komité: </i> {object.committee}<br /> <i>Ansvarlig: </i> {object.authorName}</> : object.authorEmail + " - " + object.authorName}</td>
+                        </tr>)
+                        }
+                    </tbody>
+                </table>
             </div>
             <SignoutButton></SignoutButton>
         </div>
