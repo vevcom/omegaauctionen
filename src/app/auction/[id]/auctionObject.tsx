@@ -194,7 +194,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         setIsTime(true)
       }
       // TODO: Remove
-      setIsTime(true);
+      
 
 
 
