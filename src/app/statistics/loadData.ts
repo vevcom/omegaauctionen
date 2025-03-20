@@ -8,7 +8,7 @@ import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 
 
 function cutOffName(name: string) {
-  const maxLengthCharacters = 15;
+  const maxLengthCharacters = 69;
   if (!name) {
     return ""
   }
