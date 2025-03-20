@@ -48,7 +48,6 @@
     word-wrap: break-word !important;
 }
 .imagecontainer {
-    content:"";
     cursor:default;
     display:flex;
     flex-direction: column;
@@ -126,7 +125,6 @@
 }
 
 .auctionImage{
-    content:"";
     cursor:pointer;
     display:flex;
     flex-direction: column;
@@ -137,7 +135,6 @@
     margin:auto;
     object-fit: contain;
     padding:5% 0;
-
 }
 .note {
     width:80%;

@@ -7,6 +7,6 @@ export default function ImageFromFileName({ filename,style }: { filename: string
 
 
     return (
-        <img className={style} src={imagePath}></img>
+        <img alt={filename} className={style} src={imagePath}></img>
     );
 }
