@@ -5,7 +5,7 @@ export default function about() {
     return <div className={style.content}>
         <h1>Om Omegaauctionen</h1>
         <h2 className={style.subSection}>Generell informasjon</h2>
-        <p className={style.explainationText}>Omegauksjonen er en årlig, veldedig auksjon arrangert av linjeforeningen Sanctus Omega Broderskab. I år går pengene til Malaria Consortium. Auksjonsnettsiden er laget fra grunnen av alle de nye i vevcom (nettsidekomiteen til Omega). I tillegg til en online auksjon er det en liveauksjon med mye spennende. Under finner du generell info og instrukser for hvordan du legger noe ut for salg</p>
+        <p className={style.explainationText}>Omegauksjonen er en årlig, veldedig auksjon arrangert av linjeforeningen Sanctus Omega Broderskab. I år går pengene til Gi effektivt: Malariamedisin. Auksjonsnettsiden er laget fra grunnen av alle de nye i vevcom (nettsidekomiteen til Omega). I tillegg til en online auksjon er det en liveauksjon med mye spennende. Under finner du generell info og instrukser for hvordan du legger noe ut for salg</p>
         <h2 className={style.subSection}>Hvordan legger jeg noe ut?</h2>
         <div className={style.howSaleDiv}>
             <ol className={style.howSaleList}>
