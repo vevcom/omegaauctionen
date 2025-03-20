@@ -6,25 +6,42 @@ import { getHighestBid } from "./getHighestBid";
 
 //Highest Bidder for object page
 
-export default function HighestBidder({objectId}:{objectId:number}) {
-    const [highestBid,setHighestBid]=useState<any>(null);
+export default function HighestBidder({ objectId, reload }: { objectId: number, reload: boolean }) {
+    const [highestBid, setHighestBid] = useState<{
+        bidDate: Date;
+        priceOre: number;
+        bidder: {
+            name: string;
+        };
+    }[] | null>(null);
 
     useEffect(() => {
         async function fetchBid() {
             const bid = await getHighestBid(objectId);
-            setHighestBid(bid);
+            console.log("Fetched highest bid:", bid);
+            if (bid) {
+                setHighestBid(bid);
+            }
+            console.log("Reload triggered:", reload);
         }
         fetchBid();
-        
-    },[objectId])
-    
-    if (!highestBid) {return null;}
+    }, [reload]);
+    console.log(highestBid)
+    if (!highestBid) { return null; }
 
-    return <div className={style.highestBidContainer}>
-        <hr className={style.separator}></hr>
-        <div>Høyeste bud:</div>
-        <div className={style.bidContainer}><div>{highestBid.bidder.name}</div><div>{highestBid.bidDate.toLocaleTimeString()}</div><div>{highestBid.priceOre/100} kr</div></div>
-        <hr className={style.separator}></hr>
-    </div>
-    
+    return (
+        <div className={style.highestBidContainer}>
+            <hr className={style.separator}></hr>
+            <h1 className={style.title}>Høyeste bud:</h1>
+            {highestBid.map((data, index) => (
+                <div key={index} className={style.bidContainer}>
+                    <div>Bud: {data.priceOre / 100} kr</div>
+                    <div>Navn: {data.bidder.name}</div>
+                    <div>Bud tid: {new Date(data.bidDate).toLocaleTimeString('en-GB')}</div> 
+                </div>
+            ))}
+            <hr className={style.separator}></hr>
+        </div>
+    );
+
 }
