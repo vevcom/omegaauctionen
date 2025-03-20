@@ -183,7 +183,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
     ]
 
     const datakybelsys = {
-      labelsdata3: spenders3.map(a => cutOffName(a.name)), //cutOffName funksjon kutter av navnet
+      labels: spenders3.map(a => cutOffName(a.name)), //cutOffName funksjon kutter av navnet
       datasets: [{
         label: "dataset3",
         data: spenders3.map(spenders3 => spenders3.spent),
