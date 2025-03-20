@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import ItemsPageComponent from "@/app/components/items-show-page/items-show-component";
 import get_objects_all from "@/app/components/get-auction-objects/get-objects";
 import { AuksjonsObjekt } from "@prisma/client";
 import styles from "./page.module.scss";
 import { useSearchParams } from "next/navigation";
 
-export default function AuctionItemsPage() {
+function AuctionItemPage() {
   const params = useSearchParams();
   const getPageQuery = () => parseInt(params.get("page") || "1") - 1;
   
@@ -56,4 +56,9 @@ export default function AuctionItemsPage() {
         </div>    
     </div>
   );
+}
+
+// A bit of a ugly solution
+export default function AuctionItemsPageWrapper() {
+    return <Suspense fallback="Laster inn..."><AuctionItemPage /></Suspense>
 }

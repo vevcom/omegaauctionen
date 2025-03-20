@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import ItemPageComponent from "@/app/components/items-show-page/items-show-component";
 import get_objects_all from "@/app/components/get-auction-objects/get-objects";
 import { AuksjonsObjekt } from "@prisma/client";
 import style from "./page.module.scss"
 import { useSearchParams } from "next/navigation";
 
-export default function App() {
+function KappeSide() {
     const params = useSearchParams();
     const getPageQuery = () => parseInt(params.get("page") || "1") - 1;
 
@@ -55,4 +55,8 @@ export default function App() {
             </div>}
         </div>
     );
+}
+
+export default function KappeSideWrapper() {
+    return <Suspense fallback="Laster inn..."><KappeSide /></Suspense>
 }
