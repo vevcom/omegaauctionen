@@ -41,3 +41,19 @@
         width:95%;
     }
 }
+
+.debtTable {
+    width: 95%;
+    padding: 1em;
+    margin: 5vh auto;
+    background-color: rgba(191, 191, 191, 0.2);
+    border-radius:3vh;
+    border: 2px var(--altgrey) solid;
+    & td {
+        padding: 0.5em;
+        border-spacing: 0.5em;
+    }
+    > p {
+        margin-bottom: 0.5em;
+    }
+}
