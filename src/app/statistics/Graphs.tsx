@@ -108,14 +108,15 @@ export default function Graphs({ data3,data4,datakybelsys,data5,data6 }: { data3
           </div>
 
           <h1>Topp 10 biggest spender</h1>
-          <div className={styles.graf}>
-            {data6.datasets.map((a,index) => (
-              <div key={index} className={styles.topp10item}>
-                <div className={styles.bulletPoint}>{index+1}</div><div>{a.label}</div><div>{a.data}</div>
-              </div>
-
+          <table><body>
+          {data6.datasets.map((a,index) => (
+              <tr key={index}>
+                <td>{index+1}</td>
+                <td>{data6.labels[index]}</td>
+                <td>{a.data[index]} kr</td>
+              </tr>
             ))}
-          </div>
+          </body></table>
 
       </div>)
 }
