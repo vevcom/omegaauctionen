@@ -9,7 +9,7 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number>>,amount:number) {
     const lykkeHjulName = "lykkehjulPenger"
-    const moneyMadeFromSpins = 25*100 // 25 kr *100 ore
+    const moneyMadeFromSpins = 25
     const response = await increment_manual_money_registration(lykkeHjulName,moneyMadeFromSpins*amount,amount)
     if (!response){
         alert("noe gikk galt! prøv igjen")

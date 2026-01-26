@@ -18,10 +18,10 @@ export default function DisplayBid({ id, name, price, currentPrice, showAsOutbid
 
                     {price && price < currentPrice
                         ? <>
-                            <div className={style.linethrough}>{price / 100} kr</div>
-                            <div><h6 style={{display:"inline-block"}}>Ny pris:</h6> {currentPrice / 100} kr</div>
+                            <div className={style.linethrough}>{price} kr</div>
+                            <div><h6 style={{display:"inline-block"}}>Ny pris:</h6> {currentPrice} kr</div>
                         </>
-                        : `${currentPrice / 100} kr`
+                        : `${currentPrice} kr`
                     }
                 </div>
             </div>

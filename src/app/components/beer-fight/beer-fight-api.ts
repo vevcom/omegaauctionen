@@ -57,7 +57,7 @@ export async function beerToServer (
         console.log("error: number missing")
         return "error: number missing";
     }
-    let price = Number(e.get("number"))*100;
+    let price = Number(e.get("number"));
     const userID = await getUserID();
     if (!userID) {
         console.log("Not logged in")

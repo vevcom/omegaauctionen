@@ -7,15 +7,26 @@ export default async function getUser() {
     // gets session information
     const session = await getServerSession(options);
 
-    if(!session || !session.user?.email) {
+    if (!session || !session.user?.email) {
         return null;
     }
     const user = await prisma.user.findFirst(({
-        where:{email:session?.user?.email}, 
-        include: {auksjonsObjekter: true,},
+        where: { email: session?.user?.email },
+        include: {
+            auksjonsObjekter: {
+                include:{
+                    bids:{
+                        orderBy:{
+                            price:"desc"
+                        },
+                        take:1
+                    }
+                }
+            }
+        },
     }));
 
-    if(!user){
+    if (!user) {
         return null;
 
     }

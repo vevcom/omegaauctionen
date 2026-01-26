@@ -1,9 +1,8 @@
 "use server"
 import { AuksjonsObjektType, Study } from "@prisma/client";
 import { prisma } from "../prisma";
-import get_money_made_in_ore from "../components/get-money-made/get-money-made";
+import get_money_made from "../components/get-money-made/get-money-made";
 import get_biggest_spenders from "../components/get-biggest-spenders/get-biggest-spenders";
-import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 
 
 
@@ -18,7 +17,7 @@ function cutOffName(name: string) {
   return name
 }
 
-export default async function loadData(loadMiniAdmin:boolean) {
+export default async function loadData(loadMiniAdmin: boolean) {
   if (loadMiniAdmin) {
     const elesysKyb = await prisma.auksjonsObjekt.findMany({
       where: {
@@ -28,7 +27,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
       select: {
         bids: {
           orderBy: {
-            priceOre: 'desc'
+            price: 'desc'
           },
           take: 1,
           select: {
@@ -37,7 +36,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
                 studyCourse: true,
               }
             },
-            priceOre: true,
+            price: true,
           }
         }
       }
@@ -51,7 +50,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
       select: {
         bids: {
           select: {
-            priceOre: true,
+            price: true,
             bidder: {
               select: {
                 studyCourse: true
@@ -73,7 +72,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
     elesysKyb.forEach(auction => {
       if (auction.bids.length > 0) {
         const studyCourse = auction.bids[0].bidder.studyCourse;
-        studyCount[studyCourse.toUpperCase()] += auction.bids[0].priceOre;
+        studyCount[studyCourse.toUpperCase()] += auction.bids[0].price;
       }
     });
 
@@ -81,60 +80,99 @@ export default async function loadData(loadMiniAdmin:boolean) {
     for (let i = 0; i < capeData.length; i++) {
       const data = capeData[i]
       if (!data) { continue; }
-      if (!data.bids[i] || !data.bids[i].bidder.studyCourse || !data.bids[i].priceOre) { continue; }
-      const currentBidPrice = data.bids[i].priceOre
+      if (!data.bids[i] || !data.bids[i].bidder.studyCourse || !data.bids[i].price) { continue; }
+      const currentBidPrice = data.bids[i].price
       const currentBidderStudyCourse = data.bids[i].bidder.studyCourse
       studyCount[currentBidderStudyCourse.toUpperCase()] += currentBidPrice
     }
 
 
-    const top5ExpensiveObjects = await prisma.auksjonsObjekt.findMany({
+    // top5ExpensiveObjects
+    const top5ExpensiveObjectsNoPrice = await prisma.auksjonsObjekt.findMany({
       where: {
         approved: true,
         type: AuksjonsObjektType.AUKSJON,
       },
-      orderBy: {
-        currentPriceOre: 'desc',  // Sorting by the current price in descending order
-      },
-      take: 5, // Limiting to 5 most expensive
-      select: {
-        name: true, // Only the name of the auction object
-        currentPriceOre: true, // The current price in Ore
+      include: {
+        bids: {
+          orderBy: {
+            price: 'desc'
+          },
+          take: 1 // Only the highest bid
+        }
       }
-
     });
 
-    const avarageAndcount = await prisma.auksjonsObjekt.aggregate({
-      _avg: {
-        currentPriceOre: true
-      },
-      _count: {
-        name: true,
-      },
+    // Map to include current price
+    const top5ExpensiveObjects = top5ExpensiveObjectsNoPrice
+      .map(obj => {
+        const currentPrice = obj.bids.length > 0 ? obj.bids[0].price : obj.startPrice;
+        return {
+          name: obj.name,
+          currentPrice
+        };
+      })
+      .sort((a, b) => b.currentPrice - a.currentPrice) // Ensure descending order
+      .slice(0, 5);
+
+
+
+    const allApprovedAuctions = await prisma.auksjonsObjekt.findMany({
       where: {
         approved: true,
         type: AuksjonsObjektType.AUKSJON
+      },
+      include: {
+        bids: {
+          orderBy: {
+            price: 'desc'
+          },
+          take: 1
+        }
       }
-    })
+    });
 
-    const leastExpensiveObjects = await prisma.auksjonsObjekt.findMany({
+    const currentPrices = allApprovedAuctions.map(obj =>
+      obj.bids.length > 0 ? obj.bids[0].price : obj.startPrice
+    );
+
+    const averagePrice = currentPrices.reduce((a, b) => a + b, 0) / currentPrices.length || 0;
+    const count = currentPrices.length;
+
+    const avarageAndcount = {
+      avg: averagePrice,
+      count: count
+    }
+
+    const leastExpensiveObjectsNoPrice = await prisma.auksjonsObjekt.findMany({
       where: {
         approved: true,
         type: AuksjonsObjektType.AUKSJON,
       },
-      orderBy: {
-        currentPriceOre: 'asc',  // Sorting by the current price in descending order
+      include: {
+        bids: {
+          orderBy: {
+            price: 'desc',
+          },
+          take: 1, // Get only the highest bid
+        },
       },
-      take: 5, // Limiting to 5 most expensive
-      select: {
-        name: true, // Only the name of the auction object
-        currentPriceOre: true, // The current price in Ore
-      }
-
     });
 
+    // Compute current price and sort ascending
+    const leastExpensiveObjects = leastExpensiveObjectsNoPrice
+      .map(obj => {
+        const currentPrice = obj.bids.length > 0 ? obj.bids[0].price : obj.startPrice;
+        return {
+          name: obj.name,
+          currentPrice,
+        };
+      })
+      .sort((a, b) => a.currentPrice - b.currentPrice) // Ascending order
+      .slice(0, 5); // Take 5 least expensive
 
-    const total = await get_money_made_in_ore()
+
+    const total = await get_money_made()
 
     // Antall objekt
     const totalCount = await prisma.auksjonsObjekt.count();
@@ -143,14 +181,14 @@ export default async function loadData(loadMiniAdmin:boolean) {
     // 
     const formattedTop5 = top5ExpensiveObjects.map((object) => ({
       name: object.name,
-      spent: object.currentPriceOre / 100, // Assigning the current price as spent
+      spent: object.currentPrice, // Assigning the current price as spent
     }));
 
 
     // 
     const formattedlow5 = leastExpensiveObjects.map((object) => ({
       name: object.name,
-      spent: object.currentPriceOre / 100, // Assigning the current price as spent
+      spent: object.currentPrice, // Assigning the current price as spent
     }));
 
 
@@ -174,11 +212,11 @@ export default async function loadData(loadMiniAdmin:boolean) {
     const spenders3 = [
       {
         name: "ELSYS",    //navn
-        spent: studyCount["ELSYS"] / 100,       //sum
+        spent: studyCount["ELSYS"],       //sum
       },
       {
         name: "KYB",
-        spent: studyCount["KYB"] / 100,
+        spent: studyCount["KYB"],
       },
     ]
 
@@ -211,9 +249,9 @@ export default async function loadData(loadMiniAdmin:boolean) {
       }]
     }
 
-    let topBiggestSpenders = await get_biggest_spenders();
-    let topThreeBiggestSpenders:{name:string,spent:number}[] = [];
-    for (let i = 0; i<3; i++) {
+    const topBiggestSpenders = await get_biggest_spenders();
+    const topThreeBiggestSpenders: { name: string, spent: number }[] = [];
+    for (let i = 0; i < 3; i++) {
       topThreeBiggestSpenders.push(topBiggestSpenders[i]);
     }
 
@@ -221,7 +259,7 @@ export default async function loadData(loadMiniAdmin:boolean) {
       labels: topThreeBiggestSpenders.map(a => cutOffName(a.name)),
       datasets: [{
         label: "Biggest spenders",
-        data: topThreeBiggestSpenders.map(topThreeBiggestSpenders => topThreeBiggestSpenders.spent / 100),
+        data: topThreeBiggestSpenders.map(topThreeBiggestSpenders => topThreeBiggestSpenders.spent),
         backgroundColor: colors,                          //farger på charts = farger definert i colors
       }]
     }
@@ -229,29 +267,42 @@ export default async function loadData(loadMiniAdmin:boolean) {
       labels: topBiggestSpenders.map(a => cutOffName(a.name)),
       datasets: [{
         label: "Biggest spenders",
-        data: topBiggestSpenders.map(topBiggestSpenders => topBiggestSpenders.spent / 100),
+        data: topBiggestSpenders.map(topBiggestSpenders => topBiggestSpenders.spent),
         backgroundColor: colors,                          //farger på charts = farger definert i colors
       }]
     }
     return [data3, data4, datakybelsys, avarageAndcount, total, data5, data6]
   }
-  else{
-    const avarageAndcount = await prisma.auksjonsObjekt.aggregate({
-      _avg: {
-        currentPriceOre: true
-      },
-      _count: {
-        name: true,
-      },
+  else {
+    const allApprovedAuctions = await prisma.auksjonsObjekt.findMany({
       where: {
         approved: true,
         type: AuksjonsObjektType.AUKSJON
+      },
+      include: {
+        bids: {
+          orderBy: {
+            price: 'desc'
+          },
+          take: 1
+        }
       }
-    })
+    });
 
-    
-    const total = await get_money_made_in_ore()
-    return [null , null, null, avarageAndcount, total, null]
+    const currentPrices = allApprovedAuctions.map(obj =>
+      obj.bids.length > 0 ? obj.bids[0].price : obj.startPrice
+    );
+
+    const averagePrice = currentPrices.reduce((a, b) => a + b, 0) / currentPrices.length || 0;
+    const count = currentPrices.length;
+
+    const avarageAndcount = {
+      avg: averagePrice,
+      count: count
+    }
+
+    const total = await get_money_made()
+    return [null, null, null, avarageAndcount, total, null]
 
   }
 }

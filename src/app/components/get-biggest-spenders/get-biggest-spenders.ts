@@ -15,7 +15,7 @@ function sortDictByValue(dict:{[key:string]:number}) {
 
 export default async function get_biggest_spenders() {
     const topTenBiggestSpenders:{name:string,spent:number}[] =[]
-    let biggestSpenders:{[key:string]:number} ={}
+    const biggestSpenders:{[key:string]:number} ={}
 
     const biggestSpenderData = await prisma.auksjonsObjekt.findMany({
         where:{
@@ -25,11 +25,11 @@ export default async function get_biggest_spenders() {
         select:{
             bids:{
                 orderBy:{
-                    priceOre:"desc",
+                    price:"desc",
                 },
                 take:1,
                 select:{
-                    priceOre:true,
+                    price:true,
                     bidder:{
                         select:{
                             name:true
@@ -44,8 +44,8 @@ export default async function get_biggest_spenders() {
     for (let i = 0; i < biggestSpenderData.length; i++) {
         const data = biggestSpenderData[i]
         if (!data) { continue; }
-        if (!data.bids[0]||!data.bids[0].bidder.name||!data.bids[0].priceOre) { continue; }
-        const currentBidPrice = data.bids[0].priceOre
+        if (!data.bids[0]||!data.bids[0].bidder.name||!data.bids[0].price) { continue; }
+        const currentBidPrice = data.bids[0].price
         const currentBidder = data.bids[0].bidder.name
         if (!biggestSpenders[currentBidder]){
             biggestSpenders[currentBidder] = currentBidPrice
@@ -64,7 +64,7 @@ export default async function get_biggest_spenders() {
         select:{
             bids:{
                 select:{
-                    priceOre:true,
+                    price:true,
                     bidder:{
                         select:{
                             name:true
@@ -85,7 +85,7 @@ export default async function get_biggest_spenders() {
         select:{
             bids:{
                 select:{
-                    priceOre:true,
+                    price:true,
                     bidder:{
                         select:{
                             name:true
@@ -100,7 +100,7 @@ export default async function get_biggest_spenders() {
     if (liveBud?.bids){
         liveBud.bids.forEach((bid) => {
             const bidderName = bid.bidder.name
-            const biddingPrice = bid.priceOre
+            const biddingPrice = bid.price
     
             // Legger sammen nåverende sum for en bruker og prisen til budet
             // Hvis brukeren ikke har noe sum fra før av bruk 0
@@ -111,8 +111,8 @@ export default async function get_biggest_spenders() {
     for (let i = 0; i < capeData.length; i++) {
         const data = capeData[i]
         if (!data) { continue; }
-        if (!data.bids[i]||!data.bids[i].bidder.name||!data.bids[i].priceOre) { continue; }
-        const currentBidPrice = data.bids[i].priceOre
+        if (!data.bids[i]||!data.bids[i].bidder.name||!data.bids[i].price) { continue; }
+        const currentBidPrice = data.bids[i].price
         const currentBidder = data.bids[i].bidder.name
         if (!biggestSpenders[currentBidder]){
             biggestSpenders[currentBidder] = currentBidPrice

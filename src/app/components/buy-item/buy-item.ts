@@ -1,13 +1,12 @@
 "use server"
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
-import regUserCourse from "../register-user-course/register-user-course";
 
 
 export default async function buy_item(saleObjectID: number) {
     const userID = await getUserID()
     if (!userID) {
-        return;
+        return "User not logged in";
     }
 
     const saleItem = await prisma.auksjonsObjekt.findFirst({
@@ -15,14 +14,14 @@ export default async function buy_item(saleObjectID: number) {
             id: saleObjectID,
         },
         select: {
-            currentPriceOre: true,
+            startPrice: true,
             stock: true,
             currentSaleTime: true
         }
     })
 
     if (saleItem == null) {
-        return;
+        return "Item not found";
     }
 
     const hasBought = await prisma.bid.findFirst({
@@ -33,17 +32,17 @@ export default async function buy_item(saleObjectID: number) {
     })
 
     if (hasBought) {
-        return;
+        return "User has already bought item";
     }
 
     const now = new Date()
     const openingDate = new Date("2025-03-20T11:00:00.000Z")
     const currentSaleTime = saleItem.currentSaleTime
     if (now > currentSaleTime) {
-        return;
+        return "Sale is over";
     }
     if (now < openingDate) {
-        return;
+        return "Sale not started";
     }
 
 
@@ -53,7 +52,7 @@ export default async function buy_item(saleObjectID: number) {
         data:{
 
             bidDate: dateTimeNow,
-            priceOre: saleItem.currentPriceOre,
+            price: saleItem.startPrice,
             auctionObject: {
                 connect: { id: saleObjectID }
             },
@@ -64,7 +63,7 @@ export default async function buy_item(saleObjectID: number) {
     })
 
     if (!createResponse){
-        return;
+        return "Bid could not be created";
     }
 
     await prisma.auksjonsObjekt.update({

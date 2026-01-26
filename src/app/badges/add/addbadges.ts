@@ -1,6 +1,6 @@
 "use server"
 import { prisma } from "@/app/prisma"
-import { PrismaClient, AuksjonsObjektType } from '@prisma/client';
+import { AuksjonsObjektType } from '@prisma/client';
 
 export async function createBadges() {
     await prisma.auksjonsObjekt.create({
@@ -11,7 +11,7 @@ export async function createBadges() {
             name: "Bronse",
             stock:100,
             type: AuksjonsObjektType.SALG,
-            startPriceOre: 10000,
+            startPrice: 100,
             approved: true,
             imageName: "brass.png"
         }
@@ -24,7 +24,7 @@ export async function createBadges() {
             name: "Sølv",
             stock:50,
             type: AuksjonsObjektType.SALG,
-            startPriceOre: 50000,
+            startPrice: 500,
             approved: true,
             imageName: "silver.png"
         }
@@ -37,7 +37,7 @@ export async function createBadges() {
             name: "Gull",
             stock:5,
             type: AuksjonsObjektType.SALG,
-            startPriceOre: 100000,
+            startPrice: 1000,
             approved: true,
             imageName: "gold.png"
         }
@@ -50,7 +50,7 @@ export async function createBadges() {
             name: "Diamant",
             stock:1,
             type: AuksjonsObjektType.SALG,
-            startPriceOre: 300000,
+            startPrice: 3000,
             approved: true,
             imageName: "diamond.png"
         }

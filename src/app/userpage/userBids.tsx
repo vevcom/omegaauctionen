@@ -1,4 +1,5 @@
 "use server"
+import { get_current_price } from "@/services/auctionObject/actions"
 import { prisma } from "../prisma"
 import style from "./component.module.scss"
 import DisplayBid from "./displayBid"
@@ -15,27 +16,26 @@ export default async function UserBids({ userId }: { userId: string }) {
                     bidderId: userId,
                 },
                 orderBy: {
-                    priceOre: "desc"
+                    price: "desc"
                 },
                 take: 1,
                 select: {
-                    priceOre: true,
+                    price: true,
                 }
 
             },
             id: true,
             name: true,
-            currentPriceOre: true,
         }
     })
     // await prisma.$disconnect();
     let userwithlist: {
         bids: {
-            priceOre: number;
+            price: number;
             auctionObject: {
                 id: number;
                 name: string;
-                currentPriceOre: number;
+                price: number;
             };
         }[];
     } | null = { bids: [] }
@@ -49,14 +49,16 @@ export default async function UserBids({ userId }: { userId: string }) {
         for (let i = 0; i < bidsFromUser.length; i++) {
             const auctionObjectData = bidsFromUser[i];
             // if (!auctionObjectData) { continue; }
-            if (!auctionObjectData.bids || !auctionObjectData.bids[0] || !auctionObjectData.bids[0].priceOre) { continue; }
-            const userBidPrice = auctionObjectData.bids[0].priceOre
+            if (!auctionObjectData.bids || !auctionObjectData.bids[0] || !auctionObjectData.bids[0].price) { continue; }
+            const userBidPrice = auctionObjectData.bids[0].price
+            const currentItemPrice = await get_current_price(auctionObjectData.id)
+            if (currentItemPrice === undefined){continue}
             const transformedBid = {
-                priceOre: userBidPrice,
+                price: userBidPrice,
                 auctionObject: {
                     id: auctionObjectData.id,
                     name: auctionObjectData.name,
-                    currentPriceOre: auctionObjectData.currentPriceOre,
+                    price: currentItemPrice,
                 }
             }
             userwithlist.bids.push(transformedBid)
@@ -71,22 +73,9 @@ export default async function UserBids({ userId }: { userId: string }) {
             <h3 className={style.listTitle}>Du har bydd på: </h3>
             <p className={style.listTitle}><i>Ingen ting enda...</i></p>
         </div>
-        return <div className={style.listContainer}>
-            <h3 className={style.listTitle}>Du har bydd på: </h3>
-            <div className={style.list}>
-                <DisplayBid key={1} id={1} name={"Lars Lundheim sitt skjegg"} price={6942} currentPrice={6942}></DisplayBid>
-                <DisplayBid key={2} id={1} name={"Lars Lundheim sitt skjegg"} price={420690} currentPrice={694920}></DisplayBid>
-                <DisplayBid key={3} id={1} name={"Objekt 3"} price={1200} currentPrice={6942}></DisplayBid>
-                <DisplayBid key={4} id={1} name={"Objekt 4"} price={5700} currentPrice={6942}></DisplayBid>
-                <DisplayBid key={5} id={1} name={"Objekt 5"} price={5700} currentPrice={5700}></DisplayBid>
-                <DisplayBid key={6} id={1} name={"Objekt 6"} price={4200} currentPrice={4200}></DisplayBid>
-
-            </div>
-            <div className={style.explanation}></div>
-        </div>;
     }
 
-    let registered: number[] = [];
+    const registered: number[] = [];
     return <div className={style.listContainer}>
         <h3 className={style.listTitle}>Du har bydd på: </h3>
         <div className={style.list}>
@@ -97,11 +86,11 @@ export default async function UserBids({ userId }: { userId: string }) {
                         return null;
                     }
                     registered.push(bid.auctionObject.id);
-                    return (<DisplayBid key={index} id={bid.auctionObject.id} name={bid.auctionObject.name} price={bid.priceOre} currentPrice={bid.auctionObject.currentPriceOre}></DisplayBid>);
+                    return (<DisplayBid key={index} id={bid.auctionObject.id} name={bid.auctionObject.name} price={bid.price} currentPrice={bid.auctionObject.price}></DisplayBid>);
                 })
             }
         </div>
-        {userwithlist.bids.some(bid => bid.priceOre < bid.auctionObject.currentPriceOre) && <div className={`${style.explanation} ${style.bidExplanation}`}></div>}
+        {userwithlist.bids.some(bid => bid.price < bid.auctionObject.price) && <div className={`${style.explanation} ${style.bidExplanation}`}></div>}
 
     </div>
 }

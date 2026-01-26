@@ -16,7 +16,7 @@ export default function Hansafight() {
     const [isTime, setIsTime] = useState(false)
     useEffect(() => {
         async function loadPrices() {
-            let priceResponse = await getPrices()
+            const priceResponse = await getPrices()
             setPrices(priceResponse)
             setHasLoaded(true)
             console.log(prices)
@@ -45,7 +45,7 @@ export default function Hansafight() {
     const end = new Date("2025-03-20T22:00:00.000Z")
     if (!isTime) {
         if (now>end){
-            return <p className={styles.title}>Det er desverre over for å år.Poengene ble: <br></br>  For Hansa {prices[0]/100} stemmer <br></br> mot Hansa: {prices[1]/100} stemmer</p>
+            return <p className={styles.title}>Det er desverre over for å år.Poengene ble: <br></br>  For Hansa {prices[0]} stemmer <br></br> mot Hansa: {prices[1]} stemmer</p>
         }
         if (now <start){
             return <p className={styles.title}>Det åpner ikke før 17:00</p>

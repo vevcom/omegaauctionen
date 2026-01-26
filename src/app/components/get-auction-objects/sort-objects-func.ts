@@ -1,26 +1,47 @@
 "use server"
 
-import { Prisma } from "@prisma/client"
+import { $Enums } from "@prisma/client"
 
-type AuksjonsObjekt = Prisma.AuksjonsObjektGetPayload<{ include: { _count: { select: { bids: true } } } }>
+type AuksjonsObjekt = {
+    currentPrice: number;
+    bids: {
+        price: number;
+    }[];
+    _count: {
+        bids: number;
+    };
+    id: number;
+    name: string;
+    description: string;
+    committee: $Enums.Committee;
+    type: $Enums.AuksjonsObjektType;
+    startPrice: number;
+    stock: number;
+    finalSaleTime: Date;
+    currentSaleTime: Date;
+    approved: boolean;
+    imageName: string;
+    authorId: string | null;
+}
+
 export type SortType = "price" | "numberOfBids"
 
-export default async function sortObjectsFunc(auksjonsObjektListe: AuksjonsObjekt[], sortType: SortType | string, reverse=false) {
+export default async function sortObjectsFunc(auksjonsObjektListe: AuksjonsObjekt[], sortType: SortType | string, reverse = false) {
     let sortedList = auksjonsObjektListe
 
     switch (sortType) {
         case "price":
-            sortedList = sortedList.sort((a,b)=> a.currentPriceOre - b.currentPriceOre)
+            sortedList = sortedList.sort((a, b) => (a.currentPrice-b.currentPrice))
             break;
         case "numberOfBids":
-            sortedList = sortedList.sort((a,b)=> a._count.bids - b._count.bids)
+            sortedList = sortedList.sort((a, b) => a._count.bids - b._count.bids)
             break;
         default:
             console.warn("Received unknown sortType: ", sortType)
             break;
     }
-    
-    if (reverse){
+
+    if (reverse) {
         sortedList = sortedList.reverse()
     }
 

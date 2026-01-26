@@ -9,7 +9,7 @@ import { getHighestBid } from "./getHighestBid";
 export default function HighestBidder({ objectId, reload }: { objectId: number, reload: boolean }) {
     const [highestBid, setHighestBid] = useState<{
         bidDate: Date;
-        priceOre: number;
+        price: number;
         bidder: {
             name: string;
         };
@@ -35,7 +35,7 @@ export default function HighestBidder({ objectId, reload }: { objectId: number, 
             <h1 className={style.title}>Høyeste bud:</h1>
             {highestBid.map((data, index) => (
                 <div key={index} className={style.bidContainer}>
-                    <div>Bud: {data.priceOre / 100} kr</div>
+                    <div>Bud: {data.price} kr</div>
                     <div>Navn: {data.bidder.name}</div>
                     <div>Bud tid: {new Date(data.bidDate).toLocaleTimeString('en-GB')}</div> 
                 </div>

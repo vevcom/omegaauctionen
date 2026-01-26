@@ -1,9 +1,8 @@
 import { prisma } from "@/app/prisma";
 import { AuksjonsObjektType, Committee } from "@prisma/client";
 
-
 export default async function get_total_debt_user(userName: string) {
-    let userDebtData: {
+    const userDebtData: {
         [index: string]: {
             email: string,
             totalDebt: number,
@@ -41,7 +40,7 @@ export default async function get_total_debt_user(userName: string) {
         select: {
             bids: {
                 orderBy: {
-                    priceOre: "desc"
+                    price: "desc"
                 },
                 take: 1,
                 select: {
@@ -50,7 +49,7 @@ export default async function get_total_debt_user(userName: string) {
                             name: true
                         }
                     },
-                    priceOre: true
+                    price: true
                 }
             },
             author: {
@@ -74,10 +73,10 @@ export default async function get_total_debt_user(userName: string) {
         if (!data.name) { continue; }
         if (!data.author || !data.author.email || !data.author.name || !data.committee) { continue; }
         const topBid = data.bids[0]
-        if (!topBid || !topBid.priceOre || !topBid.bidder.name) { continue; }
+        if (!topBid || !topBid.price || !topBid.bidder.name) { continue; }
         const authorName = data.author.name
         const authorEmail = data.author.email
-        const topPrice = topBid.priceOre
+        const topPrice = topBid.price
         const topBidBidderName = topBid.bidder.name
         const objectName = data.name
         const objectCometee = data.committee != Committee.NOTCOM ? data.committee.toLocaleUpperCase() : null
@@ -101,7 +100,7 @@ export default async function get_total_debt_user(userName: string) {
         select: {
             bids: {
                 orderBy: {
-                    priceOre: "desc"
+                    price: "desc"
                 },
                 select: {
                     bidder: {
@@ -109,7 +108,7 @@ export default async function get_total_debt_user(userName: string) {
                             name: true
                         }
                     },
-                    priceOre: true
+                    price: true
                 }
             },
             author: {
@@ -131,7 +130,7 @@ export default async function get_total_debt_user(userName: string) {
         select: {
             bids: {
                 orderBy: {
-                    priceOre: "desc"
+                    price: "desc"
                 },
                 select: {
                     bidder: {
@@ -139,7 +138,7 @@ export default async function get_total_debt_user(userName: string) {
                             name: true
                         }
                     },
-                    priceOre: true
+                    price: true
                 }
             },
         }
@@ -151,7 +150,7 @@ export default async function get_total_debt_user(userName: string) {
         select: {
             bids: {
                 orderBy: {
-                    priceOre: "desc"
+                    price: "desc"
                 },
                 select: {
                     bidder: {
@@ -159,7 +158,7 @@ export default async function get_total_debt_user(userName: string) {
                             name: true
                         }
                     },
-                    priceOre: true
+                    price: true
                 }
             },
         }
@@ -171,10 +170,10 @@ export default async function get_total_debt_user(userName: string) {
         if (bids) {
             for (let j = 0; j < bids.length; j++) {
                 const bid = bids[j]
-                if (!bid || !bid.priceOre || !bid.bidder.name) { continue; }
+                if (!bid || !bid.price || !bid.bidder.name) { continue; }
                 const authorName = "HS"
                 const authorEmail = "Ikke nødvendig med mail"
-                const bidPrice = bid.priceOre
+                const bidPrice = bid.price
                 const bidBidderName = bid.bidder.name
                 const objectName = "Hansa stemme"
                 userDebtData[bidBidderName].wonObjects.push(
@@ -197,10 +196,10 @@ export default async function get_total_debt_user(userName: string) {
         if (bids) {
             for (let j = 0; j < bids.length; j++) {
                 const bid = bids[j]
-                if (!bid || !bid.priceOre || !bid.bidder.name) { continue; }
+                if (!bid || !bid.price || !bid.bidder.name) { continue; }
                 const authorName = "HS"
                 const authorEmail = "Ikke nødvendig med mail"
-                const bidPrice = bid.priceOre
+                const bidPrice = bid.price
                 const bidBidderName = bid.bidder.name
                 const objectName = "Imot hansa stemme"
                 userDebtData[bidBidderName].wonObjects.push(
@@ -228,10 +227,10 @@ export default async function get_total_debt_user(userName: string) {
         if (!bids) { continue; }
         for (let j = 0; j < bids.length; j++) {
             const bid = bids[j]
-            if (!bid || !bid.priceOre || !bid.bidder.name) { continue; }
+            if (!bid || !bid.price || !bid.bidder.name) { continue; }
             const authorName = "Vevcom"
             const authorEmail = "haakonkm@stud.ntnu.no"
-            const topPrice = bid.priceOre
+            const topPrice = bid.price
             const bidBidderName = bid.bidder.name
             const objectName = data.name
             userDebtData[bidBidderName].wonObjects.push(

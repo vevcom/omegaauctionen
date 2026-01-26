@@ -33,12 +33,15 @@ export default function Klassetrinn() {
       }
       if (isMiniadmin) {
         for (let i = 0; i < dataResponse.length; i++) {
+          console.log(i)
+          console.log(dataResponse.at(i))
           if (!dataResponse[i]) {
             console.log("data " + i.toString() + "not loaded")
             return;
           }
         }
       }
+      
       
       setdata3(dataResponse[0])
       setdata4(dataResponse[1])
@@ -69,7 +72,7 @@ export default function Klassetrinn() {
       <div className={styles.sumContainer}>
         <p className={styles.pengerOverskrift}>Penger samlet inn: </p>
         <div className={styles.sum}>
-          <p>{Math.round(total / 100)} kr</p>
+          <p>{Math.round(total)} kr</p>
         </div>
       </div>
 
@@ -82,7 +85,7 @@ export default function Klassetrinn() {
           <p className={styles.tekst}>Antall auksjonsobjekt</p>
 
           <div className={styles.gjennomsnitt}>
-            <p className={styles.tekstboks}>{avarageAndcount._count.name} stk</p>
+            <p className={styles.tekstboks}>{avarageAndcount.count} stk</p>
           </div>
 
         </div>
@@ -92,7 +95,7 @@ export default function Klassetrinn() {
           <p className={styles.tekst}>Gjennomsnittspris</p>
 
           <div className={styles.gjennomsnitt}>
-            <p className={styles.tekstboks}>{Math.round(avarageAndcount._avg.currentPriceOre / 100)} kr</p>
+            <p className={styles.tekstboks}>{Math.round(avarageAndcount.avg)} kr</p>
           </div>
 
         </div>
@@ -110,7 +113,7 @@ export default function Klassetrinn() {
     <div className={styles.sumContainer}>
       <p className={styles.pengerOverskrift}>Penger samlet inn: </p>
       <div className={styles.sum}>
-        <p>{Math.round(total / 100)} kr</p>
+        <p>{Math.round(total)} kr</p>
       </div>
     </div>
 
@@ -123,7 +126,7 @@ export default function Klassetrinn() {
         <p className={styles.tekst}>Antall auksjonsobjekt</p>
 
         <div className={styles.gjennomsnitt}>
-          <p className={styles.tekstboks}>{avarageAndcount._count.name} stk</p>
+          <p className={styles.tekstboks}>{avarageAndcount.count} stk</p>
         </div>
 
       </div>
@@ -133,7 +136,7 @@ export default function Klassetrinn() {
         <p className={styles.tekst}>Gjennomsnittspris</p>
 
         <div className={styles.gjennomsnitt}>
-          <p className={styles.tekstboks}>{Math.round(avarageAndcount._avg.currentPriceOre / 100)} kr</p>
+          <p className={styles.tekstboks}>{Math.round(avarageAndcount.avg)} kr</p>
         </div>
 
       </div>

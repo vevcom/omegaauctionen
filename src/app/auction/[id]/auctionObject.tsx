@@ -65,7 +65,7 @@ const committeeToLink = {
 
 
 
-function BidPanel({ object }: { object: AuksjonsObjekt }) {
+function BidPanel({ object, currentPrice }: { object: AuksjonsObjekt, currentPrice: number }) {
   // const [bidAmount, setBidAmount] = useState("");
   const [popUpOn, SetPopUpOn] = useState(false)
   const [popUpText, SetPopUpText] = useState("")
@@ -96,12 +96,12 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
       return;
     }
 
-    const bidAmountInOre = parseInt((parseFloat((value as string)) * 100).toFixed(2))
-    if (bidAmountInOre <= object.currentPriceOre) {
+    const bidAmount = parseInt(value as string)
+    if (bidAmount <= currentPrice) {
       alertBox("By over den nåværende prisen")
       return;
     }
-    const response = await placeBid(object, bidAmountInOre)
+    const response = await placeBid(object, bidAmount)
     alertBox(response)
   }
 
@@ -116,7 +116,7 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
         placeholder="Skriv inn bud"
         name="bidAmountInKRONER"
         step="any"
-        min={object.currentPriceOre / 100 + 10}
+        min={currentPrice + 10}
         required
         onKeyDown={(e) => {
           if (["+", "-", "e", "E"].includes(e.key)) {
@@ -129,18 +129,20 @@ function BidPanel({ object }: { object: AuksjonsObjekt }) {
     </form>)
 }
 
-async function buy(object: AuksjonsObjekt, setHasBoughtCape: Dispatch<SetStateAction<boolean>>) {
-  if (!confirm("Vil du kjøpe til" + (object.currentPriceOre / 100).toString() + "kr?")) {
+async function buy(object: AuksjonsObjekt, setHasBoughtCape: Dispatch<SetStateAction<boolean>>, currentPrice: number) {
+  if (!confirm("Vil du kjøpe til" + (currentPrice).toString() + "kr?")) {
     return;
   }
   const buyItemResponse = await buy_item(object.id)
-  if (buyItemResponse) {
-    setHasBoughtCape(true)
+  if (buyItemResponse !== true){
+    console.log(buyItemResponse)
+    return
   }
+  setHasBoughtCape(true)
 }
 
-function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape }: {
-  object: AuksjonsObjekt, hasBoughtCape: boolean, isTime: boolean, setHasBoughtCape: Dispatch<SetStateAction<boolean>>
+function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape, currentPrice }: {
+  object: AuksjonsObjekt, hasBoughtCape: boolean, isTime: boolean, setHasBoughtCape: Dispatch<SetStateAction<boolean>>, currentPrice: number
 }) {
   if (!isTime) {
     return (
@@ -162,13 +164,13 @@ function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape }: {
 
 
   return (
-    <button className={style.buyButton} onClick={e => buy(object, setHasBoughtCape)}>Kjøp for {object.currentPriceOre / 100}kr</button>
+    <button className={style.buyButton} onClick={() => buy(object, setHasBoughtCape,currentPrice)}>Kjøp for {currentPrice}kr</button>
   )
 
 }
 
 
-export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
+export default function AuctionObject({ object, currentPrice }: { object: AuksjonsObjekt, currentPrice: number }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTime, setIsTime] = useState(false)
   const [currentObject, setCurrentObject] = useState(object)
@@ -267,14 +269,14 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         <div className={style.imagecontainer}>
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        {isTime ? <CurrentPrice price={currentObject.currentPriceOre}></CurrentPrice> : null}
+        {isTime ? <CurrentPrice price={currentPrice}></CurrentPrice> : null}
         <div className={style.description}>{object.description}</div>
 
-        {isTime ? <BidPanel object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
+        {isTime ? <BidPanel currentPrice={currentPrice} object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
       </div>
       {isTime ? <HighestBidder reload={reload} objectId={currentObject.id}></HighestBidder> : null}
       <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
-      {(isAdmin && userInfo) ? <UserObject userInfo={userInfo}></UserObject>:null}
+      {(isAdmin && userInfo) ? <UserObject userInfo={userInfo}></UserObject> : null}
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
     </div>)
@@ -317,7 +319,7 @@ export default function AuctionObject({ object }: { object: AuksjonsObjekt }) {
         </div>
         <div className={style.description}>{currentObject.description}</div>
         <h2 className={style.capesLeftText}>{currentObject.stock} kapper igjen!</h2>
-        <BuyPanel setHasBoughtCape={setHasBoughtCape} hasBoughtCape={hasBoughtCape} isTime={isTime} object={currentObject}></BuyPanel>
+        <BuyPanel currentPrice={currentPrice} setHasBoughtCape={setHasBoughtCape} hasBoughtCape={hasBoughtCape} isTime={isTime} object={currentObject}></BuyPanel>
         <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
 
         {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}

@@ -1,13 +1,13 @@
 "use client"
 import getUserID from "@/app/api/auth/getUserId"
-import React, { FormEvent, useState } from "react"
+import React, { useState } from "react"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
 import ImageFromFileName from "../components/pictureServerComponents/getImgFromNameComponent"
 import ImageUploaderButton from "../components/pictureServerComponents/uploadButton"
 import style from "./style.module.scss"
 import PopUpBox from "@/app/components/popUp/popUp"
 
-export default function makeAuctionItem() {
+export default function MakeAuctionItem() {
     const [uploadedFileName, setUploadedFileName] = useState('default.jpeg');
     const [popUpOn, SetPopUpOn] = useState(false)
     const [popUpText, SetPopUpText] = useState("")
@@ -38,9 +38,7 @@ export default function makeAuctionItem() {
             return;
         }
 
-        const bidAmountInOre = parseInt((parseFloat((e.get("startPriceInKroner") as string)) * 100).toFixed(2))
         e.append("imageFileName", uploadedFileName)
-        e.append("startPriceInOre", bidAmountInOre.toString())
         e.append("userById", (userId).toString())
         const response = await createAuctionItemFromForm(e)
 

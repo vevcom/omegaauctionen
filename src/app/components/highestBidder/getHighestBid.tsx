@@ -12,7 +12,7 @@ export async function getHighestBid(objectId: number) {
                 },
                 take: 3,
                 select: {
-                    priceOre: true,
+                    price: true,
                     bidDate: true,
                     bidder: {
                         select: {

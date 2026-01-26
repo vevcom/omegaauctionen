@@ -1,18 +1,20 @@
 "use server"
 
 import { prisma } from "@/app/prisma"
+import { get_current_price } from "@/services/auctionObject/actions"
 import { AuksjonsObjektType } from "@prisma/client"
 
 
 // intentional extra split up for easier understanding and for copying parts of code for other potential statists later
-export default async function get_money_made_in_ore() {
-    let sumInOre = 0 // initial value
+export default async function get_money_made() {
+    let sum = 0 // initial value
+    let moneyMadeOnlineAuction = 0
 
     //Money made from online auction
     //gets sum of all current prices
-    const normalAuctionObjectsSumOre = await prisma.auksjonsObjekt.aggregate({
-        _sum: {
-            currentPriceOre: true
+    const normalAuctionObjectId = await prisma.auksjonsObjekt.findMany({
+        select: {
+            id: true,
         },
         where: {
             approved: true,
@@ -20,13 +22,13 @@ export default async function get_money_made_in_ore() {
         }
     })
 
-    //checks if null
-    let moneyMadeOnlineAuctionOre = 0
-    if (!normalAuctionObjectsSumOre|| !normalAuctionObjectsSumOre._sum.currentPriceOre) {
-        moneyMadeOnlineAuctionOre = 0
-    }
-    else {
-        moneyMadeOnlineAuctionOre = normalAuctionObjectsSumOre._sum.currentPriceOre
+    if (normalAuctionObjectId) {
+        for (const obj in normalAuctionObjectId) {
+            const currentPrice = await get_current_price(normalAuctionObjectId[obj].id)
+            if (currentPrice) {
+                moneyMadeOnlineAuction += currentPrice
+            }
+        }
     }
 
     //Money made from capes
@@ -39,7 +41,7 @@ export default async function get_money_made_in_ore() {
             type: AuksjonsObjektType.SALG,
         },
         select: {
-            currentPriceOre: true,
+            startPrice: true,
             _count: {
                 select: {
                     bids: true
@@ -49,23 +51,23 @@ export default async function get_money_made_in_ore() {
     })
 
     //checks if null
-    let moneyMadeCapeOre = 0
+    let moneyMadeCape = 0
     if (!capesAuctionObjects) {
-        moneyMadeCapeOre = 0
+        moneyMadeCape = 0
     }
     else {
         //Product of price of cape and amount of bids
-        const moneyPerCapeTypeOre = capesAuctionObjects.map((object) => (object.currentPriceOre * object._count.bids))
+        const moneyPerCapeType = capesAuctionObjects.map((object) => (object.startPrice * object._count.bids))
 
         //Sum of money made per cape
-        moneyMadeCapeOre = moneyPerCapeTypeOre.reduceRight((prev, current) => prev + current, 0);
+        moneyMadeCape = moneyPerCapeType.reduceRight((prev, current) => prev + current, 0);
     }
 
     // Money made from live registration objects. They are identified by containing "DONOTAPPROVE" in their name. 
     // gets sum of all monet made
-    const liveRegisteredAuctionObjectsSumOre = await prisma.auksjonsObjekt.aggregate({
+    const liveRegisteredAuctionObjectsSum = await prisma.auksjonsObjekt.aggregate({
         _sum: {
-            currentPriceOre: true
+            stock: true
         },
         where: {
             name: {
@@ -76,17 +78,17 @@ export default async function get_money_made_in_ore() {
     })
 
     //checks if null
-    let moneyMadeLiveRegisteredAuctionObjectsOre
-    if (!liveRegisteredAuctionObjectsSumOre || !liveRegisteredAuctionObjectsSumOre._sum.currentPriceOre) {
-        moneyMadeLiveRegisteredAuctionObjectsOre = 0
+    let moneyMadeLiveRegisteredAuctionObjects
+    if (!liveRegisteredAuctionObjectsSum || !liveRegisteredAuctionObjectsSum._sum.stock) {
+        moneyMadeLiveRegisteredAuctionObjects = 0
     }
     else {
-        moneyMadeLiveRegisteredAuctionObjectsOre = liveRegisteredAuctionObjectsSumOre._sum.currentPriceOre
+        moneyMadeLiveRegisteredAuctionObjects = liveRegisteredAuctionObjectsSum._sum.stock
     }
 
-    sumInOre += moneyMadeCapeOre
-    sumInOre += moneyMadeOnlineAuctionOre
-    sumInOre += moneyMadeLiveRegisteredAuctionObjectsOre
+    sum += moneyMadeCape
+    sum += moneyMadeOnlineAuction
+    sum += moneyMadeLiveRegisteredAuctionObjects
 
-    return sumInOre
+    return sum
 }

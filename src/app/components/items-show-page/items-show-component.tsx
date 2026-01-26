@@ -4,8 +4,9 @@ import styles from "./component.module.scss";
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
 import { AuksjonsObjekt, AuksjonsObjektType} from "@prisma/client";
 
+type AuksjonsObjektWithPrice = AuksjonsObjekt & { currentPrice: number }
 
-export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:Array<Array<AuksjonsObjekt>>,currentPageNumber:number,pageTitle?:string}) {
+export default function ItemsPageComponent({ allPages, currentPageNumber,pageTitle="Auksjonsobjekter" }:{allPages:AuksjonsObjektWithPrice[][],currentPageNumber:number,pageTitle?:string}) {
     if (!allPages[currentPageNumber]){
         return <p className={styles.tekst}>Laster inn... Ingen ting å se her 🙈 HS må gå</p>;
     }
@@ -37,7 +38,7 @@ export default function ItemsPageComponent({ allPages, currentPageNumber,pageTit
                                 <br/>
                                 {object.type == AuksjonsObjektType.LIVE ?
                                     "":
-                                    <p className={styles.pris}>{object.currentPriceOre/100} kr</p>
+                                    <p className={styles.pris}>{object.currentPrice} kr</p>
                             }
                                 
                             </div>

@@ -2,18 +2,17 @@
 
 
 
-import getUserID from "@/app/api/auth/getUserId"
 import { prisma } from "@/app/prisma"
 import is_miniadmin from "../is-miniadmin/is-miniadmin"
 
 
 //manual-money-registration-component. Registers amount of money made and returns how much money is made and how many of that item is sold
 //This function uses an unapproved item to register amounts of money made. Stores it in current price
-export default async function increment_manual_money_registration(name: string, moneyMadeOre: number,amountSold=1) {
+export default async function increment_manual_money_registration(name: string, moneyMade: number,amountSold=1) {
     const dataBaseName = "DONOTAPPROVE" + name
 
     //checks if negative amount
-    if (moneyMadeOre <= 0) {
+    if (moneyMade <= 0) {
         return false;
     }
     if (amountSold<=0){
@@ -40,8 +39,7 @@ export default async function increment_manual_money_registration(name: string, 
                 finalSaleTime: new Date("2022-03-25"),  //further more prevents bidding on accidental approve
                 description: "DONOTAPPOVE",
                 name: dataBaseName,
-                startPriceOre: 0,
-                currentPriceOre: 0,
+                startPrice: 0,
                 approved: false,
                 stock: 0
             }
@@ -59,8 +57,7 @@ export default async function increment_manual_money_registration(name: string, 
             id:registerObject.id
         },
         data:{
-            currentPriceOre: {increment:moneyMadeOre},
-            stock : {increment:+amountSold},
+            stock : {increment:+moneyMade},
             approved:false,
         }
     })
@@ -71,5 +68,5 @@ export default async function increment_manual_money_registration(name: string, 
     }
 
     //returns money made in ore
-    return {moneyMade:updateResponse.currentPriceOre,amountSold:updateResponse.stock}
+    return {moneyMade:updateResponse.stock,amountSold:updateResponse.stock}
 }
