@@ -49,9 +49,8 @@ model AuksjonsObjekt {
   committee   Committee          @default(NOTCOM)
   type        AuksjonsObjektType @default(AUKSJON)
 
-  startPriceOre   Int @map("startPrice")
-  currentPriceOre Int
-  stock           Int @default(1)
+  startPrice Int @map("startPrice")
+  stock      Int @default(1)
 
   finalSaleTime   DateTime @default(dbgenerated("TIMESTAMP '2025-03-21 01:00:00'"))
   currentSaleTime DateTime @default(dbgenerated("TIMESTAMP '2025-03-20 23:00:00'")) //DO not adjust for timezone
@@ -64,9 +63,9 @@ model AuksjonsObjekt {
 }
 
 model Bid {
-  bidId    Int      @id @default(autoincrement())
-  priceOre Int      @map("price")
-  bidDate  DateTime @default(now())
+  bidId   Int      @id @default(autoincrement())
+  price   Int      @map("price")
+  bidDate DateTime @default(now())
 
   bidder   User   @relation(fields: [bidderId], references: [id])
   bidderId String
@@ -107,7 +106,7 @@ model User {
   sessions         Session[]
   isAdmin          Boolean          @default(false)
   isMiniAdmin      Boolean          @default(false)
-  auksjonsObjekter AuksjonsObjekt[] //relasjon mellom User og auksjonsobjekt. [] viser til at listen med objekter kan være tom
+  auksjonsObjekter AuksjonsObjekt[]
   bids             Bid[]
 
   @@map("users")

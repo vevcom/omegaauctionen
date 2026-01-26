@@ -9,8 +9,8 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number>>,amount:number) {
     const beerMileLoddName = "beerMileLodd"
-    const moneyMadeFromBeermileLoddOre = 30*100
-    const response = await increment_manual_money_registration(beerMileLoddName,moneyMadeFromBeermileLoddOre*amount,amount)
+    const moneyMadeFromBeermileLodd = 30
+    const response = await increment_manual_money_registration(beerMileLoddName,moneyMadeFromBeermileLodd*amount,amount)
     if (!response){
         alert("noe gikk galt! prøv igjen")
         return;

@@ -1,21 +1,15 @@
 "use server"
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
-import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client";
+import { get_current_price } from "@/services/auctionObject/actions";
+import { AuksjonsObjekt } from "@prisma/client";
 
-export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: number) {
-  const AuctionObjectPriceCheck = await prisma.auksjonsObjekt.findFirst({
-    where: {
-      id: object.id
-    },
-    select: {
-      currentPriceOre: true,
-    }
-  })
+export default async function placeBid(object: AuksjonsObjekt, bidAmount: number) {
+  const AuctionObjectPriceCheck = await get_current_price(object.id)
   if (!AuctionObjectPriceCheck) {
     return "Finner ikke auksjons objektet";
   }
-  if (AuctionObjectPriceCheck.currentPriceOre >= bidAmountInOre) {
+  if (AuctionObjectPriceCheck >= bidAmount) {
     return "Beklager men det ser ut som noen har byd samtidig som deg og høyre";
   }
 
@@ -52,13 +46,13 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: n
 
   await prisma.bid.create({
     data: {
-      priceOre: bidAmountInOre,
+      price: bidAmount,
       bidder: {
         connect: { id: userID }
       },
       auctionObject: {
         connect: { id: object.id }
-      }
+      },
     }
   })
 
@@ -67,7 +61,6 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmountInOre: n
       id: object.id,
     },
     data: {
-      currentPriceOre: bidAmountInOre,
       currentSaleTime: newTimeToSet,
     }
   })

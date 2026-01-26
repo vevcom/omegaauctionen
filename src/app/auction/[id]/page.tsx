@@ -1,6 +1,9 @@
+import { get_current_price } from "@/services/auctionObject/actions";
 import {prisma } from "../../prisma";  
 import AuctionObject from "./auctionObject";
 import { notFound } from "next/navigation";
+
+
 
 export default async function AuctionObjectPage({ params }: { params: Promise<{ id?: string }> }) {
     // await createAuctionItem("Lundheim sitt skjegg","Lars Lundheim sitt skjegg",1000,true);
@@ -21,5 +24,8 @@ export default async function AuctionObjectPage({ params }: { params: Promise<{ 
     
     if (!auctionObject) return notFound();
 
-    return <AuctionObject object={auctionObject}/>;
+    const currentPrice = await get_current_price(objectId)
+    if (!currentPrice) return notFound();
+
+    return <AuctionObject currentPrice={currentPrice} object={auctionObject}/>;
 }

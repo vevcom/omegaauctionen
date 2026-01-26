@@ -67,7 +67,7 @@ export default async function UserPageAesthetic() {
             </div>
             <div className={style.debtTable}>
                 <p>{"Din e-post: " + userDebtData?.email}</p>
-                <p>Skylder totalt: <b>{((userDebtData?.totalDebt ?? 0) / 100).toString() + " kr"}</b></p>
+                <p>Skylder totalt: <b>{((userDebtData?.totalDebt ?? 0)).toString() + " kr"}</b></p>
                 <p>Vipps nummer: <b>668205</b></p>
                 <p><b>NB:</b>Du må selv kontakte de du må for å få det du har vunnet</p>
                 <table>
@@ -82,7 +82,7 @@ export default async function UserPageAesthetic() {
                         {
                         userDebtData?.wonObjects.map((object) => <tr>
                             <td>{object.objectName}</td>
-                            <td align="right">{(object.price / 100).toString() + " kr"}</td>
+                            <td align="right">{(object.price).toString() + " kr"}</td>
                             <td>{object.committee ? <><i>Komité: </i> {object.committee}<br /> <i>Ansvarlig: </i> {object.authorName}</> : object.authorEmail + " - " + object.authorName}</td>
                         </tr>)
                         }

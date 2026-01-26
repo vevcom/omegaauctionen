@@ -15,27 +15,27 @@ export default async function UserBids({ userId }: { userId: string }) {
                     bidderId: userId,
                 },
                 orderBy: {
-                    priceOre: "desc"
+                    price: "desc"
                 },
                 take: 1,
                 select: {
-                    priceOre: true,
+                    price: true,
                 }
 
             },
             id: true,
             name: true,
-            currentPriceOre: true,
+            currentPrice: true,
         }
     })
     // await prisma.$disconnect();
     let userwithlist: {
         bids: {
-            priceOre: number;
+            price: number;
             auctionObject: {
                 id: number;
                 name: string;
-                currentPriceOre: number;
+                currentPrice: number;
             };
         }[];
     } | null = { bids: [] }
@@ -49,14 +49,14 @@ export default async function UserBids({ userId }: { userId: string }) {
         for (let i = 0; i < bidsFromUser.length; i++) {
             const auctionObjectData = bidsFromUser[i];
             // if (!auctionObjectData) { continue; }
-            if (!auctionObjectData.bids || !auctionObjectData.bids[0] || !auctionObjectData.bids[0].priceOre) { continue; }
-            const userBidPrice = auctionObjectData.bids[0].priceOre
+            if (!auctionObjectData.bids || !auctionObjectData.bids[0] || !auctionObjectData.bids[0].price) { continue; }
+            const userBidPrice = auctionObjectData.bids[0].price
             const transformedBid = {
-                priceOre: userBidPrice,
+                price: userBidPrice,
                 auctionObject: {
                     id: auctionObjectData.id,
                     name: auctionObjectData.name,
-                    currentPriceOre: auctionObjectData.currentPriceOre,
+                    currentPrice: auctionObjectData.currentPrice,
                 }
             }
             userwithlist.bids.push(transformedBid)
@@ -97,11 +97,11 @@ export default async function UserBids({ userId }: { userId: string }) {
                         return null;
                     }
                     registered.push(bid.auctionObject.id);
-                    return (<DisplayBid key={index} id={bid.auctionObject.id} name={bid.auctionObject.name} price={bid.priceOre} currentPrice={bid.auctionObject.currentPriceOre}></DisplayBid>);
+                    return (<DisplayBid key={index} id={bid.auctionObject.id} name={bid.auctionObject.name} price={bid.price} currentPrice={bid.auctionObject.currentPrice}></DisplayBid>);
                 })
             }
         </div>
-        {userwithlist.bids.some(bid => bid.priceOre < bid.auctionObject.currentPriceOre) && <div className={`${style.explanation} ${style.bidExplanation}`}></div>}
+        {userwithlist.bids.some(bid => bid.price < bid.auctionObject.currentPrice) && <div className={`${style.explanation} ${style.bidExplanation}`}></div>}
 
     </div>
 }
