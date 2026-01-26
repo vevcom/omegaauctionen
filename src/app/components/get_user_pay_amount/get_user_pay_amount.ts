@@ -1,7 +1,6 @@
 import { prisma } from "@/app/prisma";
 import { AuksjonsObjektType, Committee } from "@prisma/client";
 
-
 export default async function get_total_debt_user(userName: string) {
     const userDebtData: {
         [index: string]: {

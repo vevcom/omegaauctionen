@@ -5,56 +5,20 @@ import { redirect } from "next/navigation";
 import getUser from "../api/auth/getUser";
 import { SignoutButton } from "./signoutButton";
 import { UserObjectsList } from "./userObjects";
-import { AuksjonsObjekt, AuksjonsObjektType, Committee, Prisma, Study, User } from "@prisma/client"
+import { AuksjonsObjektType, Committee, Prisma, Study } from "@prisma/client"
 import UserBids from "./userBids";
-import get_user_info from "../components/getUSerInfo/getUserinfo";
 import get_total_debt_user from "../components/get_user_pay_amount/get_user_pay_amount";
-
-
-type UserWithAuksjonsObjekter = Prisma.UserGetPayload<{
-    include: {auksjonsObjekter: true}
-}>
-
-const defaultObjects = {
-    id: 1,
-    description: "Eksempel description",
-    name: "THE object",
-    committee: Committee.NOTCOM,
-    type: AuksjonsObjektType.AUKSJON,
-    finalSaleTime: new Date(),
-    currentSaleTime: new Date(),
-    startPriceOre: 2, 
-    currentPriceOre: 100,
-    stock:1,
-    authorId: null,
-    imageName: "imgname",
-    approved: true,
-}
-
-const defaultUser = {
-    id: "1",
-    name: "Kappe Mand",
-    email: "kappe@omega.ntnu.no",
-    emailVerified: null,
-    image: null,
-    isAdmin: true,
-    auksjonsObjekter: [defaultObjects],
-    // auksjonsObjekter: [],
-    studyCourse: Study.ELSYS,
-    bids: [],
-    isMiniadmin:true,
-}
 
 
 
 export default async function UserPageAesthetic() {
-    let user = await getUser()
+    const user = await getUser()
     if (!user) {
         // user = defaultUser;
         // TODO: REMOVE DEFAULT USER BEFORE FINAL RELEASE
         redirect("api/auth/signin");
     }
-    let userDebtData = await get_total_debt_user(user.name)
+    const userDebtData = await get_total_debt_user(user.name)
 
     return (<>
         <div className={style.welcome}>Velkommen,<br></br> <div className={style.name}>{user?.name}</div></div>
