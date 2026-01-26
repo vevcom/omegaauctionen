@@ -1,6 +1,7 @@
 from flask import Flask, request, send_from_directory, jsonify
 import os
 import random as rd
+import uuid
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -25,11 +26,11 @@ def upload_image():
         return jsonify({"error": "No file selected."}), 400
 
     # Save the file
-    filneName = str(rd.randint(0,1000))+ file.filename
+    filneName = str(uuid.uuid4())
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filneName)
 
-    while os.path.isfile(file_path):
-        filneName = str(rd.randint(0,1000))+ filneName
+    while os.path.isfile(file_path): # check if name already taken. Probably not necessary for uuid
+        filneName = str(uuid.uuid4())
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filneName)
 
     file.save(file_path)
