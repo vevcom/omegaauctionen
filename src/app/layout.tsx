@@ -1,6 +1,6 @@
 "use client"
 import localFont from "next/font/local";
-import "./globals.scss";
+import "@/styles/globals.scss";
 import style from "./page.module.scss"
 import {Header} from "@/app/components/header";
 import { useState } from "react";

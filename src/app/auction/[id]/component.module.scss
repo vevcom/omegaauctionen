@@ -1,3 +1,5 @@
+@use "@/styles/ohma";
+
 .objectPage {
     color:auto;
     width:100%;
@@ -26,7 +28,7 @@
 
     
     background-color: var(--foreground);
-    color: var(--background);
+    color: ohma.$background-color;
 }
 .committeeHeading img {
     height: 95%;
@@ -105,7 +107,7 @@
     font-size:60%;
     margin-top:5vh;
 } .input {
-    background-color: var(--background);
+    background-color: ohma.$background-color;
     color: var(--foreground);
 
     margin-bottom:1vh;
@@ -117,7 +119,7 @@
     font-size:inherit;
 } .button {
     background-color: var(--foreground);
-    color:var(--background);
+    color:ohma.$background-color;
     height:15vw;
     width:65vw;
 
@@ -195,4 +197,10 @@
     border-radius: 0.3em;
     padding: 1em;
     margin: auto;
+}
+
+
+.notLoggedInText{
+    font-size: 5vh;
+    margin-block: 5vh;
 }

@@ -37,7 +37,7 @@ export default function Hansafight() {
     }, [reload])
     
     if (!hasLoaded) {
-        return <p>Laster inn. Hs må gå</p>
+        return <p>Laster...</p>
     }
     
     const now = new Date()

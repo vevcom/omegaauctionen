@@ -21,7 +21,7 @@ export default function App() {
     return (
         <div>
             <h1 className={style.headLine}>Kjøp live!</h1>
-            <h3 className={style.promoText}> Oi oi oi. Det selges ting live! Da kan du møte opp og by live! Akkurat som storage wars!(Omega gir ingen garanti på liveauksjonens likhet til det amerikanske TV-programmet storage wars). Møt opp i EL5. Livesalgene går i fire puljer.
+            <h3 className={style.promoText}> Oi oi oi. Det selges ting live! Da kan du møte opp og by live! Akkurat som storage wars!(Omega gir ingen garanti på liveauksjonens likhet til det amerikanske TV-programmet storage wars). Møt opp i EL5.
 
                 {/* <br></br>
                 Pulje 1: __tid__
@@ -32,7 +32,7 @@ export default function App() {
                 <br></br>
                 Pulje 4: __tid__ */}
             </h3>
-            {allPages.length === 0 ? <p className={style.tekst}>HS må gå</p> : <div>
+            {allPages.length === 0 ? <p className={style.tekst}>Laster...</p> : <div>
             <div className={style.buttonContainer}>
                 <button className={style.knapp} onClick={() => setPageNumber((prev) => Math.max(0, prev - 1))}>Forrige</button>
                 <p className={style.sidetall}>{pageNumber + 1}/{allPages.length}</p>

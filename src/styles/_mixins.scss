@@ -1,0 +1,75 @@
+@use "_colors";
+@use "_variables";
+@use "_fonts";
+@use "sass:color";
+
+@mixin round {
+    border-radius: variables.$rounding;
+    padding: variables.$rounding;
+}
+
+@mixin card {
+    border-radius: variables.$cardRounding;
+    padding: variables.$cardPadding;
+}
+
+@mixin boxShadow {
+    box-shadow: colors.$gray-700 0 0 10px;
+}
+
+@mixin screenMobile {
+    @media (max-width: variables.$mobileBreakpoint) {
+        @content;
+    }
+}
+
+@mixin screenLg {
+    @media (min-width: calc(variables.$mobileBreakpoint + 1px)) {
+        @content;
+    }
+}
+
+
+@mixin btn($color: colors.$button-color) {
+    text-align: center;
+    text-decoration: none;
+    font-size: fonts.$m;
+    background: $color;
+    padding: 2*variables.$gap;
+    margin: variables.$gap;
+    color: colors.$black;
+    border: none;
+    transition: .5s background;
+    &:hover {
+        background-color: color.adjust($color, $lightness: -10%);
+        cursor: pointer;
+    }
+    @include round;
+}
+
+@mixin dropDown($color: colors.$button-color) {
+    text-align: center;
+    text-decoration: none;
+    font-size: fonts.$m;
+    background: $color;
+    padding: 2*variables.$gap;
+    margin: variables.$gap;
+    color: colors.$black;
+    border: none;
+    transition: .5s background;
+    &:hover {
+        background-color: color.adjust($color, $lightness: -10%);
+        cursor: pointer;
+    }
+    @include round;
+}
+
+
+@keyframes rotate {
+    0% {
+        transform: translate(0) rotate(0deg);
+    }
+    100% {
+        transform: translate(250%) rotate(5deg);
+    }
+}

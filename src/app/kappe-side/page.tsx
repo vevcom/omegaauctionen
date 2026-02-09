@@ -58,5 +58,5 @@ function KappeSide() {
 }
 
 export default function KappeSideWrapper() {
-    return <Suspense fallback="Laster inn..."><KappeSide /></Suspense>
+    return <Suspense fallback="Laster..."><KappeSide /></Suspense>
 }
