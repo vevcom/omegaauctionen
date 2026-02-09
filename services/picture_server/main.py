@@ -7,7 +7,8 @@ import uuid
 app = Flask(__name__)
 
 # Directory to save uploaded images
-UPLOAD_FOLDER = 'uploads'
+dir_path = os.path.dirname(os.path.realpath(__file__))
+UPLOAD_FOLDER = dir_path + '/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Configure upload folder
