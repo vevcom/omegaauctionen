@@ -1,16 +1,16 @@
 @use "@/styles/ohma";
 
 .card {
-    @include ohma.round;
+    border-radius: calc(8px + 1rem);
     @include ohma.boxShadow;
-    width: 100%;
+    width: 400px;
     // background: adjust-color(ohma.$content-color, $lightness: -20%);
     background: ohma.$content-color;
     aspect-ratio: 5/6;
     display: grid;
     grid-template-rows: 2fr 8fr;
     padding: 0px;
-    margin-block: 2%;
+    // margin-block: 2%;
 }
 
 .titleContainer {
@@ -36,6 +36,8 @@
     height: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    background-color: white;
+    border-radius: 100%;
 }
 
 .committeeImg {
@@ -54,19 +56,24 @@
 }
 
 .auctionImage {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+    width: 95%;
+    height: 97%;
+    max-width: 95%;
+    max-height: 97%;
     object-fit: cover;
     @include ohma.round;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    // border-top-left-radius: 0px;
+    // border-top-right-radius: 0px;
     padding: 0px;
+    // box-shadow: inset 2px 2px 20px black;
 }
 
 @include ohma.screenMobile {
     .card {
         aspect-ratio: 5/7;
     }
+}
+
+.name{
+    color: ohma.$accent-color;
 }

@@ -87,31 +87,33 @@
     @include ohma.screenMobile{
         height:6.5vh;
         font-size:4.5vw;
-        width:100%;
+        width:90%;
         display:flex;
         align-items: center;
         text-align:center;
-        justify-content: center;
-        position:relative;
+        justify-content: space-evenly;
+        position:fixed;
+        left: 1rem;
+        top:calc(100dvh - 6.5vh - 1rem);
+        background-color: ohma.$content-color;
+        @include ohma.round;
         overflow:hidden;
     }
 }
 
-.navbar::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px; 
-    background: linear-gradient(to right, ohma.$background-color 25%, black 25%, black 75%, ohma.$background-color 75%);
-  }
+.currentPage {
+    color: ohma.$accent-color;
+}
+.notCurrentPage {
+    color: white;
+}
 
 .navbarItems {
     font-family: 'Josefin Sans', sans-serif;
     padding: 3%;
     text-align: center;
     align-items:center;
+    width: 120px;
 }
 
 .navbarItems:hover {
