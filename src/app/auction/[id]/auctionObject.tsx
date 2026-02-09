@@ -122,7 +122,7 @@ function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape, currentPric
 }) {
   if (!isTime) {
     return (
-      <h2 className={style.buyPanelText}>Salget starter 03.20.2025 12:00 og slutter {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>
+      <h2 className={style.buyPanelText}>Salget starter 05.03.2026 12:00 og slutter {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>
     )
   }
 
@@ -160,7 +160,7 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
   } | null>
     (null)
   const committeeLogotoLink = getLogo(object.committee);
-  const auksjonsDate = "2025-03-20T11:00:00.000Z"
+  const auksjonsDate = "2026-03-05T11:00:00.000Z"
 
   useEffect(() => {
     async function fetchData() {
@@ -252,7 +252,7 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
         {isTime ? <CurrentPrice price={currentPrice}></CurrentPrice> : null}
         <div className={style.description}>{object.description}</div>
 
-        {(isTime && isLoggedIn) ? <BidPanel currentPrice={currentPrice} object={currentObject}></BidPanel> : <h2>Budrunden starter 03.20.2025 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
+        {(isTime && isLoggedIn) ? <BidPanel currentPrice={currentPrice} object={currentObject}></BidPanel> : <h2>Budrunden starter 05.03.2026 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
         {(isTime && !isLoggedIn)
           ?
           <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>

@@ -22,8 +22,8 @@ export default function Hansafight() {
             console.log(prices)
 
             const now = new Date()
-            const start = new Date("2025-03-20T16:00:00.000Z")
-            const end = new Date("2025-03-20T22:00:00.000Z")
+            const start = new Date("2026-03-05T16:00:00.000Z")
+            const end = new Date("2026-03-05T22:00:00.000Z")
             if (now>start){
                 if (now<end){
                     setIsTime(true)
@@ -41,8 +41,8 @@ export default function Hansafight() {
     }
     
     const now = new Date()
-    const start = new Date("2025-03-20T16:00:00.000Z")
-    const end = new Date("2025-03-20T22:00:00.000Z")
+    const start = new Date("2026-03-05T16:00:00.000Z")
+    const end = new Date("2026-03-05T22:00:00.000Z")
     if (!isTime) {
         if (now>end){
             return <p className={styles.title}>Det er desverre over for å år.Poengene ble: <br></br>  For Hansa {prices[0]} stemmer <br></br> mot Hansa: {prices[1]} stemmer</p>

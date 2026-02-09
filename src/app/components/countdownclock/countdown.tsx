@@ -7,7 +7,7 @@ export default function CountdownClock() {
     const [timeLeft, setTimeLeft] = useState([0, 0, 0, 0]);
 
     useEffect(() => {
-        const countDownDate = new Date("Mar 20, 2025 12:00:00").getTime();
+        const countDownDate = new Date("Mar 5, 2026 12:00:00").getTime();
 
         const updateCountdown = () => {
             const now = new Date().getTime();
@@ -33,14 +33,14 @@ export default function CountdownClock() {
     }, []);
 
     const now = new Date()
-    const start = new Date("2025-03-20T16:00:00.000Z")
-    const end = new Date("2025-03-20T22:00:00.000Z")
+    const start = new Date("2025-03-05T16:00:00.000Z")
+    const end = new Date("2026-03-05T22:00:00.000Z")
     if (now > start || now < end) {
 
         return (
 
             <div className={style.countdowncomponent}>
-                <div className={`${style.countdowntitle}`}>Velkommen til Omegaauctionen 2025!</div>
+                <div className={`${style.countdowntitle}`}>Velkommen til Omegaauctionen 2026!</div>
             </div>
         )
     }
@@ -49,14 +49,14 @@ export default function CountdownClock() {
         return (
 
             <div className={style.countdowncomponent}>
-                <div className={`${style.countdowntitle}`}>Omegaauctionen 2025 er dessverre over for i år</div>
+                <div className={`${style.countdowntitle}`}>Omegaauctionen 2026 er dessverre over for i år</div>
             </div>
         )
     }
 
     return (
         <div className={style.countdowncomponent}>
-            <div className={`${style.countdowntitle}`}>Omegaauctionen 2025<br></br> starter om</div>
+            <div className={`${style.countdowntitle}`}>Omegaauctionen 2026<br></br> starter om</div>
 
             <div className={style.clockcontainer}>
                 {["Dager", "Timer", "Minutter", "Sekunder"].map((unit, index) => (

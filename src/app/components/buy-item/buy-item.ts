@@ -36,7 +36,7 @@ export default async function buy_item(saleObjectID: number) {
     }
 
     const now = new Date()
-    const openingDate = new Date("2025-03-20T11:00:00.000Z")
+    const openingDate = new Date("2026-03-05T11:00:00.000Z")
     const currentSaleTime = saleItem.currentSaleTime
     if (now > currentSaleTime) {
         return "Sale is over";
