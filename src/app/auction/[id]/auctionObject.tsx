@@ -18,6 +18,7 @@ import HighestBidder from "@/app/components/highestBidder/highestBidder";
 import get_user_info from "@/app/components/getUSerInfo/getUserinfo";
 import { getLogo } from "@/app/logos/logos";
 import { is_logged_in } from "@/app/components/get-user-login/get-user-login";
+import CollapsibleSection from "@/app/components/collapsible-section/collapsible-section";
 
 
 
@@ -82,27 +83,33 @@ function BidPanel({ object, currentPrice }: { object: AuksjonsObjekt, currentPri
   }
 
   return (
-    <form className={style.form}
-      action={(e) => {
-        tryPlaceBid(e);
-      }}>
-      <input
-        className={style.input}
-        type="number"
-        placeholder="Skriv inn bud"
-        name="bidAmountInKRONER"
-        step="any"
-        min={currentPrice + 10}
-        required
-        onKeyDown={(e) => {
-          if (["+", "-", "e", "E"].includes(e.key)) {
-            e.preventDefault();
-          }
-        }}
-      />
-      <button className={style.button} type="submit">Legg inn bud</button>
-      <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
-    </form>)
+    <div className={style.bidPanelContainer}>
+      <p className={style.currentPrice} >
+        Nåværende pris:  {currentPrice !== null ? (<b>{currentPrice} kr</b>) : <b> kr</b>}
+      </p>
+      <form className={style.form}
+        action={(e) => {
+          tryPlaceBid(e);
+        }}>
+        <input
+          className={style.input}
+          type="number"
+          placeholder="Skriv inn bud"
+          name="bidAmountInKRONER"
+          step="any"
+          min={currentPrice + 10}
+          required
+          onKeyDown={(e) => {
+            if (["+", "-", "e", "E"].includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
+        />
+        <button className={style.button} type="submit">Legg inn bud</button>
+        <PopUpBox text={popUpText} isActive={popUpOn}></PopUpBox>
+      </form>
+    </div>
+  )
 }
 
 async function buy(object: AuksjonsObjekt, setHasBoughtCape: Dispatch<SetStateAction<boolean>>, currentPrice: number) {
@@ -249,19 +256,36 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
         <div className={style.imagecontainer}>
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        {isTime ? <CurrentPrice price={currentPrice}></CurrentPrice> : null}
-        <div className={style.description}>{object.description}</div>
-
         {(isTime && isLoggedIn) ? <BidPanel currentPrice={currentPrice} object={currentObject}></BidPanel> : <h2>Budrunden starter 05.03.2026 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
         {(isTime && !isLoggedIn)
           ?
           <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
           :
           <></>
-          }
+        }
+        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+        <CollapsibleSection
+          content={<div className={style.description}>{object.description}</div>}
+          defaultOpen={false}
+          title="Beskrivelse"
+        >
+        </CollapsibleSection>
+
+
       </div>
-      {isTime ? <HighestBidder reload={reload} objectId={currentObject.id}></HighestBidder> : null}
-      <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+      {isTime
+        ?
+        <CollapsibleSection
+          content={
+            <HighestBidder reload={reload} objectId={currentObject.id}>
+            </HighestBidder>
+          }
+          defaultOpen={false}
+          title="Nylige bud"
+        >
+        </CollapsibleSection>
+        :
+        null}
       {(isAdmin && userInfo) ? <UserObject userInfo={userInfo}></UserObject> : null}
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
@@ -308,16 +332,16 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
         {isLoggedIn
           ?
           <BuyPanel
-          currentPrice={currentPrice}
-          setHasBoughtCape={setHasBoughtCape}
-          hasBoughtCape={hasBoughtCape}
-          isTime={isTime}
-          object={currentObject}>
+            currentPrice={currentPrice}
+            setHasBoughtCape={setHasBoughtCape}
+            hasBoughtCape={hasBoughtCape}
+            isTime={isTime}
+            object={currentObject}>
 
           </BuyPanel>
           :
           <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
-          }
+        }
 
         <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
 

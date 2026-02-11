@@ -1,11 +1,8 @@
+@use "@/styles/ohma";
+
 .descriptionBox>textarea {
     width: auto;
 
-}
-
-.auctionImage {
-    width: 20%;
-    height: auto;
 }
 
 .inputBoxes {
@@ -30,10 +27,25 @@
 
 
 .mainDiv {
-    /* background-color: brown; */
-    margin: auto;
-    margin-block: 10rem;
-    width: 90%;
+    margin-block: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+
+@include ohma.screenMobile {
+    .mainDiv {
+        margin-block: 2rem;
+        display: block;
+    }
+}
+
+
+
+
+.inputSection {
+    width: 100%;
 }
 
 /* this css is made with chat gpt */
@@ -54,8 +66,8 @@
 .inputBoxes input:focus,
 .inputBoxes textarea:focus {
     outline: none;
-    border-color: #53aaa3;
-    box-shadow: 0px 0px 12px #36706bcc;
+    border-color: ohma.$accent-color;
+    box-shadow: 0px 0px 12px ohma.$accent-color;
     background: linear-gradient(145deg, #ffffff, #f1f1f1);
 }
 
@@ -71,7 +83,7 @@
 
 .inputBoxes input:focus+label,
 .inputBoxes textarea:focus+label {
-    color: #64cec5;
+    color: ohma.$accent-color;
 }
 
 /* Button styling */
@@ -103,14 +115,6 @@
     box-shadow: 0px 0px 12px #36706b62;
 }
 
-
-.mainDiv {
-    background-color: rgba(255, 255, 255, 0.7);
-    width: 80%;
-    padding: 3%;
-    border: black solid 3px;
-    border-radius: 1%;
-}
 
 /* CSS for the overlay grid */
 .full-page-grid {
@@ -170,7 +174,7 @@
     font-size: 1em;
     order: 1px solid #ccc;
     display: inline-block;
-    
+
     cursor: pointer;
 }
 

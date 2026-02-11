@@ -1,0 +1,42 @@
+@use "@/styles/ohma";
+
+.container {
+    text-align: left;
+    margin-block: 50px;
+    margin-inline: 10%;
+}
+
+
+.arrow {
+    display: inline-block;
+    width: 3rem;
+    height: auto;
+    vertical-align: text-top;
+
+}
+
+.title {
+    display: inline-block;
+    vertical-align: text-top;
+    font-size: 3rem;
+}
+
+.right {
+    rotate: 90deg;
+}
+
+.down {
+    rotate: 180deg;
+}
+
+
+@include ohma.screenMobile {
+    .arrow {
+        width: 1rem;
+    }
+    
+    .title {
+        font-size: 1rem;
+    }
+
+}
