@@ -1,6 +1,5 @@
 from flask import Flask, request, send_from_directory, jsonify
 import os
-import random as rd
 import uuid
 
 # Initialize Flask app
