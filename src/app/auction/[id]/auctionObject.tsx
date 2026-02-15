@@ -12,7 +12,6 @@ import buy_item from "@/app/components/buy-item/buy-item";
 import PopUpBox from "@/app/components/popUp/popUp"
 import placeBid from "@/app/components/place-bid-func/place-bid-func";
 import getObjectById from "@/app/components/get-object-from-id/get-object-from-id";
-import CurrentPrice from "@/app/components/currentPrice/currentPrice";
 import has_bought_cape from "@/app/components/has-bought-cape/has-bought-cape";
 import HighestBidder from "@/app/components/highestBidder/highestBidder";
 import get_user_info from "@/app/components/getUSerInfo/getUserinfo";
@@ -21,6 +20,8 @@ import { is_logged_in } from "@/app/components/get-user-login/get-user-login";
 import CollapsibleSection from "@/app/components/collapsible-section/collapsible-section";
 
 
+
+type setUseStateBool = Dispatch<SetStateAction<boolean>>;
 
 
 function UserObject({ userInfo }: {
@@ -85,7 +86,7 @@ function BidPanel({ object, currentPrice }: { object: AuksjonsObjekt, currentPri
   return (
     <div className={style.bidPanelContainer}>
       <p className={style.currentPrice} >
-        Nåværende pris:  {currentPrice !== null ? (<b>{currentPrice} kr</b>) : <b> kr</b>}
+        {currentPrice !== null ? (<b>{currentPrice} kr</b>) : <b> kr</b>}
       </p>
       <form className={style.form}
         action={(e) => {
@@ -112,7 +113,7 @@ function BidPanel({ object, currentPrice }: { object: AuksjonsObjekt, currentPri
   )
 }
 
-async function buy(object: AuksjonsObjekt, setHasBoughtCape: Dispatch<SetStateAction<boolean>>, currentPrice: number) {
+async function buy(object: AuksjonsObjekt, setHasBoughtCape: setUseStateBool, currentPrice: number) {
   if (!confirm("Vil du kjøpe til" + (currentPrice).toString() + "kr?")) {
     return;
   }
@@ -125,7 +126,7 @@ async function buy(object: AuksjonsObjekt, setHasBoughtCape: Dispatch<SetStateAc
 }
 
 function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape, currentPrice }: {
-  object: AuksjonsObjekt, hasBoughtCape: boolean, isTime: boolean, setHasBoughtCape: Dispatch<SetStateAction<boolean>>, currentPrice: number
+  object: AuksjonsObjekt, hasBoughtCape: boolean, isTime: boolean, setHasBoughtCape: setUseStateBool, currentPrice: number
 }) {
   if (!isTime) {
     return (
@@ -150,6 +151,73 @@ function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape, currentPric
     <button className={style.buyButton} onClick={() => buy(object, setHasBoughtCape, currentPrice)}>Kjøp for {currentPrice}kr</button>
   )
 
+}
+
+function PurchasePanel(
+  { object,
+    currentPrice,
+    isTime,
+    isLoggedIn,
+    hasBoughtCape,
+    setHasBoughtCape
+  }
+    :
+    {
+      object: AuksjonsObjekt,
+      currentPrice: number,
+      isTime: boolean,
+      isLoggedIn: boolean,
+      hasBoughtCape: boolean,
+      setHasBoughtCape: setUseStateBool
+    }) {
+  if (object.type == "AUKSJON") {
+    return (
+      <div>
+        {(isTime && isLoggedIn)
+          ?
+          <BidPanel currentPrice={currentPrice} object={object}></BidPanel>
+          :
+          <h2>
+            Budrunden starter 05.03.2026 12:00 og slutter
+            {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}
+          </h2>}
+        {
+          (isTime && !isLoggedIn)
+            ?
+            <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
+            :
+            <></>
+        }
+        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+      </div>
+    )
+  }
+  if (object.type == "SALG") {
+    return (
+      <div>
+        <h2 className={style.capesLeftText}>{object.stock} kapper igjen!</h2>
+        {
+          isLoggedIn
+            ?
+            <BuyPanel
+              currentPrice={currentPrice}
+              setHasBoughtCape={setHasBoughtCape}
+              hasBoughtCape={hasBoughtCape}
+              isTime={isTime}
+              object={object}>
+
+            </BuyPanel>
+            :
+            <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
+        }
+
+        <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
+      </div>
+    )
+  }
+  if (object.type == "LIVE") {
+    return;
+  }
 }
 
 
@@ -244,26 +312,33 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
       <h1>Du har ikke tilgang. Dette objektet er ikke godkjent.</h1>
     )
   }
-  if (itemType == AuksjonsObjektType.AUKSJON) {
-    return (<div className={style.objectPage}>
+
+
+  return (
+    <div className={style.objectPage}>
       <div className={style.objectHeading}>
-        {committeeLogotoLink != "" &&
-          (<div className={style.committeeHeading}>
+        {object.committee != "NOTCOM" ?
+          <div className={style.committeeHeading}>
             <div className={style.committeeName}>{currentObject.committee}</div>
-            <img src={committeeLogotoLink}></img>
-          </div>)}
-        <div className={style.title}>{currentObject.name}</div>
+            <img className={style.committeeLogo} src={committeeLogotoLink}></img>
+          </div>
+          :
+          null
+        }
+        <div className={style.title}>{currentObject.name} </div>
         <div className={style.imagecontainer}>
           <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
         </div>
-        {(isTime && isLoggedIn) ? <BidPanel currentPrice={currentPrice} object={currentObject}></BidPanel> : <h2>Budrunden starter 05.03.2026 12:00 og slutter {currentObject.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>}
-        {(isTime && !isLoggedIn)
-          ?
-          <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
-          :
-          <></>
-        }
-        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+        <PurchasePanel
+          object={currentObject}
+          currentPrice={currentPrice}
+          isLoggedIn={isLoggedIn}
+          isTime={isTime}
+          hasBoughtCape={hasBoughtCape}
+          setHasBoughtCape={setHasBoughtCape}
+        >
+        </PurchasePanel>
+
         <CollapsibleSection
           content={<div className={style.description}>{object.description}</div>}
           defaultOpen={false}
@@ -273,7 +348,7 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
 
 
       </div>
-      {isTime
+      {isTime && (currentObject.type == "AUKSJON")
         ?
         <CollapsibleSection
           content={
@@ -289,69 +364,6 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
       {(isAdmin && userInfo) ? <UserObject userInfo={userInfo}></UserObject> : null}
       {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
       {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
-    </div>)
-  }
-
-  if (itemType == AuksjonsObjektType.LIVE) {
-    return (<div className={style.objectPage}>
-      <div className={style.objectHeading}>
-        {committeeLogotoLink != "" &&
-          (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{currentObject.committee}</div>
-            <img src={committeeLogotoLink}></img>
-          </div>)}
-        <div className={style.title}>{currentObject.name}</div>
-        <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
-        </div>
-        <div className={style.description}>{currentObject.description}</div>
-      </div>
-
-      {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
-      {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
-    </div>)
-  }
-
-
-
-
-  if (itemType == AuksjonsObjektType.SALG) {
-    return (<div className={style.objectPage}>
-      <div className={style.objectHeading}>
-        {committeeLogotoLink != "" &&
-          (<div className={style.committeeHeading}>
-            <div className={style.committeeName}>{currentObject.committee}</div>
-            <img src={committeeLogotoLink}></img>
-          </div>)}
-        <div className={style.title}>{currentObject.name}</div>
-        <div className={style.imagecontainer}>
-          <ImageFromFileName style={style.auctionImage} filename={currentObject.imageName}></ImageFromFileName>
-        </div>
-        <div className={style.description}>{currentObject.description}</div>
-        <h2 className={style.capesLeftText}>{currentObject.stock} kapper igjen!</h2>
-        {isLoggedIn
-          ?
-          <BuyPanel
-            currentPrice={currentPrice}
-            setHasBoughtCape={setHasBoughtCape}
-            hasBoughtCape={hasBoughtCape}
-            isTime={isTime}
-            object={currentObject}>
-
-          </BuyPanel>
-          :
-          <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
-        }
-
-        <div className={style.note}><b>*MERK*</b> Alle kjøp er binnende</div>
-
-        {(isAdmin && (currentObject.approved)) ? <DeleteButton objectId={currentObject.id} ></DeleteButton> : null}
-        {(isAdmin && (!currentObject.approved)) ? <ApproveButton objectId={currentObject.id} ></ApproveButton> : null}
-
-      </div>
-
     </div>
-    )
-  }
+  )
 }
-

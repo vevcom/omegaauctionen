@@ -14,13 +14,13 @@ export default function CollapsibleSection({ content, title, defaultOpen = true 
     }
     return (
         <div className={styles.container}>
-            <div>
+            <div className={styles.toggleDiv} onClick={() => (toggle())}>
                 <img
                     className={`${styles.arrow} ${isExpanded ? styles.down : styles.right}`}
                     width="20px"
                     height="20px"
                     src="/expandArrow.svg"
-                    onClick={() => (toggle())}>
+                >
 
                 </img>
                 <h3 className={styles.title}>{title}</h3>
