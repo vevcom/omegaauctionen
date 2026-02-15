@@ -7,19 +7,19 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 
 async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<number>>) {
-    const trekkLoddName = "trekkLodd"
-    const moneyMadeFromTrekkLodd = 25
-    const response = await increment_manual_money_registration(trekkLoddName,moneyMadeFromTrekkLodd)
+    const bongName = "drinkingbong"
+    const moneyMadeFromBong = 30
+    const response = await increment_manual_money_registration(bongName,moneyMadeFromBong)
     if (!response){
         alert("noe gikk galt! prøv igjen")
         return;
     }
-    setBongsSold(response.amountSold)
+    setBongsSold(response.amountSold/moneyMadeFromBong)
 }
 
 export default function App() {
     const [loadminiadminPage, setloadminiadminPage] = useState(false);
-    const [loddSold, setLoddSold] = useState(0);
+    const [bongsSold, setBongsSold] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -32,10 +32,10 @@ export default function App() {
     if (loadminiadminPage) {
         return (
             <div className={style.mainDiv}>
-                <h1 className={style.title}> Dere har solgt {loddSold} lodd! Forsett sånn!</h1>
+                <h1 className={style.title}> Dere har solgt {bongsSold} drikkebonger! Forsett sånn!</h1>
                 <br></br>
                 <div className={style.buttonHolder}>
-                <button className={style.bongBtn} onClick={e => placeBong(setLoddSold)}>Noen har kjøpt lodd</button>
+                <button className={style.bongBtn} onClick={e => placeBong(setBongsSold)}>Noen har kjøpt bong</button>
                 </div>
 
                 <h1><b>!MERK!</b> bare for statestikk! Må ikke brukes for ekte pengehåndtering</h1>
