@@ -33,7 +33,7 @@ export default function CountdownClock() {
     }, []);
 
     const now = new Date()
-    const start = new Date("2025-03-05T16:00:00.000Z")
+    const start = new Date("2026-03-05T16:00:00.000Z")
     const end = new Date("2026-03-05T22:00:00.000Z")
     if (now > start || now < end) {
 

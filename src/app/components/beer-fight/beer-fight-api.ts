@@ -2,7 +2,6 @@
 
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
-import { connect } from "http2";
 
 function validObject(object:string) {
     if (object == "Hansa" || object == "IkkeHansa") {return true;}
@@ -23,13 +22,13 @@ async function getPrice(object:string) {
     if (!beerObject) {
         return false;
     }
-    return beerObject.currentPriceOre;
+    return beerObject.startPrice;
 }
 export async function getPrices() {
     let hansa = await getPrice("Hansa");
     let ikkehansa = await getPrice("IkkeHansa");
-    if (!hansa || !ikkehansa) {return [0,0];}
-    return ([hansa,ikkehansa]);
+    if (!hansa || !ikkehansa) {return [0,0,69];}
+    return ([hansa,ikkehansa,67]);
 }
 
 export async function beerToServer (
@@ -75,10 +74,9 @@ export async function beerToServer (
             data: {
                 description: "DONOTAPPROVE",
                 name: objectname,
-                startPriceOre: price,
-                currentPriceOre: price,
+                startPrice:price,
                 approved: false,
-                stock: 0,
+                stock: price,
                 
             }
         })
@@ -88,18 +86,18 @@ export async function beerToServer (
         }
     }
     else {
-        let newprice = price + beerObject.currentPriceOre;
+        let newprice = price + beerObject.startPrice;
         await prisma.auksjonsObjekt.update({
             where: {id:beerObject.id},
             data: {
-                currentPriceOre:{increment:price},
-                startPriceOre:{increment:price},
+                startPrice:{increment:price},
+                stock:{increment:price},
             }
         })
     }
     const bud = await prisma.bid.create({
         data: {
-            priceOre:price,
+            price:price,
             auctionObject:{
                 connect:{
                     id:beerObject.id,

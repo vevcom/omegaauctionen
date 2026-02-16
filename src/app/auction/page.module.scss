@@ -2,13 +2,10 @@
 
 .button {
     @include ohma.btn();
-    @include ohma.boxShadow;
-    // width: 10%;
 }
 
 .dropDown {
     @include ohma.dropDown();
-    @include ohma.boxShadow;
 }
 
 

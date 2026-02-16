@@ -29,22 +29,38 @@
     }
 }
 
+@mixin neumorphism($bg,
+    $distance: 12px,
+    $blur: 24px,
+    $intensity: 12%) {
+    background: $bg;
+
+    box-shadow: #{$distance} #{$distance} #{$blur} color-mix(in srgb, $bg, black $intensity),
+    -#{$distance} -#{$distance} #{$blur} color-mix(in srgb, $bg, white $intensity);
+
+    &:active, &.is-pressed {
+        box-shadow: inset #{$distance} #{$distance} #{$blur} color-mix(in srgb, $bg, black $intensity),
+        inset -#{$distance} -#{$distance} #{$blur} color-mix(in srgb, $bg, white $intensity);
+    }
+
+}
 
 @mixin btn($color: colors.$button-color) {
-    text-align: center;
-    text-decoration: none;
-    font-size: fonts.$m;
-    background: $color;
-    padding: 2*variables.$gap;
-    margin: variables.$gap;
-    color: colors.$black;
-    border: none;
-    transition: .5s background;
+    @include neumorphism($color);
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    cursor: pointer;
+    border: 1px solid $color;
+    transition: all 0.3s;
+
+
     &:hover {
-        background-color: color.adjust($color, $lightness: -10%);
-        cursor: pointer;
+        color: colors.$accent-color;
     }
-    @include round;
+
+
 }
 
 @mixin dropDown($color: colors.$button-color) {
@@ -55,12 +71,15 @@
     padding: 2*variables.$gap;
     margin: variables.$gap;
     color: colors.$black;
-    border: none;
+    border: 2;
     transition: .5s background;
+    border: colors.$gray-700 solid 2px;
+
     &:hover {
         background-color: color.adjust($color, $lightness: -10%);
         cursor: pointer;
     }
+
     @include round;
 }
 
@@ -69,6 +88,7 @@
     0% {
         transform: translate(0) rotate(0deg);
     }
+
     100% {
         transform: translate(250%) rotate(5deg);
     }

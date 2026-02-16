@@ -10,7 +10,7 @@ function CardContent({ auctionItem }: { auctionItem: AuksjonsObjectWithPrice }) 
     const committeeLogoSrc = getLogo(auctionItem.committee)
 
     function cutOffName(name: string) {
-        const maxLengthCharacters = 69;
+        const maxLengthCharacters = 24;
         if (name.length > maxLengthCharacters) {
             return name.substring(0, maxLengthCharacters) + "..."
         }

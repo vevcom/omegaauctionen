@@ -13,7 +13,6 @@
 
 .knapp {
     @include ohma.btn();
-    @include ohma.boxShadow;
 }
 
 .buttonContainer {

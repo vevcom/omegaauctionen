@@ -10,7 +10,7 @@ import styles from "./page.module.scss"
 
 export default function Hansafight() {
     // Hansa at index 0, ikkeHansa at index 1
-    const [prices, setPrices] = useState([0, 0])
+    const [prices, setPrices] = useState([0, 0, 68])
     const [hasLoaded, setHasLoaded] = useState(false)
     const [reload, setReload] = useState(false)
     const [isTime, setIsTime] = useState(false)
@@ -19,38 +19,38 @@ export default function Hansafight() {
             const priceResponse = await getPrices()
             setPrices(priceResponse)
             setHasLoaded(true)
-            console.log(prices)
+            console.log(priceResponse)
 
             const now = new Date()
             const start = new Date("2026-03-05T16:00:00.000Z")
             const end = new Date("2026-03-05T22:00:00.000Z")
-            if (now>start){
-                if (now<end){
+            if (now > start) {
+                if (now < end) {
                     setIsTime(true)
-                    
+
                 }
             }
-            
+
             // setIsTime(true)
         }
         loadPrices()
     }, [reload])
-    
+
     if (!hasLoaded) {
         return <p>Laster...</p>
     }
-    
+
     const now = new Date()
     const start = new Date("2026-03-05T16:00:00.000Z")
     const end = new Date("2026-03-05T22:00:00.000Z")
     if (!isTime) {
-        if (now>end){
+        if (now > end) {
             return <p className={styles.title}>Det er desverre over for å år.Poengene ble: <br></br>  For Hansa {prices[0]} stemmer <br></br> mot Hansa: {prices[1]} stemmer</p>
         }
-        if (now <start){
+        if (now < start) {
             return <p className={styles.title}>Det åpner ikke før 17:00</p>
         }
-        
+
     }
 
     if (prices[0] > prices[1]) {
