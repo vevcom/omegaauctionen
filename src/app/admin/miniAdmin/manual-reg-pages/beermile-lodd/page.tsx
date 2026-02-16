@@ -15,7 +15,7 @@ async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number
         alert("noe gikk galt! prøv igjen")
         return;
     }
-    setLoddSold(response.amountSold)
+    setLoddSold(response.amountSold/moneyMadeFromBeermileLodd)
 }
 
 export default function App() {

@@ -6,20 +6,21 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 
 
-async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<number>>) {
-    const bongName = "drinkingbong"
-    const moneyMadeFromBong = 30
-    const response = await increment_manual_money_registration(bongName,moneyMadeFromBong)
+
+async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number>>,amount:number) {
+    const lykkeHjulName = "lykkehjulPenger"
+    const moneyMadeFromSpins = 25
+    const response = await increment_manual_money_registration(lykkeHjulName,moneyMadeFromSpins*amount,amount)
     if (!response){
         alert("noe gikk galt! prøv igjen")
         return;
     }
-    setBongsSold(response.amountSold)
+    setLoddSold(response.amountSold/moneyMadeFromSpins)
 }
 
 export default function App() {
     const [loadminiadminPage, setloadminiadminPage] = useState(false);
-    const [bongsSold, setBongsSold] = useState(0);
+    const [spinsSold, setSpinsSold] = useState(0);
 
     useEffect(() => {
         async function fetchData() {
@@ -32,15 +33,15 @@ export default function App() {
     if (loadminiadminPage) {
         return (
             <div className={style.mainDiv}>
-                <h1 className={style.title}> Dere har solgt {bongsSold} drikkebonger! Forsett sånn!</h1>
+                <h1 className={style.title}> Dere har solgt {spinsSold} spin! Forsett sånn!</h1>
                 <br></br>
                 <div className={style.buttonHolder}>
-                <button className={style.bongBtn} onClick={e => placeBong(setBongsSold)}>Noen har kjøpt bong</button>
+                <button className={style.bongBtn} onClick={e => placeLodd(setSpinsSold,1)}>Noen har kjøpt 1 spin</button>
                 </div>
-
-                <h1><b>!MERK!</b> bare for statestikk! Må ikke brukes for ekte pengehåndtering</h1>
+                <h1><b>!MERK!</b> bare for stattestikk! Må ikke brukes for ekte pengehåndtering</h1>
             </div>
         );
     }
+
     return (<p>Du har ikke tilgang</p>)
 }
