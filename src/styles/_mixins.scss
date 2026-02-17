@@ -45,6 +45,17 @@
 
 }
 
+@mixin neumorphismStatic($bg,
+    $distance: 12px,
+    $blur: 24px,
+    $intensity: 12%) {
+    background: $bg;
+
+    box-shadow: #{$distance} #{$distance} #{$blur} color-mix(in srgb, $bg, black $intensity),
+    -#{$distance} -#{$distance} #{$blur} color-mix(in srgb, $bg, white $intensity);
+}
+
+
 @mixin btn($color: colors.$button-color) {
     @include neumorphism($color);
     color: #090909;
