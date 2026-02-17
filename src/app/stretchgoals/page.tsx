@@ -49,7 +49,6 @@ function Node({ goal, moneyMade, index }: { goal: (string | number)[], moneyMade
 
 export default async function Streachgoals() {
     const moneyMade = await get_money_made()
-    // const moneyMade = 8900
 
     return (
         <div>

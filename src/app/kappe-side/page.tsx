@@ -40,7 +40,7 @@ function KappeSide() {
         <div>
             <h1 className={style.headLine}>Kjøp kapper!</h1>
             <h3 className={style.promoText}>Kapper er megakule ikoner du kan kjøpe til veven! La alle se hvor kul du er og skaff deg en kappe du og. Alle vil se denne fete addisjonen til profilen din! Hva venter du på? Det går faktisk tomt! Skill deg ut, kjøp en kappe nå! </h3>
-            {allPages.length === 0 ? <p className={style.tekst}>Ingen ting å se her 🙈</p> : <div>
+            {allPages.length === 0 ? <p className={style.tekst}>Laster...</p> : <div>
             <div className={style.buttonContainer}>
                 <button className={style.knapp} onClick={prevPage}>Forrige</button>
                 <p className={style.sidetall}>{pageNumber + 1}/{allPages.length}</p>
