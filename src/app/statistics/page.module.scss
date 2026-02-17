@@ -1,5 +1,6 @@
+@use "@/styles/ohma";
+
 .titleCard {
-    background-color: var(--titleColor);
     width:100%;
     padding-top:10vh;
     padding:5vh;
@@ -108,19 +109,14 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
-    background-color: rgba(192,192,192,0.3);
-    
-    border: solid 1px rgba(192,192,192);
-    
-    
+    text-align: center;    
     margin-top: 50px;     //margin til Omegaauksjon, nederste svarte strek
     border-radius: 20px;
     margin-bottom: 100px;
 }
 
 .sum{
-    width: 90%;                      /* Setter bredden til 80% av viewportens bredde */
+    width: 70%;                      /* Setter bredden til 80% av viewportens bredde */
     margin: 0 auto;                   /* Sentrerer elementet horisontalt på skjermen */                                              
     display:flex;
     text-align: center;
@@ -129,13 +125,12 @@
 
     font-size: 10vw;
     font-family: roboto;
-    background-color: #64cec5;
+    background-color: ohma.$blue-color-300;
     
 
     
     margin-top: 2%;     //margin til Omegaauksjon, nederste svarte strek
     margin-bottom: 20px ;
-    
 }
 
 ///* Forstørrer boksen når du hover over */
