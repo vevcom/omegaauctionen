@@ -56,6 +56,12 @@
     background-color: ohma.$blue-color-400;
 }
 
+.heading {
+    font-size: 5em;
+    text-align: center;
+    margin-block: 1em;
+    font-weight: normal;
+}
 
 
 @include ohma.screenMobile {
@@ -65,11 +71,23 @@
     }
 
     .goalText {
-        font-size: 1em;
+        font-size: 0.9em;
     }
 
     .orb {
         width: 1em;
         height: 1em;
+    }
+
+    .dot {
+        width: 0.5em;
+        height: 0.5em;
+        margin-inline: calc(0.25em + 1em);
+        margin-top: 0.5em;
+    }
+
+    .heading {
+        font-size: 1.5em;
+        margin-block: 1em;
     }
 }

@@ -4,22 +4,22 @@ import get_money_made from "../components/get-money-made/get-money-made"
 import styles from "./page.module.scss"
 
 const streachgoalsList = [
-    [20000, "Hs går"],
-    [20000, "Hs går"],
-    [20000, "Hs går"],
-    [20000, "Hs går"],
-    [20000, "Hs går"],
-    [20000, "Hs går"],
-    [20000, "Hs går"],
-    [10000, "jeg går"],
-    [5000, "du går"],
-    [4000, "tur til epstein island"],
-    [1000, "Omega kjøper epstein island"],
+    [80000, "Amet ullamco esse voluptate in."],
+    [70000, "Minim aliquip irure tempor "],
+    [60000, "Velit elit deserunt nostrud id velit ea"],
+    [50000, "Pariatur qui consectetur sit non ex an"],
+    [40000, "Ullamco minim do ut anim anim."],
+    [30000, "Hs tar backflip"],
+    [20000, "Omega kjøper 2 hytter"],
+    [10000, "Badestamp"],
+    [5000, "Id commodo ad esse et consequat."],
+    [4000, "Omega kjøper smøre"],
+    [1000, "Nome kommer og tar backflip"],
 ].reverse()
 
 function Node({ goal, moneyMade, index }: { goal: (string | number)[], moneyMade: number, index: number }) {
     const currentGoal = goal.at(0) as number
-    let nextGoal = streachgoalsList.at(index + 1)?.at(0)
+    const nextGoal = streachgoalsList.at(index + 1)?.at(0)
     if (!nextGoal) {
         return (
             <div className={styles.node}>
@@ -33,14 +33,6 @@ function Node({ goal, moneyMade, index }: { goal: (string | number)[], moneyMade
     const stepOneNextGoal = currentGoal + (((nextGoal as number)-currentGoal)/4)
     const stepTwoNextGoal = currentGoal + ((((nextGoal as number)-currentGoal)/4)*2)
     const stepThreeNextGoal = currentGoal + ((((nextGoal as number)-currentGoal)/4)*3)
-
-    console.log(currentGoal)
-    console.log(nextGoal as number)
-    console.log(nextGoal as number-currentGoal)
-    console.log(stepOneNextGoal)
-    console.log(stepTwoNextGoal)
-    console.log(stepThreeNextGoal)
-    console.log("-----------------")
 
     return (
         <div className={styles.node}>
@@ -56,11 +48,12 @@ function Node({ goal, moneyMade, index }: { goal: (string | number)[], moneyMade
 }
 
 export default async function Streachgoals() {
-    // const moneyMade = await get_money_made()
-    const moneyMade = 8900
+    const moneyMade = await get_money_made()
+    // const moneyMade = 8900
 
     return (
         <div>
+            <h1 className={styles.heading}><b>{moneyMade}kr</b> tjent inn så langt!</h1>
             {streachgoalsList.map((goal, index) => (
                 <Node key={index} index={index} goal={goal} moneyMade={moneyMade}></Node>
             ))}
