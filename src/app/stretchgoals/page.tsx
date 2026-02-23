@@ -1,5 +1,3 @@
-"use Server"
-
 import get_money_made from "../components/get-money-made/get-money-made"
 import styles from "./page.module.scss"
 
@@ -47,7 +45,10 @@ function Node({ goal, moneyMade, index }: { goal: (string | number)[], moneyMade
     )
 }
 
+export const dynamic = 'force-dynamic'
+
 export default async function Streachgoals() {
+    "use server"
     const moneyMade = await get_money_made()
 
     return (
