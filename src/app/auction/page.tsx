@@ -46,15 +46,15 @@ function AuctionItemPage() {
   }, [orderBy, orderDirection]);
 
   if (allPages.length === 0) {
-    return <p>Ingen ting å se her 🙈 HS må gå</p>;
+        return <p>Laster...</p>
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.buttonContainer}>
-        <button className={styles.knapp} onClick={prevPage}>Forrige</button>
+        <button className={styles.button} onClick={prevPage}>Forrige</button>
         <p className={styles.sidetall}>{pageNumber + 1}/{allPages.length}</p>
-        <button className={styles.knapp} onClick={nextPage}>Neste</button>
+        <button className={styles.button} onClick={nextPage}>Neste</button>
       </div>
 
       <div className={styles.sortContainer}>
@@ -71,9 +71,9 @@ function AuctionItemPage() {
 
       <ItemsPageComponent allPages={allPages} currentPageNumber={pageNumber} />
       <div className={styles.buttonContainer}>
-        <button className={styles.knapp} onClick={prevPage}>Forrige</button>
+        <button className={styles.button} onClick={prevPage}>Forrige</button>
         <p className={styles.sidetall}>{pageNumber + 1}/{allPages.length}</p>
-        <button className={styles.knapp} onClick={nextPage}>Neste</button>
+        <button className={styles.button} onClick={nextPage}>Neste</button>
       </div>
     </div>
   );
@@ -81,5 +81,5 @@ function AuctionItemPage() {
 
 // A bit of a ugly solution
 export default function AuctionItemsPageWrapper() {
-  return <Suspense fallback="Laster inn..."><AuctionItemPage /></Suspense>
+  return <Suspense fallback="Laster..."><AuctionItemPage /></Suspense>
 }

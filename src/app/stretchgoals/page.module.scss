@@ -1,0 +1,93 @@
+@use "@/styles/ohma";
+
+
+.node {
+    margin-top: 1em;
+    margin-inline: 3em;
+}
+
+.orb {
+    width: 3em;
+    height: 3em;
+    margin-inline: 1em;
+    background-color: ohma.$strechgoal-color;
+    border-radius: 100%;
+    vertical-align: middle;
+    display: inline-block;
+
+}
+
+.goalText {
+    font-size: 3em;
+    display: inline-block;
+    vertical-align: middle;
+    color: ohma.$strechgoal-color;
+    font-weight: normal;
+
+}
+
+.completeGoalText {
+    color: black;
+    font-weight: bold;
+}
+
+.completeOrb {
+    background-color: ohma.$blue-color-400;
+}
+
+.dotContainer {
+    margin-top: 1em;
+    display: grid;
+    grid-template-rows: repeat(1fr, 3);
+}
+
+.dot {
+    width: 1em;
+    height: 1em;
+    margin-inline: calc(0.5em + 1.5em);
+    margin-top: 1em;
+    background-color: ohma.$strechgoal-color;
+    border-radius: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.completeDot {
+    background-color: ohma.$blue-color-400;
+}
+
+.heading {
+    font-size: 5em;
+    text-align: center;
+    margin-block: 1em;
+    font-weight: normal;
+}
+
+
+@include ohma.screenMobile {
+    .node {
+        margin-inline: 1em;
+
+    }
+
+    .goalText {
+        font-size: 0.9em;
+    }
+
+    .orb {
+        width: 1em;
+        height: 1em;
+    }
+
+    .dot {
+        width: 0.5em;
+        height: 0.5em;
+        margin-inline: calc(0.25em + 1em);
+        margin-top: 0.5em;
+    }
+
+    .heading {
+        font-size: 1.5em;
+        margin-block: 1em;
+    }
+}

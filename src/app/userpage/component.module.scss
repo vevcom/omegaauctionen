@@ -1,3 +1,5 @@
+@use "@/styles/ohma";
+
 .listContainer {
     padding-top:5%;
     padding-bottom:20%;
@@ -66,7 +68,7 @@
     text-decoration: line-through;
 }
 .highestBid {
-    background-color: var(--background);
+    background-color: ohma.$background-color;
 }
 .highestBid:hover {
     background-color: #fafafa4e;
@@ -123,7 +125,7 @@
     margin-right: auto;
 
     background-color: var(--foreground);
-    color: var(--background);
+    color: ohma.$background-color;
 }
 
 @media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {

@@ -21,7 +21,7 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmount: number
 
   //edge case catch for time
   const now = new Date()
-  const openingDate = new Date("2025-03-20T11:00:00.000Z")
+  const openingDate = new Date("2026-03-05T11:00:00.000Z")
   const currentSaleTime = object.currentSaleTime
   // if (now > currentSaleTime) {
   //   return "Budrunden er over"

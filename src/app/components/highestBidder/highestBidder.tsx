@@ -31,8 +31,8 @@ export default function HighestBidder({ objectId, reload }: { objectId: number, 
 
     return (
         <div className={style.highestBidContainer}>
-            <hr className={style.separator}></hr>
-            <h1 className={style.title}>Høyeste bud:</h1>
+            {/* <hr className={style.separator}></hr> */}
+            {/* <h1 className={style.title}>Høyeste bud:</h1> */}
             {highestBid.map((data, index) => (
                 <div key={index} className={style.bidContainer}>
                     <div>Bud: {data.price} kr</div>
@@ -40,7 +40,7 @@ export default function HighestBidder({ objectId, reload }: { objectId: number, 
                     <div>Bud tid: {new Date(data.bidDate).toLocaleTimeString('en-GB')}</div> 
                 </div>
             ))}
-            <hr className={style.separator}></hr>
+            {/* <hr className={style.separator}></hr> */}
         </div>
     );
 

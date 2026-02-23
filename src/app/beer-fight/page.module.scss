@@ -1,3 +1,5 @@
+@use "@/styles/ohma";
+
 .titleCard {
     // background-color: var(--titleColor);
     width: 100%;
@@ -25,10 +27,10 @@
 .optionBoxHolder {
     display: grid;
     grid-template-columns: 5fr 1fr 5fr;
-    background: linear-gradient(145deg, #f0f0f0, #d9d9d9);
+    // background: linear-gradient(145deg, #f0f0f0, #d9d9d9);
     width: 80%;
     padding: 1%;
-    border: black solid 3px;
+    // border: black solid 3px;
     margin: auto;
 }
 
@@ -37,7 +39,7 @@
     // background-color: ;
     margin-block: 1%;
 
-    border: black solid 2px;
+    // border: black solid 2px;
     padding: 2%;
     width: 90%;
     margin: auto;
@@ -57,12 +59,34 @@
 
 }
 
+.optionBox>form>button {
+    // font-size: 1em;
+    // background-color: #64cec5;
+    // border: none;
+    // text-align: center;
+    // border-radius: 0.3em;
+    // padding: 1vw;
+    // margin: auto;
+    @include ohma.btn();
+}
+
+
 .winning {
     background-color: rgba(30, 255, 30, 0.164) !important;
+
+    >form>button {
+        @include ohma.btn(rgba(30, 255, 30, 0.164));
+    }
+
+
 }
 
 .losing {
     background-color: rgba(255, 2, 2, 0.158) !important;
+
+    >form>button {
+        @include ohma.btn(rgba(255, 2, 2, 0.158));
+    }
 }
 
 .leadingInfo {
@@ -82,16 +106,6 @@
 
 }
 
-.optionBox>form>button {
-    font-size: 1em;
-    background-color: #64cec5;
-    border: none;
-    text-align: center;
-    border-radius: 0.3em;
-    padding: 1vw;
-    margin: auto;
-
-}
 
 .optionBox>form>input {
     width: 50%;
@@ -120,16 +134,16 @@
     }
 
 
-    .optionBox>form>button {
-        font-size: 4em;
-        background-color: #64cec5;
-        border: none;
-        text-align: center;
-        border-radius: 0.3em;
-        padding: 1vw;
-        margin: auto;
+    // .optionBox>form>button {
+    //     font-size: 4em;
+    //     // background-color: #64cec5;
+    //     border: none;
+    //     text-align: center;
+    //     border-radius: 0.3em;
+    //     padding: 1vw;
+    //     margin: auto;
 
-    }
+    // }
 
     .optionBox>form>input {
         width: 70%;
@@ -183,9 +197,10 @@
 
         padding-top: 0px;
         padding-bottom: 0px;
-        margin:4vh;
+        margin: 4vh;
     }
-    .info{
+
+    .info {
         font-size: 3vw;
     }
 }

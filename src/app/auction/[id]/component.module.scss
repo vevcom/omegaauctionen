@@ -1,193 +1,193 @@
+@use "@/styles/ohma";
+
+
+
 .objectPage {
-    color:auto;
-    width:100%;
+    color: auto;
+    width: 100%;
     margin: auto;
-    margin-block:5%;
-    align-items:center;
+    margin-block: 5%;
+    align-items: center;
 }
 
 .objectHeading {
-    font-size:xx-large;
+    font-size: xx-large;
     text-align: center;
-    width:100%;
+    width: 100%;
 }
+
 .committeeHeading {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: center;
-    font-size:large;
+    font-size: large;
     margin: 0 auto;
-    max-width:15em;
-    height:2.5em;
+    max-width: 15em;
+    height: 2.5em;
 
-    border-radius:5px;
+    border-radius: 5px;
 
     margin-bottom: 2vh;
 
-    
+
     background-color: var(--foreground);
-    color: var(--background);
+    color: ohma.$background-color;
 }
-.committeeHeading img {
+
+.committeeLogo {
     height: 95%;
     width: auto;
     border-radius: 50%;
-    margin:0;
+    margin: 0;
     // padding:2.5% 0;
     margin: auto 0;
 }
+
+
 .committeeName {
-    margin:auto 0;
-    padding-right:2%;
-    height:1em;
+    margin: auto 0;
+    padding-right: 2%;
+    height: 1em;
 
 }
+
 .title {
-    padding-bottom:1vh;
+    padding-bottom: 1vh;
     margin: 0 20%;
     word-wrap: break-word !important;
 }
-.imagecontainer {
-    cursor:default;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
 
-}
-.imagecontainer::before{
-    content:"";
-    display: block;
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    unicode-bidi: isolate;
-    overflow: hidden;
-    border-style: inset;
-    border-width: 1px;
-    width:80%;
-    height:0;
-}
-.imagecontainer::after{
-    content:"";
-    display: block;
-    margin-block-start: 0.5em;
-    margin-block-end: 0.5em;
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    unicode-bidi: isolate;
-    overflow: hidden;
-    border-style: inset;
-    border-width: 1px;
-    width:80%;
-    height:0;
-}
-.separator {
-    width:80%;
-    margin: 0 10%;
-}
+// .imagecontainer {
+//     cursor: default;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// .imagecontainer::before {
+//     content: "";
+//     display: block;
+//     margin-block-start: 0.5em;
+//     margin-block-end: 0.5em;
+//     margin-inline-start: auto;
+//     margin-inline-end: auto;
+//     unicode-bidi: isolate;
+//     overflow: hidden;
+//     border-style: inset;
+//     border-width: 1px;
+//     width: 80%;
+//     height: 0;
+// }
+
+// .imagecontainer::after {
+//     content: "";
+//     display: block;
+//     margin-block-start: 0.5em;
+//     margin-block-end: 0.5em;
+//     margin-inline-start: auto;
+//     margin-inline-end: auto;
+//     unicode-bidi: isolate;
+//     overflow: hidden;
+//     border-style: inset;
+//     border-width: 1px;
+//     width: 80%;
+//     height: 0;
+// }
+
+// .separator {
+//     width: 80%;
+//     margin: 0 10%;
+// }
 
 
 .description {
-    margin:5vh 15%;
-    font-size:medium;
+    margin: 5vh 50px;
+    font-size: medium;
     text-align: left;
     white-space: pre-line;
 }
 
-.form {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    width:80vw;
-    margin:auto;
-    font-size:60%;
-    margin-top:5vh;
-} .input {
-    background-color: var(--background);
+
+.input {
+    background-color: ohma.$background-color;
     color: var(--foreground);
 
-    margin-bottom:1vh;
+    margin-bottom: 1vh;
     border: 1px solid var(--foreground);
     border-radius: 0.2vh;
-    height:15vw;
-    width:65vw;
-    padding-left:7vw;
-    font-size:inherit;
-} .button {
+    height: 15vw;
+    width: 65vw;
+    padding-left: 7vw;
+    font-size: inherit;
+}
+
+.button {
     background-color: var(--foreground);
-    color:var(--background);
-    height:15vw;
-    width:65vw;
+    color: ohma.$background-color;
+    height: 15vw;
+    width: 65vw;
 
-    font-size:inherit;
-    cursor:pointer;
+    font-size: inherit;
+    cursor: pointer;
 }
 
-.auctionImage{
-    cursor:pointer;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
-    max-width:80vw;
-    max-height: 70vh;
-    margin:auto;
-    object-fit: contain;
-    padding:5% 0;
+.auctionImage {
+    max-width: 80vw;
+    max-height: 60vh;
+    // min-height: 20vh;
+    margin: auto;
+    // object-fit: contain;
+    padding: 5% 0;
 }
+
 .note {
-    width:80%;
-    margin: 0 10%;
-    margin-top: 5%;
-    margin-bottom:15%;
+    // margin-top: 10px;
+    margin-bottom: 50px;
+    font-size: 1rem;
+    text-align: center;
 }
 
 @media ((min-width:1024px) or ((max-width:1024px) and (orientation:landscape))) {
     .title {
-        padding-bottom:2vh;
+        padding-bottom: 2vh;
     }
+
     .committeeHeading {
-        align-items:left;
+        align-items: left;
         margin: 0 10%;
-        max-width:12em;
-        height:3em;
+        max-width: 12em;
+        height: 3em;
     }
-    
+
     .input {
         width: 300px;
         height: 50px;
-        padding-left:10px;
+        padding-left: 10px;
     }
+
     .button {
-        width:300px;
+        width: 300px;
         height: 50px;
-        padding-left:10px;
+        padding-left: 10px;
 
     }
-    .auctionImage {
-        // height:65vh;
-        min-height:40vh;
-        min-width:none;
-        object-fit: contain;
-        padding:4vh 0;
-        // padding-top:0;
-    }
-  }
+
+}
 
 
 
-.capesLeftText{
+.capesLeftText {
     font-size: 5vh;
     margin-block: 5vh;
 }
 
 
-.buyPanelText{
+.buyPanelText {
     font-size: 5vh;
 }
-.buyButton{
+
+.buyButton {
     font-size: 5vh;
     background-color: #64cec5;
     border: none;
@@ -195,4 +195,49 @@
     border-radius: 0.3em;
     padding: 1em;
     margin: auto;
+}
+
+
+.notLoggedInText {
+    font-size: 5vh;
+    margin-block: 5vh;
+}
+
+
+.bidPanelContainer {
+    // margin-block: 50px;
+    // margin-inline: 10%;
+    text-align: center;
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    >* {
+        max-width: 70vw;
+        display: inline-block;
+        vertical-align: middle;
+        vertical-align: middle;
+        margin: auto;
+    }
+}
+.form {
+        display: flex;
+        flex-direction: row;
+        max-width: 80vw;
+        margin: auto;
+        font-size: 1rem;
+        >* {
+            height: 50px;
+        }
+    }
+
+@include ohma.screenMobile{
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 80vw;
+        margin: auto;
+        font-size: 2rem;
+    }
 }

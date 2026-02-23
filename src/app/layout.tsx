@@ -1,6 +1,6 @@
 "use client"
 import localFont from "next/font/local";
-import "./globals.scss";
+import "@/styles/globals.scss";
 import style from "./page.module.scss"
 import {Header} from "@/app/components/header";
 import { useState } from "react";
@@ -37,7 +37,7 @@ export default function RootLayout({
     <SessionProvider>
     <html lang="no">
       <head>
-        <title>Omegaauctionen 2025</title>
+        <title>Omegaauctionen 2026</title>
         {/* <link rel="icon" type="image/x-icon" href="https://omega.ntnu.no/static/5464f8aa22cd89d8b7e4.png"></link> */}
 
         <link rel="icon" type="image/png" sizes="32x32" href="https://omega.ntnu.no/static/favicon.png"></link>

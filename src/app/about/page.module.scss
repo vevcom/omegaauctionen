@@ -1,13 +1,13 @@
+@use "@/styles/ohma";
+
 .content {
     text-align: center;
     width: 80%;
-    margin: auto;
-    margin-block: 5vh;
-    background-color: rgb(188, 179, 194, 0.3);
     border-radius: 20px;
-    border: solid 1px rgb(188, 179, 194);
     padding-block: 2vh;
+    margin: auto;
     padding-inline: 1vw;
+    @include ohma.neumorphismStatic(ohma.$background-color);
 }
 
 .howSaleDiv {

@@ -1,5 +1,8 @@
+@use "@/styles/ohma";
+
+
 .titleCard {
-    background-color: var(--titleColor);
+    // background-color: var(--titleColor);
     width: 80%;
     padding-top: 10vh;
     padding: 5vh;
@@ -7,16 +10,15 @@
     margin: auto;
     margin-block: 5vh;
     font-size: 4vw;
-    background-color: rgb(188, 179, 194, 0.3);
     border-radius: 20px;
-    border: solid 1px rgb(188, 179, 194);
+    @include ohma.neumorphismStatic(ohma.$background-color);
 }
 
 .tekst {
     width: 70%;
     margin: auto;
     margin-block: 2em;
-    font-size: 2vw !important;
+    font-size: 2vw;
 }
 
 .image {
@@ -24,7 +26,7 @@
 }
 
 .underTittle {
-    font-size: 4vw !important;
+    font-size: 4vw;
 }
 
 .underSrkiftTekst {
@@ -36,7 +38,25 @@
     margin: auto;
 }
 
-.linkToWb{
+.linkToWb {
     font-size: 1vw;
     color: blue;
+}
+
+
+@include ohma.screenMobile {
+    .tekst {
+        font-size: 0.8em;
+        margin-block: 1em;
+        width: 90%;
+    }
+
+    .linkToWb {
+        font-size: 1em;
+        color: blue;
+    }
+
+    .underSrkiftTekst {
+        font-size: 0.5em;
+    }
 }

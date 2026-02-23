@@ -1,5 +1,6 @@
+@use "ohma";
+
 :root {
-  --background: #fafafa;
   --foreground: #171717;
   --hover: rgba(0, 0, 116, 0.774);
   --lightblue: #00c6cf;
@@ -23,17 +24,11 @@
 html,
 body {
   max-width: 100vw;
-  background-color: var(--background);
+  background-color: ohma.$background-color;
   margin:0px;
   padding:0px;
   border:0px;
   font-family: Arial, Helvetica, sans-serif;
-
-  background-image: url('https://omega.ntnu.no/static/8cb2cc79536a03aeaa04.png');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 40vh 40vh;
-  background-attachment: fixed;
 }
 
 * {

@@ -61,7 +61,7 @@ export default function Klassetrinn() {
   }, []);
 
   if (!hasLoaded) {
-    return <p>Laster inn data... HS må gå</p>
+    return <p>Laster...</p>
   }
   if (!miniadmin) {
     return <div className={styles.side}>

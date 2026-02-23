@@ -1,0 +1,107 @@
+@use "@/styles/ohma";
+
+.card {
+    border-radius: calc(8px + 1rem);
+    @include ohma.boxShadow;
+    width: 400px;
+    // background: adjust-color(ohma.$content-color, $lightness: -20%);
+    background: linear-gradient(ohma.$background-color, adjust-color(ohma.$background-color, $lightness: 10%));
+    aspect-ratio: 5/6;
+    display: grid;
+    grid-template-rows: 2fr 8fr;
+    padding: 0px;
+    // margin-block: 2%;
+    margin: auto;
+    height: auto;
+    // border: 2px solid ohma.$blue-color-200;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        transform: scale(1.01);
+        box-shadow: 0 0 20px ohma.$accent-color;
+    }
+
+    .card:hover::before {
+        opacity: 1;
+        transform: rotate(-45deg) translateY(100%);
+    }
+}
+
+
+
+
+@media (max-width:399px) {
+    .card {
+        width: 95%;
+    }
+}
+
+.titleContainer {
+    @include ohma.round;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    // background: adjust-color(ohma.$content-color, $lightness: -20%);
+    // background: ohma.$content-color;
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+    gap: 1%;
+    width: 100%;
+    height: 100%;
+}
+
+.titleTextContainer {
+    text-align: left;
+    color: ohma.$text-color
+}
+
+.committeeImgContainer {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 100%;
+}
+
+.committeeImg {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.auctionImage {
+    width: 95%;
+    height: 98%;
+    max-width: 95%;
+    max-height: 98%;
+    object-fit: cover;
+    // @include ohma.round;
+    border-radius: calc( 1rem);
+    // border-top-left-radius: 0px;
+    // border-top-right-radius: 0px;
+    padding: 0px;
+    // box-shadow: inset 2px 2px 20px black;
+}
+
+@include ohma.screenMobile {
+    .card {
+        aspect-ratio: 5/7;
+    }
+}
+
+.name {
+    color: ohma.$accent-color;
+}
