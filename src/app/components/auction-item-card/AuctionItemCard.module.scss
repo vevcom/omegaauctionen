@@ -1,11 +1,12 @@
 @use "@/styles/ohma";
+@use 'sass:color';
 
 .card {
     border-radius: calc(8px + 1rem);
     @include ohma.boxShadow;
     width: 400px;
-    // background: adjust-color(ohma.$content-color, $lightness: -20%);
-    background: linear-gradient(ohma.$background-color, adjust-color(ohma.$background-color, $lightness: 10%));
+    // background: color.adjust(ohma.$content-color, $lightness: -20%);
+    background: linear-gradient(ohma.$background-color, color.adjust(ohma.$background-color, $lightness: 10%));
     aspect-ratio: 5/6;
     display: grid;
     grid-template-rows: 2fr 8fr;
