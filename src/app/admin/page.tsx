@@ -6,7 +6,11 @@ import is_admin from "@/app/components/is-admin/is-admin-func"
 import is_miniadmin from "@/app/components/is-miniadmin/is-miniadmin"
 
 
-const adminLinks = [["Ikke godkjente objekter", "submitted_objects"]]
+const adminLinks = [
+    ["Ikke godkjente objekter", "submitted_objects"],
+    ["Manuell overskrivelse", "overrideTotalSum"],
+
+]
 const miniAdminLinks = [
     ["Registrer beermile", "manual-reg-pages/beermile-lodd"],
     ["Registrer bong", "manual-reg-pages/bong"],

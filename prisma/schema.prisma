@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "./generated/prisma"
 }
 
 enum Study {
@@ -17,6 +18,10 @@ enum AuksjonsObjektType {
   AUKSJON
   SALG
   LIVE
+}
+
+enum SpecialObjectType {
+  OVERRIDE
 }
 
 enum Committee {
@@ -59,6 +64,8 @@ model AuksjonsObjekt {
   authorId  String? //Do not make required 
   author    User?   @relation(fields: [authorId], references: [id])
   bids      Bid[]
+
+  special SpecialObjectType? @unique
 }
 
 model Bid {

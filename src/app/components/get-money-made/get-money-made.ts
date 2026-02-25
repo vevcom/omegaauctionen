@@ -6,7 +6,18 @@ import { AuksjonsObjektType } from "@prisma/client"
 
 
 // intentional extra split up for easier understanding and for copying parts of code for other potential statists later
-export default async function get_money_made() {
+export default async function get_money_made(ignoreOverride = false) {
+    const overrideObject = await prisma.auksjonsObjekt.findUnique({
+        where: {
+            special: "OVERRIDE",
+        }
+    })
+
+    let overrideSum =0
+    if (overrideObject){    
+        overrideSum = overrideObject.startPrice
+    }
+
     let sum = 0 // initial value
     let moneyMadeOnlineAuction = 0
 
@@ -89,6 +100,9 @@ export default async function get_money_made() {
     sum += moneyMadeCape
     sum += moneyMadeOnlineAuction
     sum += moneyMadeLiveRegisteredAuctionObjects
+
+    if (ignoreOverride == true) return sum
+    if (overrideSum>sum) return overrideSum
 
     return sum
 }
