@@ -2,7 +2,7 @@
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
 import { get_current_price } from "@/services/auctionObject/actions";
-import { AuksjonsObjekt } from "@prisma/client";
+import { AuksjonsObjekt } from "@/generated/client"
 
 export default async function placeBid(object: AuksjonsObjekt, bidAmount: number) {
   const AuctionObjectPriceCheck = await get_current_price(object.id)

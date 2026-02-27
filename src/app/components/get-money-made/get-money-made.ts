@@ -2,7 +2,7 @@
 
 import { prisma } from "@/app/prisma"
 import { get_current_price } from "@/services/auctionObject/actions"
-import { AuksjonsObjektType } from "@prisma/client"
+import { AuksjonsObjektType } from "@/generated/enums"
 
 
 // intentional extra split up for easier understanding and for copying parts of code for other potential statists later

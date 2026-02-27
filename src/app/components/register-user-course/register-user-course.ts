@@ -2,7 +2,7 @@
 
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
-import { Study } from "@prisma/client";
+import { Study } from "@/generated/enums"
 export default async function regUserCourse(studyCourse:string) {
     const userID = await getUserID();
     if (!userID) {

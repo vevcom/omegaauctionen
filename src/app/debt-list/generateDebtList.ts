@@ -1,5 +1,5 @@
 "use server"
-import { AuksjonsObjektType, Committee } from "@prisma/client";
+import { AuksjonsObjektType, Committee }from "@/generated/enums"
 import { prisma } from "../prisma";
 import is_miniadmin from "../components/is-miniadmin/is-miniadmin";
 

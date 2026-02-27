@@ -1,5 +1,3 @@
-"use server"
-
 import { prisma } from "@/app/prisma"
 import styles from "./page.module.scss"
 import is_admin from "@/app/components/is-admin/is-admin-func"
@@ -64,6 +62,8 @@ async function deleteOverride() {
     })
     refresh()
 }
+
+export const dynamic = "force-dynamic";
 
 
 export default async function OverridePanel() {

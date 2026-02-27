@@ -1,6 +1,6 @@
 "use server"
 import { prisma } from "@/app/prisma"
-import { AuksjonsObjektType } from '@prisma/client';
+import { AuksjonsObjektType } from '@/generated/enums';
 
 export async function createBadges() {
     await prisma.auksjonsObjekt.create({

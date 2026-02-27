@@ -1,7 +1,7 @@
 "use server"
 
 import { prisma } from "@/app/prisma"
-import { AuksjonsObjektType } from "@prisma/client"
+import { AuksjonsObjektType } from "@/generated/enums"
 
 
 function sortDictByValue(dict:{[key:string]:number}) {

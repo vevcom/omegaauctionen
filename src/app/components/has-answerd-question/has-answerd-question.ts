@@ -1,7 +1,7 @@
 'use server'
 
 import { prisma } from "@/app/prisma"
-import { Study } from "@prisma/client"
+import { Study } from "@/generated/enums"
 
 export default async function reportedFieldOfStudy(userID:string) {
     const userData = await prisma.user.findFirst({where:{

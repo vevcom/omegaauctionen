@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ImageComponent from "@/app/components/pictureServerComponents/getImgFromNameComponent"
-import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client";
+import {  AuksjonsObjektType } from "@/generated/enums";
+import { AuksjonsObjekt } from "@/generated/client";
 import styles from "./AuctionItemCard.module.scss"
 import { getLogo } from "@/app/logos/logos";
 

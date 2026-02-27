@@ -1,5 +1,5 @@
 'use server'
-import { Prisma } from "@prisma/client"
+import { Prisma } from "@/generated/client"
 import style from "./component.module.scss"
 import DisplayBid from "./displayBid"
 

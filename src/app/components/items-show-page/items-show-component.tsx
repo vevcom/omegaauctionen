@@ -1,7 +1,7 @@
 
 import { AuctionItemCard } from "../auction-item-card/AuctionItemCard";
 import styles from "./component.module.scss";
-import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client";
+import { AuksjonsObjekt, AuksjonsObjektType } from "@/generated/client"
 
 type AuksjonsObjektWithPrice = AuksjonsObjekt & { currentPrice: number }
 

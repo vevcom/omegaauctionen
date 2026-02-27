@@ -1,9 +1,7 @@
 "use client"
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import style from "./component.module.scss"
-import { Committee, Study } from "@prisma/client";
-
-import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client";
+import {Study, AuksjonsObjektType } from "@/generated/enums";
 import is_admin from "@/app/components/is-admin/is-admin-func";
 import ApproveButton from "@/app/components/approve-button/approve-button";
 import DeleteButton from "@/app/components/delete-button/delete-button";
@@ -18,7 +16,7 @@ import get_user_info from "@/app/components/getUSerInfo/getUserinfo";
 import { getLogo } from "@/app/logos/logos";
 import { is_logged_in } from "@/app/components/get-user-login/get-user-login";
 import CollapsibleSection from "@/app/components/collapsible-section/collapsible-section";
-
+import {AuksjonsObjekt} from "@/generated/client"
 
 
 type setUseStateBool = Dispatch<SetStateAction<boolean>>;

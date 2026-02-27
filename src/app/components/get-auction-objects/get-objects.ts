@@ -2,8 +2,8 @@
 
 import { prisma } from "@/app/prisma"
 import sortObjectsFunc, { SortType } from "@/app/components/get-auction-objects/sort-objects-func"
-import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client"
-
+import { AuksjonsObjektType } from "@/generated/enums"
+import { AuksjonsObjekt } from "@/generated/client"
 
 type AuksjonsObjektWithPrice = AuksjonsObjekt & { currentPrice: number }
 
