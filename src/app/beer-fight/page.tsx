@@ -9,6 +9,8 @@ import styles from "./page.module.scss"
 
 
 export default function Hansafight() {
+    return;
+
     // Hansa at index 0, ikkeHansa at index 1
     const [prices, setPrices] = useState([0, 0, 68])
     const [hasLoaded, setHasLoaded] = useState(false)

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import style from "./component.module.scss"
-import { oldEnglish } from "../../layout"
+import { auctionStart, isAuctionEnded, isAuctionOpenFinal } from "@/app/timeCheck/timeCheck";
 
 
 export default function CountdownClock() {
     const [timeLeft, setTimeLeft] = useState([0, 0, 0, 0]);
 
     useEffect(() => {
-        const countDownDate = new Date("Mar 5, 2026 12:00:00").getTime();
+        const countDownDate = auctionStart.getTime();
 
         const updateCountdown = () => {
             const now = new Date().getTime();
@@ -32,22 +32,15 @@ export default function CountdownClock() {
         return () => clearInterval(interval); // Cleanup on unmount
     }, []);
 
-    const now = new Date()
-    const start = new Date("2026-03-05T16:00:00.000Z")
-    const end = new Date("2026-03-05T22:00:00.000Z")
-    if (now > start || now < end) {
-
+    if (isAuctionOpenFinal()) {
         return (
-
             <div className={style.countdowncomponent}>
                 <div className={`${style.countdowntitle}`}>Velkommen til Omegaauctionen 2026!</div>
             </div>
         )
     }
-    if (now > start || now > end) {
-
+    if (isAuctionEnded()) {
         return (
-
             <div className={style.countdowncomponent}>
                 <div className={`${style.countdowntitle}`}>Omegaauctionen 2026 er dessverre over for i år</div>
             </div>
