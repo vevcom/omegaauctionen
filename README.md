@@ -23,32 +23,65 @@ Push schema to database
 npx prisma db push
 ```
 
-Run the development server
-```bash
-npm run dev
+
+## Development without docker
+### Picture server
+Install pyton and requirements detailed in services/picture_server/requirements.txt
+
+To run the picture server run the main.py file
+
+### Next
+Run 
+``` bash
+npm run dev 
 ```
 
 Open the project in your browser on the link provided by npm after running "npm run dev" to see the result.
 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Env variables
+Duplicate the "default.env" file and rename it ".env"
+For development DATABASE_URL, FEIDE_CLIENT_ID and FEIDE_CLIENT_SECRET needs to be filled out
 
 
-To use picture server clone the server from
-https://github.com/Hsackboy/pictureServer
-and run main.py
+## Setup
+- Change the "const pictureServerSource" in pictureServerIp.ts reflects your picture server ip
+- Change default values for "finalSaleTime" and "currentSaleTime" in your "schema.prisma" file and "auctionStart", "auctionNormalEnd" and "auctionFinalEnd" in "timeCheck.ts" to reflect the auction start and end date. There have been problems with timezones and server set up. **Test to make sure the time is how you expect**
+- Update your "app.config['MAX_CONTENT_LENGTH']" in "main.py" and "bodySizeLimit" in "next.config.mjs" to set max picture upload size
+- After running the picture server, add your default picture in to "uploads/" as "default.jpeg"
 
-## Learn More
+## Useful commands
+Check for build errors locally 
+``` bash
+docker compose --env-file default.env -f docker-compose.prod.yml build
+``` 
 
-To learn more about Next.js, take a look at the following resources:
+## Production
+Duplicate the "default.env" file and rename it ".env"
+Fill in all environment variables
+Open ports 5432, 80, 443 and 42069.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Build with:
+``` bash
+docker compose -f docker-compose.prod.yml build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Up the project with:
+``` bash
+docker compose -f docker-compose.prod.yml up
+```
 
-## Deploy on Vercel
+Build and up the project with:
+``` bash
+docker compose -f docker-compose.prod.yml up --build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Add "-d" to detach
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Down the project with:
+``` bash
+docker compose -f docker-compose.prod.yml down
+```
+
+
+
