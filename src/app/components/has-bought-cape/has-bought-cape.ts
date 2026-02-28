@@ -2,7 +2,7 @@
 
 import getUserID from "@/app/api/auth/getUserId"
 import { prisma } from "@/app/prisma";
-import { AuksjonsObjektType } from "@prisma/client";
+import { AuksjonsObjektType } from "@/generated/enums"
 
 
 

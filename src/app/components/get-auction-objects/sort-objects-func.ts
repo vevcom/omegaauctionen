@@ -1,6 +1,6 @@
 "use server"
 
-import { $Enums } from "@prisma/client"
+import { $Enums } from "@/generated/client"
 
 type AuksjonsObjekt = {
     currentPrice: number;

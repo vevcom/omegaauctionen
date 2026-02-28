@@ -2,6 +2,7 @@
 import style from "./component.module.scss"
 import { useEffect, useState } from "react";
 import { getHighestBid } from "./getHighestBid";
+import { dateAsText, timeAsText } from "@/app/timeCheck/timeCheck";
 
 
 //Highest Bidder for object page
@@ -37,7 +38,7 @@ export default function HighestBidder({ objectId, reload }: { objectId: number, 
                 <div key={index} className={style.bidContainer}>
                     <div>Bud: {data.price} kr</div>
                     <div>Navn: {data.bidder.name}</div>
-                    <div>Bud tid: {new Date(data.bidDate).toLocaleTimeString('en-GB')}</div> 
+                    <div>Bud tid: {dateAsText(data.bidDate)} kl:{timeAsText(data.bidDate)}</div> 
                 </div>
             ))}
             {/* <hr className={style.separator}></hr> */}

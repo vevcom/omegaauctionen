@@ -1,5 +1,5 @@
 
-import { Committee} from "@prisma/client";
+import { Committee} from "@/generated/enums"
 
 const committeeToLink = {
   [Committee.NOTCOM]: "https://omega.ntnu.no/static/479220c49c7c0b2f742d.png",

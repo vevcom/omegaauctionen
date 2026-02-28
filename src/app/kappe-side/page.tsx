@@ -2,7 +2,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import ItemPageComponent from "@/app/components/items-show-page/items-show-component";
 import get_objects_all from "@/app/components/get-auction-objects/get-objects";
-import { AuksjonsObjekt } from "@prisma/client";
+import { AuksjonsObjekt } from "@/generated/client";
 import style from "./page.module.scss"
 import { useSearchParams } from "next/navigation";
 

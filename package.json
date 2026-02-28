@@ -25,7 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "prisma": "^7.3.0",
+    "prisma": "^7.5.0-dev.17",
     "sass": "^1.97.3",
     "typescript": "^5"
   }

@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import getUser from "../api/auth/getUser";
 import { SignoutButton } from "./signoutButton";
 import { UserObjectsList } from "./userObjects";
-import { AuksjonsObjektType, Committee, Prisma, Study } from "@prisma/client"
+import { AuksjonsObjektType, Committee, Prisma, Study } from "@/generated/client"
 import UserBids from "./userBids";
 import get_total_debt_user from "../components/get_user_pay_amount/get_user_pay_amount";
 

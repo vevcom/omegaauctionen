@@ -1,13 +1,13 @@
 "use client"
 import getUserID from "@/app/api/auth/getUserId"
-import React, { useState } from "react"
+import { useState } from "react"
 import { createAuctionItemFromForm } from "../components/createAuctionItemFromForm"
-import ImageFromFileName from "../components/pictureServerComponents/getImgFromNameComponent"
 import ImageUploaderButton from "../components/pictureServerComponents/uploadButton"
 import style from "./style.module.scss"
 import PopUpBox from "@/app/components/popUp/popUp"
 import { AuctionItemCard } from "../components/auction-item-card/AuctionItemCard"
-import { AuksjonsObjekt } from "@prisma/client";
+import { AuksjonsObjekt } from "@/generated/client";
+
 
 type AuksjonsObjectWithPrice = AuksjonsObjekt & { currentPrice: number }
 
@@ -36,7 +36,8 @@ export default function MakeAuctionItem() {
         imageName: uploadedFileName,
         name: itemName,
         stock: 1,
-        type: "AUKSJON"
+        type: "AUKSJON",
+        special:null,
     }
 
 

@@ -1,5 +1,5 @@
 "use server"
-import { AuksjonsObjektType, Study } from "@prisma/client";
+import { AuksjonsObjektType, Study } from "@/generated/enums"
 import { prisma } from "../prisma";
 import get_money_made from "../components/get-money-made/get-money-made";
 import get_biggest_spenders from "../components/get-biggest-spenders/get-biggest-spenders";

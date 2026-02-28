@@ -1,9 +1,7 @@
 "use client"
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import style from "./component.module.scss"
-import { Committee, Study } from "@prisma/client";
-
-import { AuksjonsObjekt, AuksjonsObjektType } from "@prisma/client";
+import { Study, AuksjonsObjektType } from "@/generated/enums";
 import is_admin from "@/app/components/is-admin/is-admin-func";
 import ApproveButton from "@/app/components/approve-button/approve-button";
 import DeleteButton from "@/app/components/delete-button/delete-button";
@@ -18,7 +16,8 @@ import get_user_info from "@/app/components/getUSerInfo/getUserinfo";
 import { getLogo } from "@/app/logos/logos";
 import { is_logged_in } from "@/app/components/get-user-login/get-user-login";
 import CollapsibleSection from "@/app/components/collapsible-section/collapsible-section";
-
+import { AuksjonsObjekt } from "@/generated/client"
+import { auctionStart, dateAsText, isAuctionOpenForItem, timeAsText } from "@/app/timeCheck/timeCheck";
 
 
 type setUseStateBool = Dispatch<SetStateAction<boolean>>;
@@ -130,7 +129,7 @@ function BuyPanel({ object, hasBoughtCape, isTime, setHasBoughtCape, currentPric
 }) {
   if (!isTime) {
     return (
-      <h2 className={style.buyPanelText}>Salget starter 05.03.2026 12:00 og slutter {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>
+      <h2 className={style.buyPanelText}>Salget starter {auctionStart.toLocaleDateString()} {auctionStart.toLocaleTimeString()} og slutter {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}</h2>
     )
   }
 
@@ -177,16 +176,23 @@ function PurchasePanel(
           ?
           <BidPanel currentPrice={currentPrice} object={object}></BidPanel>
           :
-          <h2>
-            Budrunden starter 05.03.2026 12:00 og slutter
-            {object.currentSaleTime.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).substring(0, 5)}
-          </h2>}
+          null
+        }
         {
-          (isTime && !isLoggedIn)
+          !isTime
+          ?
+          <h2>
+            Budrunden starter {dateAsText(auctionStart)} {timeAsText(auctionStart)} og slutter {timeAsText(object.currentSaleTime)}
+          </h2>
+          :
+          null
+        }
+        {
+          (!isLoggedIn)
             ?
             <h2 className={style.notLoggedInText}>Du er ikke logget inn</h2>
             :
-            <></>
+            null
         }
         <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
       </div>
@@ -235,7 +241,6 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
   } | null>
     (null)
   const committeeLogotoLink = getLogo(object.committee);
-  const auksjonsDate = "2026-03-05T11:00:00.000Z"
 
   useEffect(() => {
     async function fetchData() {
@@ -249,11 +254,7 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
         const hasBoughtCapeResponse = await has_bought_cape(currentObject.id)
         setHasBoughtCape(hasBoughtCapeResponse)
       }
-
-      const auctionDate = new Date(auksjonsDate) //DON'T ADJUST FOR time difference it uses right time
-      const currentSaleTime = currentObject.currentSaleTime
-      const now = new Date()
-      setIsTime((now > auctionDate) && (now < currentSaleTime))
+      setIsTime(isAuctionOpenForItem(currentObject))
 
 
       if (is_admin_response) {
@@ -288,10 +289,8 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
         }
       }
 
-      const auctionDate = new Date(auksjonsDate) //DON'T ADJUST FOR time difference it uses right time
-      const currentSaleTime = currentObject.currentSaleTime
-      const now = new Date()
-      setIsTime((now > auctionDate) && (now < currentSaleTime))
+
+      setIsTime(isAuctionOpenForItem(currentObject))
 
       if (is_admin_response) { //TODO: remove before prod
         setIsTime(true)
@@ -305,7 +304,6 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
     return () => clearInterval(interval);
   }, []);
 
-  const itemType = currentObject.type
 
   if (!currentObject.approved && !isAdmin) {
     return (

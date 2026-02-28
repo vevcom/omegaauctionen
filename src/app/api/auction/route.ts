@@ -1,6 +1,6 @@
 import { prisma } from '@/app/prisma';
 import { NextResponse, NextRequest } from 'next/server';
-import { Bid } from '@prisma/client';
+import { Bid } from '@/generated/client';
 import getUser from '../auth/getUser';
 import { get_current_price } from '@/services/auctionObject/actions';
 

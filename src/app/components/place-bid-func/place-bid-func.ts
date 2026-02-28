@@ -2,7 +2,8 @@
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
 import { get_current_price } from "@/services/auctionObject/actions";
-import { AuksjonsObjekt } from "@prisma/client";
+import { AuksjonsObjekt } from "@/generated/client"
+import { auctionStart, isAuctionOpenForItem, isAuctionStarted } from "@/app/timeCheck/timeCheck";
 
 export default async function placeBid(object: AuksjonsObjekt, bidAmount: number) {
   const AuctionObjectPriceCheck = await get_current_price(object.id)
@@ -20,18 +21,16 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmount: number
 
 
   //edge case catch for time
-  const now = new Date()
-  const openingDate = new Date("2026-03-05T11:00:00.000Z")
   const currentSaleTime = object.currentSaleTime
-  // if (now > currentSaleTime) {
-  //   return "Budrunden er over"
-  // }
-  // if (now < openingDate) {
-  //   return "Budrunden har ikke startet"
-  // }
+  if (!isAuctionOpenForItem(object)) {
+    return "Budrunden er over"
+  }
+  if (!isAuctionStarted()) {
+    return "Budrunden har ikke startet"
+  }
 
   const finalSaleTime = object.finalSaleTime
-  const newTime = new Date(now.getTime() + 5 * 1000 * 60)
+  const newTime = new Date(Date.now() + 5 * 60 *1000)
 
   let newTimeToSet = currentSaleTime;
 

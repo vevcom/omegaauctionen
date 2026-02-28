@@ -1,6 +1,7 @@
 "use server"
 import getUserID from "@/app/api/auth/getUserId";
 import { prisma } from "@/app/prisma";
+import { auctionStart } from "@/app/timeCheck/timeCheck";
 
 
 export default async function buy_item(saleObjectID: number) {
@@ -36,7 +37,7 @@ export default async function buy_item(saleObjectID: number) {
     }
 
     const now = new Date()
-    const openingDate = new Date("2026-03-05T11:00:00.000Z")
+    const openingDate = auctionStart
     const currentSaleTime = saleItem.currentSaleTime
     if (now > currentSaleTime) {
         return "Sale is over";
