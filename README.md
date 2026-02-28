@@ -82,6 +82,8 @@ Down the project with:
 ``` bash
 docker compose -f docker-compose.prod.yml down
 ```
-
-
+The database is perserved between docker volumes. To reset the database
+```bash
+rm -rf postgres-data
+```
 
