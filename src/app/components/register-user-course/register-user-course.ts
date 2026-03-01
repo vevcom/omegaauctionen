@@ -17,7 +17,7 @@ export default async function regUserCourse(studyCourse:string) {
         studyCourseToSet = Study.KYB
     }
     else {
-        studyCourse = Study.OTHER
+        studyCourseToSet = Study.OTHER
     }
 
     await prisma.user.update({
