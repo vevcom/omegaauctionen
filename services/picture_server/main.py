@@ -21,16 +21,20 @@ def upload_image():
         return jsonify({"error": "No image file found in request."}), 400
 
     file = request.files['image']
-
+    
     if file.filename == '':
         return jsonify({"error": "No file selected."}), 400
-
+    
+    try:
+        _, ext = os.path.splitext(file.filename)
+    except:
+        return jsonify({"error": "No extension to file"}), 400
     # Save the file
-    filneName = str(uuid.uuid4())
+    filneName = str(uuid.uuid4())+ext
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filneName)
 
     while os.path.isfile(file_path): # check if name already taken. Probably not necessary for uuid
-        filneName = str(uuid.uuid4())
+        filneName = str(uuid.uuid4())+ext
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filneName)
 
     file.save(file_path)

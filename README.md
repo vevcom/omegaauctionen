@@ -87,3 +87,7 @@ The database is perserved between docker volumes. To reset the database
 rm -rf postgres-data
 ```
 
+To make a default picture. Upload an image through the put item for auction page. Go in to the uploads folder and use command
+```bash
+sudo mv [your picture] default.jpeg
+```
