@@ -1,0 +1,1 @@
+export const pictureServerSource = "http://127.0.0.1:5000"  //TODO: Switch back to https://auctionen.omega.ntnu.no:42069 before prod or fix env variables for prod
