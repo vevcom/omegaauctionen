@@ -9,7 +9,7 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 async function placeLodd(setLoddSold: React.Dispatch<React.SetStateAction<number>>,amount:number) {
     const lykkeHjulName = "lykkehjulPenger"
-    const moneyMadeFromSpins = 25
+    const moneyMadeFromSpins = 30
     const response = await increment_manual_money_registration(lykkeHjulName,moneyMadeFromSpins*amount,amount)
     if (!response){
         alert("noe gikk galt! prøv igjen")
@@ -26,6 +26,7 @@ export default function App() {
         async function fetchData() {
             const is_admin_response = await is_miniadmin()
             setloadminiadminPage(is_admin_response)
+            placeLodd(setSpinsSold,0) //This is a little cursed, but retrieves the amount sold for 
         }
         fetchData();
     }, []);

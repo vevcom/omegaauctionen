@@ -2,18 +2,18 @@ import get_money_made from "../components/get-money-made/get-money-made"
 import styles from "./page.module.scss"
 
 const streachgoalsList = [
-    [80000, "Amet ullamco esse voluptate in."],
-    [70000, "Minim aliquip irure tempor "],
-    [60000, "Velit elit deserunt nostrud id velit ea"],
-    [50000, "Pariatur qui consectetur sit non ex an"],
-    [40000, "Ullamco minim do ut anim anim."],
-    [30000, "Hs tar backflip"],
-    [20000, "Omega kjøper 2 hytter"],
-    [10000, "Badestamp"],
-    [5000, "Id commodo ad esse et consequat."],
-    [4000, "Omega kjøper smøre"],
-    [1000, "Nome kommer og tar backflip"],
-].reverse()
+    [10000, "DGR underholdning "],
+    [20000, "Contactor gjør utfordringer i gdansk"],
+    [30000, "Eirin spiser chilli og fremfører salmpoesi "],
+    [40000, "Sport å spill benker Heutte og Contactor til vinmil"],
+    [50000, "4 pils og en pizza (mortensine) "],
+    [60000, "En tilfeldig person fremfører presentasjon"],
+    [70000, "Arrforum mot konferansierer, cavatog "],
+    [80000, "HS tar tatovering "],
+    [90000, "Ikke lov å le på hytta (innspilling)"],
+    [100000, "HS brenner"],
+    [110000, "HELE arrforum skinner seg <3"],
+]
 
 function Node({ goal, moneyMade, index }: { goal: (string | number)[], moneyMade: number, index: number }) {
     const currentGoal = goal.at(0) as number

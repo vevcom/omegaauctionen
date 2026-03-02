@@ -17,6 +17,84 @@ function cutOffName(name: string) {
   return name
 }
 
+
+export async function getBiggestBidder() {
+  const biggestBidsOnline = await prisma.auksjonsObjekt.findMany({
+    where: {
+      approved: true,
+      type: AuksjonsObjektType.AUKSJON
+    },
+    select: {
+      bids: {
+        orderBy: {
+          price: "desc",
+        },
+        take: 1,
+        select: {
+          price: true,
+          bidder: {
+            select: {
+              name: true
+            }
+          }
+        },
+      },
+    name:true,
+    }
+  })
+  let topBidsOnline: [number, string,string][] = [[0, "",""]]
+  if (biggestBidsOnline.length !== 0) {
+    topBidsOnline = biggestBidsOnline.map((item) => {
+      const bid = item.bids[0]
+      if (!bid) return [0, "",""];
+      return [bid.price, bid.bidder.name,item.name]
+    })
+  }
+
+
+
+  const liveBid = await prisma.auksjonsObjekt.findFirst({
+    where: {
+      name: "DO_NOT_APPROVE_LIVE_BIDS",
+      approved: false,
+    },
+    select: {
+      bids: {
+        select: {
+          price: true,
+          bidder: {
+            select: {
+              name: true
+            }
+          }
+        }
+      },
+
+    }
+  })
+  let topBidsLive: [number, string, string][] = [[0, "",""]]
+  if (liveBid) {
+    const bids = liveBid.bids
+    topBidsLive = bids.map((bid) => { return [bid.price, bid.bidder.name,"live"] })
+  }
+
+  const combinedBids = topBidsOnline.concat(topBidsLive)
+  const sortedBids = combinedBids.sort((a, b) => a[0] - b[0])
+  let filteredList: [number, string,string][] = []
+  let includedNames: string[] = []
+  sortedBids.filter((bid) => bid[1]!="").forEach((bid) => {
+    if (!includedNames.includes(bid[1])) {
+      filteredList.push(bid)
+    }
+  })
+
+  // console.log(biggestBidsOnline)
+  console.log(topBidsOnline)
+  console.log(combinedBids)
+
+  return filteredList;
+}
+
 export default async function loadData(loadMiniAdmin: boolean) {
   if (loadMiniAdmin) {
     const elesysKyb = await prisma.auksjonsObjekt.findMany({

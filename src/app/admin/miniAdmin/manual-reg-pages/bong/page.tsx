@@ -6,10 +6,10 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 
 
-async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<number>>) {
+async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<number>>,amount=1) {
     const bongName = "drinkingbong"
-    const moneyMadeFromBong = 30
-    const response = await increment_manual_money_registration(bongName,moneyMadeFromBong)
+    const moneyMadeFromBong = 20 // 20? TODO:UPDATE
+    const response = await increment_manual_money_registration(bongName,moneyMadeFromBong*amount,amount)
     if (!response){
         alert("noe gikk galt! prøv igjen")
         return;
@@ -25,6 +25,7 @@ export default function App() {
         async function fetchData() {
             const is_admin_response = await is_miniadmin()
             setloadminiadminPage(is_admin_response)
+            placeBong(setBongsSold,0) //This is a little cursed, but retrieves the amount sold for 
         }
         fetchData();
     }, []);

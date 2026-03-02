@@ -266,10 +266,6 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
       }
 
 
-      if (is_admin_response) { //TODO: remove before prod
-        setIsTime(true)
-      }
-
     }
     fetchData();
     const interval = setInterval(async () => {
@@ -292,10 +288,6 @@ export default function AuctionObject({ object, currentPrice }: { object: Auksjo
 
       setIsTime(isAuctionOpenForItem(currentObject))
 
-      if (is_admin_response) { //TODO: remove before prod
-        setIsTime(true)
-      }
-      // TODO: Remove
       setReload(prev => !prev);
 
 

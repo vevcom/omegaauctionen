@@ -12,10 +12,10 @@ export default async function increment_manual_money_registration(name: string, 
     const dataBaseName = "DONOTAPPROVE" + name
 
     //checks if negative amount
-    if (moneyMade <= 0) {
+    if (moneyMade < 0) {
         return false;
     }
-    if (amountSold<=0){
+    if (amountSold<0){
         return false;
     }
 
