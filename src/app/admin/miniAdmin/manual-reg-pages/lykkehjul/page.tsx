@@ -26,6 +26,7 @@ export default function App() {
         async function fetchData() {
             const is_admin_response = await is_miniadmin()
             setloadminiadminPage(is_admin_response)
+            placeLodd(setSpinsSold,0) //This is a little cursed, but retrieves the amount sold for 
         }
         fetchData();
     }, []);
