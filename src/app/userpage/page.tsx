@@ -16,18 +16,18 @@ import { prisma } from "../prisma";
 
 async function DevDebugPanel({ auksjonsObjekter }: { auksjonsObjekter: AuksjonsObjekt[] }) {//This is needed for live debugging because of oddities in prisma and time zones.
     const testObject = await prisma.auksjonsObjekt.create({
-        data:{
-            name:"TEST",
-            description:"TEST",
-            startPrice:0,
+        data: {
+            name: "TEST",
+            description: "TEST",
+            startPrice: 0,
         }
     })
 
-    const resultNormal = (testObject.currentSaleTime.toTimeString()==auctionNormalEnd.toTimeString())
-    const resultFinal = (testObject.finalSaleTime.toTimeString()==auctionFinalEnd.toTimeString())
+    const resultNormal = (testObject.currentSaleTime.toTimeString() == auctionNormalEnd.toTimeString())
+    const resultFinal = (testObject.finalSaleTime.toTimeString() == auctionFinalEnd.toTimeString())
     await prisma.auksjonsObjekt.delete({
-        where:{
-            id:testObject.id
+        where: {
+            id: testObject.id
         }
     })
     return (
@@ -67,36 +67,11 @@ export default async function UserPageAesthetic() {
     const userDebtData = await get_total_debt_user(user.name)
     return (<>
         <div className={style.welcome}>Velkommen,<br></br> <div className={style.name}>{user?.name}</div></div>
-        <hr></hr>
         <div>
             <div className={style.auctionListContainer}>
                 <UserObjectsList user={user}></UserObjectsList>
 
                 <UserBids userId={user.id}></UserBids>
-            </div>
-            <div className={style.debtTable}>
-                <p>{"Din e-post: " + userDebtData?.email}</p>
-                <p>Skylder totalt: <b>{((userDebtData?.totalDebt ?? 0)).toString() + " kr"}</b></p>
-                <p>Vipps nummer: <b>668205</b></p>
-                <p><b>NB:</b>Du må selv kontakte de du må for å få det du har vunnet</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Objekt</th>
-                            <th>Pris</th>
-                            <th>Ansvarlig</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            userDebtData?.wonObjects.map((object) => <tr>
-                                <td>{object.objectName}</td>
-                                <td align="right">{(object.price).toString() + " kr"}</td>
-                                <td>{object.committee ? <><i>Komité: </i> {object.committee}<br /> <i>Ansvarlig: </i> {object.authorName}</> : object.authorEmail + " - " + object.authorName}</td>
-                            </tr>)
-                        }
-                    </tbody>
-                </table>
             </div>
             <div className={style.debtTable}>
                 <p>{"Din e-post: " + userDebtData?.email}</p>
