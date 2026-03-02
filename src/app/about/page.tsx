@@ -1,6 +1,5 @@
 import style from "./page.module.scss"
 
-// TODO hvilken veldedigjey????
 export default function about() {
     return <div className={style.content}>
         <h1>Om Omegaauctionen</h1>

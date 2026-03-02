@@ -134,9 +134,6 @@
 }
 
 ///* Forstørrer boksen når du hover over */
-.sum:hover {
-    transform: scale(1.01); /* Forstørrer boksen når du hover over */
-  }
 
 .sumContainer {
     display: flex;
@@ -190,9 +187,7 @@
 //     margin-top: 2%; 
 // }
 
-.antall:hover {
-    transform: scale(1.01); /* Forstørrer boksen når du hover over */
-  }
+
 
 //gjennomsnitsspris------------------------------------------------------------------------
 .gjennomsnitt {
@@ -205,12 +200,53 @@
     //font-family: roboto;
 }
 
-.gjennomsnitt:hover {
-    transform: scale(1.01); /* Forstørrer boksen når du hover over */
-}
 
 .grafoverskrift {
     font-size: 3vw;
     margin-top: 2%;
     margin-bottom: 1%;
+}
+
+
+
+
+
+.highestBidContainer {
+    font-size: large;
+    margin-top: 50px;
+    
+}
+
+.bidContainer {
+    width: 80%;
+    margin: 5% 10%;
+    font-size: medium;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-wrap: nowrap;
+    font-size: 2vw;
+    
+}
+
+.titleBids {
+    text-align: center;
+}
+
+@media (orientation:portrait) {
+    .bidContainer {
+        width: 80%;
+        margin: 5% 10%;
+        font-size: medium;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-wrap: nowrap;
+        font-size: 2.5vw;
+
+    }
+}
+
+.biggestBidderText{
+    text-align: center;
 }

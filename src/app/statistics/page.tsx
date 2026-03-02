@@ -1,7 +1,7 @@
 "use client"
 import is_miniadmin from '../components/is-miniadmin/is-miniadmin';
 import Graphs from './Graphs';
-import loadData from './loadData';
+import loadData, { getBiggestBidder } from './loadData';
 import styles from './page.module.scss'
 import { useEffect, useState } from 'react';
 //import {ChartSankey} from 'chartjs-chart-sankey'; 
@@ -20,11 +20,12 @@ export default function Klassetrinn() {
   const [data5, setdata5] = useState<null | any>(null)
   const [data6, setdata6] = useState<null | any>(null)
   const [miniadmin, setMiniadmin] = useState(false)
+  const [topBidders, setTopBidders] = useState<[number, string, string][]>([])
 
   useEffect(() => {
     async function loadStats() {
       let isMiniadmin = await is_miniadmin()
-      
+
       isMiniadmin = true // override easy accessible
 
       const dataResponse = await loadData(isMiniadmin)
@@ -33,16 +34,16 @@ export default function Klassetrinn() {
       }
       if (isMiniadmin) {
         for (let i = 0; i < dataResponse.length; i++) {
-          console.log(i)
-          console.log(dataResponse.at(i))
+          // console.log(i)
+          // console.log(dataResponse.at(i))
           if (!dataResponse[i]) {
-            console.log("data " + i.toString() + "not loaded")
+            // console.log("data " + i.toString() + "not loaded")
             return;
           }
         }
       }
-      
-      
+
+
       setdata3(dataResponse[0])
       setdata4(dataResponse[1])
       setdatakybelsys(dataResponse[2])
@@ -52,6 +53,11 @@ export default function Klassetrinn() {
       setdata6(dataResponse[6])
       setHasLoaded(true)
       setMiniadmin(isMiniadmin)
+
+      const topBiddersRes = await getBiggestBidder()
+      const sliceRange = 5
+      const slicePosition = topBiddersRes.length < sliceRange ? -1 : sliceRange
+      setTopBidders(topBiddersRes.slice(0, slicePosition))
     }
     loadStats()
     const interval = setInterval(async () => {
@@ -145,6 +151,16 @@ export default function Klassetrinn() {
 
 
     <Graphs data6={data6} data5={data5} data3={data3} data4={data4} datakybelsys={datakybelsys}></Graphs>
+    <div className={styles.highestBidContainer}>
+      <h1 className={styles.titleBids}>Biggest bidder:</h1>
+      {topBidders.map((data, index) => (
+        <div key={index} className={styles.bidContainer}>
+          <p className={styles.biggestBidderText}>{data[0]} kr</p>
+          <p className={styles.biggestBidderText}>{data[1]}</p>
+          <p className={styles.biggestBidderText}>{data[2]}</p>
+        </div>
+      ))}
+    </div>
   </div>
 }
 

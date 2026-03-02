@@ -59,8 +59,6 @@ async function DevDebugPanel({ auksjonsObjekter }: { auksjonsObjekter: AuksjonsO
 export default async function UserPageAesthetic() {
     const user = await getUser()
     if (!user) {
-        // user = defaultUser;
-        // TODO: REMOVE DEFAULT USER BEFORE FINAL RELEASE
         redirect("api/auth/signin");
     }
 

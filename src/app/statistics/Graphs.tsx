@@ -13,7 +13,7 @@ type DataType = {
 }
 
 export default function Graphs({ data3,data4,datakybelsys,data5,data6 }: { data3:DataType, data4:DataType, datakybelsys:DataType,data5:DataType,data6:DataType }) {
-    console.log(datakybelsys)
+    // console.log(datakybelsys)
     return (<div className={styles.bla}>
 
           <h1>KYB VS ELSYS</h1>
@@ -43,29 +43,6 @@ export default function Graphs({ data3,data4,datakybelsys,data5,data6 }: { data3
           <div className={styles.graf}>
           <Doughnut
           data={data3}
-          options={{
-            plugins: {
-              legend: {
-                display: true,
-                position: "top",
-                labels: {
-                  boxWidth: 10,
-                },
-              },
-            },
-
-            responsive: true,
-            maintainAspectRatio: false,
-          }}
-          
-          ></Doughnut>  
-          </div>
-
-          <h1>Laveste 5 auksjonsobjekt</h1>
-          <p>Hvilke auksjonsobjekter er minst populære</p>
-          <div className={styles.graf}>
-          <Doughnut
-          data={data4}
           options={{
             plugins: {
               legend: {
