@@ -8,7 +8,7 @@ import increment_manual_money_registration from "@/app/components/manual-money-r
 
 async function placeBong(setBongsSold: React.Dispatch<React.SetStateAction<number>>) {
     const trekkLoddName = "trekkLodd"
-    const moneyMadeFromTrekkLodd = 25
+    const moneyMadeFromTrekkLodd = 30
     const response = await increment_manual_money_registration(trekkLoddName,moneyMadeFromTrekkLodd)
     if (!response){
         alert("noe gikk galt! prøv igjen")
