@@ -49,7 +49,7 @@ export default function CountdownClock() {
 
     return (
         <div className={style.countdowncomponent}>
-            <div className={`${style.countdowntitle}`}>Omegaauctionen 2026<br></br> starter om</div>
+            <div className={`${style.countdowntitle}`}>Starter om</div>
 
             <div className={style.clockcontainer}>
                 {["Dager", "Timer", "Minutter", "Sekunder"].map((unit, index) => (
