@@ -56,8 +56,7 @@ export default function Klassetrinn() {
 
       const topBiddersRes = await getBiggestBidder()
       const sliceRange = 5
-      const slicePosition = topBiddersRes.length < sliceRange ? -1 : sliceRange
-      setTopBidders(topBiddersRes.slice(slicePosition))
+      setTopBidders(topBiddersRes.slice(0,sliceRange))
     }
     loadStats()
     const interval = setInterval(async () => {

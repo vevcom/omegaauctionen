@@ -79,11 +79,12 @@ export async function getBiggestBidder() {
   }
 
   const combinedBids = topBidsOnline.concat(topBidsLive)
-  const sortedBids = combinedBids.sort((a, b) => a[0] - b[0])
+  const sortedBids = combinedBids.sort((a, b) => a[0] - b[0]).reverse()
   let filteredList: [number, string,string][] = []
   let includedNames: string[] = []
   sortedBids.filter((bid) => bid[1]!="").forEach((bid) => {
     if (!includedNames.includes(bid[1])) {
+      includedNames.push(bid[1])
       filteredList.push(bid)
     }
   })
