@@ -106,7 +106,7 @@ async function getAllUniqueTimes() {
 }
 
 
-export default async function name() {
+export default async function TimePanelAdmin() {
     const isAdmin = await is_admin()
 
     if (!isAdmin) return <p>Ingen tilgang</p>
