@@ -15,7 +15,7 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmount: number
     return "Beklager men det ser ut som noen har byd samtidig som deg og høyre";
   }
   if (AuctionObjectPriceCheck+minimumPriceIncrease > bidAmount) {
-    return "Beklager men du må by 10kr over nåværende pris. prøv å last inn siden på nytt";
+    return "Beklager men du må by"+minimumPriceIncrease+"kr over nåværende pris. prøv å last inn siden på nytt";
   }
 
   const userID = await getUserID()

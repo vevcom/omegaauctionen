@@ -35,7 +35,7 @@ export default async function get_money_made(ignoreOverride = false) {
 
     if (normalAuctionObjectId) {
         for (const obj in normalAuctionObjectId) {
-            const currentPrice = await get_current_price(normalAuctionObjectId[obj].id)
+            const currentPrice = await get_current_price(normalAuctionObjectId[obj].id,true)
             if (currentPrice) {
                 moneyMadeOnlineAuction += currentPrice
             }

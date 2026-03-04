@@ -194,7 +194,7 @@ function PurchasePanel(
             :
             null
         }
-        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum {minimumPriceIncrease} kr høyere enn ledende bud.</div>
       </div>
     )
   }
