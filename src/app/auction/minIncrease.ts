@@ -1,0 +1,1 @@
+export const minimumPriceIncrease = 10
