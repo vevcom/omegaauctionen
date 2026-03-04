@@ -9,6 +9,8 @@ import is_miniadmin from "@/app/components/is-miniadmin/is-miniadmin"
 const adminLinks = [
     ["Ikke godkjente objekter", "submitted_objects"],
     ["Manuell overskrivelse", "overrideTotalSum"],
+    ["Tidsjustering", "timezone_adjust"],
+    ["Stop auksjon", "emergencyButton"],
 
 ]
 const miniAdminLinks = [

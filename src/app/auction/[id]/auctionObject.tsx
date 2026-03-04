@@ -18,6 +18,7 @@ import { is_logged_in } from "@/app/components/get-user-login/get-user-login";
 import CollapsibleSection from "@/app/components/collapsible-section/collapsible-section";
 import { AuksjonsObjekt } from "@/generated/client"
 import { auctionStart, dateAsText, isAuctionOpenForItem, timeAsText } from "@/app/timeCheck/timeCheck";
+import { minimumPriceIncrease } from "../minIncrease";
 
 
 type setUseStateBool = Dispatch<SetStateAction<boolean>>;
@@ -30,7 +31,6 @@ function UserObject({ userInfo }: {
     studyCourse: Study;
   }
 }) {
-  console.log("hei")
   return (
     <div>
       <p>Name:{userInfo.name}</p>
@@ -97,7 +97,7 @@ function BidPanel({ object, currentPrice }: { object: AuksjonsObjekt, currentPri
           placeholder="Skriv inn bud"
           name="bidAmountInKRONER"
           step="any"
-          min={currentPrice + 10}
+          min={currentPrice + minimumPriceIncrease}
           required
           onKeyDown={(e) => {
             if (["+", "-", "e", "E"].includes(e.key)) {
@@ -194,7 +194,7 @@ function PurchasePanel(
             :
             null
         }
-        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum 10 kr høyere enn ledende bud.</div>
+        <div className={style.note}><b>*MERK*</b> Alle bud er bindende. Nye bud må være minimum {minimumPriceIncrease} kr høyere enn ledende bud.</div>
       </div>
     )
   }

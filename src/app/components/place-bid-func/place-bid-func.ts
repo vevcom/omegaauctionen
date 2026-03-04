@@ -4,6 +4,7 @@ import { prisma } from "@/app/prisma";
 import { get_current_price } from "@/services/auctionObject/actions";
 import { AuksjonsObjekt } from "@/generated/client"
 import { auctionStart, isAuctionOpenForItem, isAuctionStarted } from "@/app/timeCheck/timeCheck";
+import { minimumPriceIncrease } from "@/app/auction/minIncrease";
 
 export default async function placeBid(object: AuksjonsObjekt, bidAmount: number) {
   const AuctionObjectPriceCheck = await get_current_price(object.id)
@@ -12,6 +13,9 @@ export default async function placeBid(object: AuksjonsObjekt, bidAmount: number
   }
   if (AuctionObjectPriceCheck >= bidAmount) {
     return "Beklager men det ser ut som noen har byd samtidig som deg og høyre";
+  }
+  if (AuctionObjectPriceCheck+minimumPriceIncrease > bidAmount) {
+    return "Beklager men du må by"+minimumPriceIncrease+"kr over nåværende pris. prøv å last inn siden på nytt";
   }
 
   const userID = await getUserID()
