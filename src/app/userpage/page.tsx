@@ -8,53 +8,10 @@ import { UserObjectsList } from "./userObjects";
 import UserBids from "./userBids";
 import get_total_debt_user from "../components/get_user_pay_amount/get_user_pay_amount";
 import UserSoldPanel from "./userSold";
-import { auctionFinalEnd, auctionNormalEnd, timeAsText } from "../timeCheck/timeCheck";
-import { AuksjonsObjekt } from "@/generated/client";
-import { prisma } from "../prisma";
 
 
 
-async function DevDebugPanel({ auksjonsObjekter }: { auksjonsObjekter: AuksjonsObjekt[] }) {//This is needed for live debugging because of oddities in prisma and time zones.
-    const testObject = await prisma.auksjonsObjekt.create({
-        data: {
-            name: "TEST",
-            description: "TEST",
-            startPrice: 0,
-        }
-    })
 
-    const resultNormal = (testObject.currentSaleTime.toTimeString() == auctionNormalEnd.toTimeString())
-    const resultFinal = (testObject.finalSaleTime.toTimeString() == auctionFinalEnd.toTimeString())
-    await prisma.auksjonsObjekt.delete({
-        where: {
-            id: testObject.id
-        }
-    })
-    return (
-        <div>
-            <p>Normal and final end:</p>
-            <p>{timeAsText(auctionNormalEnd)}</p>
-            <p>{timeAsText(auctionFinalEnd)}</p>
-            <p>DB Normal final</p>
-            <p>{timeAsText(testObject.currentSaleTime)}</p>
-            <p>{timeAsText(testObject.finalSaleTime)}</p>
-            <p>Normal test: {resultNormal ? "Pass" : "Fail"}</p>
-            <p>Final test: {resultFinal ? "Pass" : "Fail"}</p>
-            <p>Item end time</p>
-            <p>------</p>
-            {auksjonsObjekter.map((item, index) => (
-                <div key={index}>
-                    <p>{index}</p>
-                    <p> {timeAsText(item.currentSaleTime)}</p>
-                    <p>{timeAsText(item.finalSaleTime)}</p>
-                    <p>------</p>
-                </div>
-            ))
-            }
-
-        </div>
-    )
-}
 
 export default async function UserPageAesthetic() {
     const user = await getUser()
@@ -104,7 +61,6 @@ export default async function UserPageAesthetic() {
 
             }
             <SignoutButton></SignoutButton>
-            {user.isAdmin ? <DevDebugPanel auksjonsObjekter={user.auksjonsObjekter}></DevDebugPanel> : null}
         </div>
     </>
 
