@@ -1,6 +1,6 @@
 import { AuksjonsObjekt } from "@/generated/client"
 
-export const auctionStart = new Date("2026-03-04T12:00:00.000") //This should correspond to the default value set in the db DO NOT Adjust for time zone
+export const auctionStart = new Date("2026-03-05T12:00:00.000") //This should correspond to the default value set in the db DO NOT Adjust for time zone
 export const auctionNormalEnd = new Date("2026-03-05T23:00:00.000") //This should correspond to the default value set in the db DO NOT Adjust for time zone
 export const auctionFinalEnd = new Date("2026-03-05T23:30:00.000") //This should correspond to the default value set in the db DO NOT Adjust for time zone
  //23:00 vanlig
