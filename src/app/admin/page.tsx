@@ -10,7 +10,7 @@ const adminLinks = [
     ["Ikke godkjente objekter", "submitted_objects"],
     ["Manuell overskrivelse", "overrideTotalSum"],
     ["Tidsjustering", "timezone_adjust"],
-    ["Stop auksjon", "emergancyButton"],
+    ["Stop auksjon", "emergencyButton"],
 
 ]
 const miniAdminLinks = [
