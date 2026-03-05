@@ -79,30 +79,30 @@ export async function getBiggestBidder() {
   }
 
   const capeData = await prisma.auksjonsObjekt.findMany({
-        where: {
-            approved: true,
-            type: AuksjonsObjektType.SALG
-        },
+    where: {
+      approved: true,
+      type: AuksjonsObjektType.SALG
+    },
+    select: {
+      bids: {
         select: {
-            bids: {
-                select: {
-                    price: true,
-                    bidder: {
-                        select: {
-                            name: true
-                        }
-                    }
-                }
-            },
-            name:true,
+          price: true,
+          bidder: {
+            select: {
+              name: true
+            }
+          }
         }
-    })
+      },
+      name: true,
+    }
+  })
 
   capeData.forEach((cape) => {
-        cape.bids.forEach((bid) => {
-            topBidsOnline.push([bid.price, bid.bidder.name, cape.name])
-        })
+    cape.bids.forEach((bid) => {
+      topBidsOnline.push([bid.price, bid.bidder.name, cape.name])
     })
+  })
 
 
 
@@ -177,22 +177,42 @@ export default async function loadData(loadMiniAdmin: boolean) {
 
     // Loop through the results and count the study courses for highest bids
     elesysKyb.forEach(auction => {
-      if (auction.bids.length > 0) {
-        const studyCourse = auction.bids[0].bidder.studyCourse;
-        studyCount[studyCourse.toUpperCase()] += auction.bids[0].price;
-      }
+      auction.bids.forEach((bid) => {
+        studyCount[bid.bidder.studyCourse.toUpperCase()] += bid.price
+      })
     });
 
 
-    for (let i = 0; i < capeData.length; i++) {
-      const data = capeData[i]
-      if (!data) { continue; }
-      if (!data.bids[i] || !data.bids[i].bidder.studyCourse || !data.bids[i].price) { continue; }
-      const currentBidPrice = data.bids[i].price
-      const currentBidderStudyCourse = data.bids[i].bidder.studyCourse
-      studyCount[currentBidderStudyCourse.toUpperCase()] += currentBidPrice
-    }
+    capeData.forEach((cape) => {
+      cape.bids.forEach((bid) => {
+        studyCount[bid.bidder.studyCourse.toUpperCase()] += bid.price
+      })
+    })
 
+    const liveBud = await prisma.auksjonsObjekt.findFirst({
+      where: {
+        name: "DO_NOT_APPROVE_LIVE_BIDS",
+        approved: false,
+      },
+      select: {
+        bids: {
+          select: {
+            price: true,
+            bidder: {
+              select: {
+                studyCourse: true
+              }
+            }
+          }
+        },
+
+      }
+    })
+    if (liveBud) {
+      liveBud.bids.forEach((bid) => {
+        studyCount[bid.bidder.studyCourse.toUpperCase()] += bid.price
+      })
+    }
 
     // top5ExpensiveObjects
     const top5ExpensiveObjectsNoPrice = await prisma.auksjonsObjekt.findMany({
