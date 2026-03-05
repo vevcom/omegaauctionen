@@ -39,15 +39,15 @@ export async function getBiggestBidder() {
           }
         },
       },
-    name:true,
+      name: true,
     }
   })
-  let topBidsOnline: [number, string,string][] = [[0, "",""]]
+  let topBidsOnline: [number, string, string][] = [[0, "", ""]]
   if (biggestBidsOnline.length !== 0) {
     topBidsOnline = biggestBidsOnline.map((item) => {
       const bid = item.bids[0]
-      if (!bid) return [0, "",""];
-      return [bid.price, bid.bidder.name,item.name]
+      if (!bid) return [0, "", ""];
+      return [bid.price, bid.bidder.name, item.name]
     })
   }
 
@@ -72,17 +72,45 @@ export async function getBiggestBidder() {
 
     }
   })
-  let topBidsLive: [number, string, string][] = [[0, "",""]]
+  let topBidsLive: [number, string, string][] = [[0, "", ""]]
   if (liveBid) {
     const bids = liveBid.bids
-    topBidsLive = bids.map((bid) => { return [bid.price, bid.bidder.name,"live"] })
+    topBidsLive = bids.map((bid) => { return [bid.price, bid.bidder.name, "live"] })
   }
+
+  const capeData = await prisma.auksjonsObjekt.findMany({
+        where: {
+            approved: true,
+            type: AuksjonsObjektType.SALG
+        },
+        select: {
+            bids: {
+                select: {
+                    price: true,
+                    bidder: {
+                        select: {
+                            name: true
+                        }
+                    }
+                }
+            },
+            name:true,
+        }
+    })
+
+  capeData.forEach((cape) => {
+        cape.bids.forEach((bid) => {
+            topBidsOnline.push([bid.price, bid.bidder.name, cape.name])
+        })
+    })
+
+
 
   const combinedBids = topBidsOnline.concat(topBidsLive)
   const sortedBids = combinedBids.sort((a, b) => a[0] - b[0]).reverse()
-  let filteredList: [number, string,string][] = []
+  let filteredList: [number, string, string][] = []
   let includedNames: string[] = []
-  sortedBids.filter((bid) => bid[1]!="").forEach((bid) => {
+  sortedBids.filter((bid) => bid[1] != "").forEach((bid) => {
     if (!includedNames.includes(bid[1])) {
       includedNames.push(bid[1])
       filteredList.push(bid)
